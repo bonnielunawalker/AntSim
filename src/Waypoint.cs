@@ -20,5 +20,10 @@
         {
             get { return _previous; }
         }
+
+        public bool IsAt(Location d)
+        {
+            return _location.X == d.X && _location.Y == d.Y;
+        }
     }
 }

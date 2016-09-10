@@ -15,7 +15,7 @@ namespace MyGame
 
         public Path GetPathTo(Location l)
         {
-           return new Path();
+           return new Path(l);
         }
     }
 }
