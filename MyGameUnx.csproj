@@ -47,7 +47,16 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\**\*.cs" />
+    <Compile Include="src/GameMain.cs" />
+    <Compile Include="src\GameLogic.cs" />
+    <Compile Include="src\GameState.cs" />
+    <Compile Include="src\Waypoint.cs" />
+    <Compile Include="src\Path.cs" />
+    <Compile Include="src\DrawableObject.cs" />
+    <Compile Include="src\Location.cs" />
+    <Compile Include="src\IHasPaths.cs" />
+    <Compile Include="src\Creature.cs" />
+    <Compile Include="src\IHasLocation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SwinGame">

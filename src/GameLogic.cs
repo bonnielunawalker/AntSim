@@ -7,6 +7,13 @@ namespace MyGame
     public static class GameLogic
     {
         private static List<Creature> _creatures = new List<Creature>();
+        private static Random _rand = new Random();
+
+        public static List<Creature> Creatures
+        {
+            get { return _creatures; }
+            set { _creatures = value; }
+        }
 
         public static void Process()
         {
@@ -14,7 +21,11 @@ namespace MyGame
 
             if (GameState.Setup)
             {
-                _creatures.Add(new Creature(new Location(100, 100)));
+                for (int i = 0; i <= 10; i++)
+                {
+                    _creatures.Add(new Creature(new Location(_rand.Next(0, 720), _rand.Next(0, 480))));
+                }
+                GameState.Setup = false;
             }
         }
 

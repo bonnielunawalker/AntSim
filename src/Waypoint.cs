@@ -5,9 +5,9 @@
         private readonly Location _location;
         private readonly Waypoint _previous;
 
-        public Waypoint(Location location, Waypoint w)
+        public Waypoint(Location l, Waypoint w)
         {
-            _location = location;
+            _location = l;
             _previous = w;
         }
 

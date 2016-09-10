@@ -2,15 +2,15 @@
 
 namespace MyGame
 {
-    public class Creature
+    public class Creature : DrawableObject
     {
         private Path _currentPath;
         private List<Waypoint> _newPath;
         private Location _location;
 
         public Creature(Location l)
+        : base (l)
         {
-            _location = l;
         }
 
         public Path GetPathTo(Location l)
