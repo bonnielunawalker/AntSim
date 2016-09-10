@@ -26,6 +26,11 @@ namespace MyGame
                     _creatures.Add(new Creature(new Location(_rand.Next(0, 720), _rand.Next(0, 480))));
                 }
 
+                foreach (Creature c in _creatures)
+                {
+                    c.CurrentPath = c.GetPathTo(new Location(_rand.Next(0, 720), _rand.Next(0, 480)));
+                }
+
                 GameState.Setup = false;
             }
         }

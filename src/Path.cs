@@ -1,47 +1,50 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MyGame
 {
     public class Path
     {
-        private List<Waypoint> _waypoints;
+        private Random _rand = new Random();
+        private LinkedList<Waypoint> _waypoints;
         private Location _destination;
 
-        public Path(Location d)
+        public Path(Location l, Location d)
         {
             _destination = d;
-            _waypoints = new List<Waypoint>();
+            _waypoints = new LinkedList<Waypoint>();
+            _waypoints.AddFirst(new Waypoint(new Location(l.X, l.Y)));
             GetRoute();
         }
 
         private void GetRoute()
         {
-            while (!_waypoints[_waypoints.Count - 1].IsAt(_destination))
+            while (!_waypoints.Last.Value.IsAt(_destination))
             {
-                _waypoints[_waypoints.Count] = GetNewWaypoint(_waypoints, _waypoints.Count, _destination);
+                _waypoints.AddAfter(_waypoints.Last, GetNewWaypoint(_waypoints.Last.Value, _destination));
             }
         }
 
-        private Waypoint GetNewWaypoint(List<Waypoint> w, int idx, Location d)
+        private Waypoint GetNewWaypoint(Waypoint w, Location d)
         {
             int newX;
             int newY;
 
-            if (w[idx].Location.X < d.X)
-                newX = w[idx].Location.X + 5;
-            else if (w[idx].Location.X > d.X)
-                newX = w[idx].Location.X - 5;
+            if (w.Location.X < d.X)
+                newX = w.Location.X + _rand.Next(0, 5);
+            else if (w.Location.X > d.X)
+                newX = w.Location.X - _rand.Next(0, 5);
             else
-                newX = w[idx].Location.X;
+                newX = w.Location.X;
 
-            if (w[idx].Location.Y < d.Y)
-                newY = w[idx].Location.Y + 5;
-            else if (w[idx].Location.Y > d.Y)
-                newY = w[idx].Location.Y - 5;
+            if (w.Location.Y < d.Y)
+                newY = w.Location.Y + _rand.Next(0, 5);
+            else if (w.Location.Y > d.Y)
+                newY = w.Location.Y - _rand.Next(0, 5);
             else
-                newY = w[idx].Location.Y;
+                newY = w.Location.Y;
 
-            return new Waypoint(new Location(newX, newY), w[idx]);
+            return new Waypoint(new Location(newX, newY));
         }
     }
 }

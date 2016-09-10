@@ -9,13 +9,25 @@ namespace MyGame
         private Location _location;
 
         public Creature(Location l)
-        : base (l)
+            : base (l)
         {
+            _location = l;
         }
 
-        public Path GetPathTo(Location l)
+        public Path CurrentPath
         {
-           return new Path(l);
+            get { return _currentPath; }
+            set { _currentPath = value; }
+        }
+
+        public Path GetPathTo(Location d)
+        {
+           return new Path(_location, d);
+        }
+
+        public void Move()
+        {
+
         }
     }
 }
