@@ -1,0 +1,965 @@
+In file included from ./src/sgBackendUtils.cpp:9:
+./include/sgBackendUtils.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__sgBackendUtils__
+        ^
+1 warning generated.
+In file included from ./src/SGSDL2Audio.cpp:17:
+./include/SGSDL2Audio.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Audio__
+        ^
+In file included from ./src/SGSDL2Audio.cpp:18:
+./include/sgBackendUtils.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__sgBackendUtils__
+        ^
+./src/SGSDL2Audio.cpp:107:27: warning: use of old-style cast [-Wold-style-cast]
+            Mix_FreeMusic((Mix_Music*)sound->_data);
+                          ^           ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:115:27: warning: use of old-style cast [-Wold-style-cast]
+            Mix_FreeChunk((Mix_Chunk*)sound->_data);
+                          ^           ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:134:33: warning: use of old-style cast [-Wold-style-cast]
+            Mix_Chunk *effect = (Mix_Chunk*) sound->_data;
+                                ^            ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:138:37: warning: use of old-style cast [-Wold-style-cast]
+                Mix_Volume(channel, (int)(volume * MIX_MAX_VOLUME));
+                                    ^    ~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:145:27: warning: use of old-style cast [-Wold-style-cast]
+            Mix_PlayMusic((Mix_Music *)sound->_data, loops);
+                          ^            ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:190:45: warning: use of old-style cast [-Wold-style-cast]
+            channel = Mix_FadeInChannel(-1, (Mix_Chunk *)sound->_data, loops, ms);
+                                            ^            ~~~~~~~~~~~~
+/usr/include/SDL2/SDL_mixer.h:541:82: note: expanded from macro 'Mix_FadeInChannel'
+#define Mix_FadeInChannel(channel,chunk,loops,ms) Mix_FadeInChannelTimed(channel,chunk,loops,ms,-1)
+                                                                                 ^~~~~
+./src/SGSDL2Audio.cpp:193:51: warning: use of old-style cast [-Wold-style-cast]
+                _sgsdl2_sound_channels[channel] = (Mix_Chunk *)sound->_data;
+                                                  ^            ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:200:29: warning: use of old-style cast [-Wold-style-cast]
+            Mix_FadeInMusic((Mix_Music *)sound->_data, loops, ms);
+                            ^            ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:258:34: warning: use of old-style cast [-Wold-style-cast]
+    return Mix_VolumeMusic(-1) / (float)MIX_MAX_VOLUME;
+                                 ^      ~~~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:271:36: warning: use of old-style cast [-Wold-style-cast]
+            return Mix_VolumeChunk((Mix_Chunk *)sound->_data, -1) / (float)MIX_MAX_VOLUME;
+                                   ^            ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:271:69: warning: use of old-style cast [-Wold-style-cast]
+            return Mix_VolumeChunk((Mix_Chunk *)sound->_data, -1) / (float)MIX_MAX_VOLUME;
+                                                                    ^      ~~~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:291:29: warning: use of old-style cast [-Wold-style-cast]
+            Mix_VolumeChunk((Mix_Chunk *)sound->_data, (int)(vol * MIX_MAX_VOLUME));
+                            ^            ~~~~~~~~~~~~
+./src/SGSDL2Audio.cpp:291:56: warning: use of old-style cast [-Wold-style-cast]
+            Mix_VolumeChunk((Mix_Chunk *)sound->_data, (int)(vol * MIX_MAX_VOLUME));
+                                                       ^    ~~~~~~~~~~~~~~~~~~~~~~
+15 warnings generated.
+In file included from ./src/SGSDL2Core.cpp:15:
+./include/SGSDL2Core.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Core__
+        ^
+In file included from ./src/SGSDL2Core.cpp:18:
+./include/sgBackendUtils.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__sgBackendUtils__
+        ^
+In file included from ./src/SGSDL2Core.cpp:20:
+./include/SGSDL2Graphics.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Graphics__
+        ^
+In file included from ./src/SGSDL2Core.cpp:21:
+./include/SGSDL2Audio.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Audio__
+        ^
+In file included from ./src/SGSDL2Core.cpp:22:
+./include/SGSDL2Utils.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Utils__
+        ^
+In file included from ./src/SGSDL2Core.cpp:23:
+./include/SGSDL2Input.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Input__
+        ^
+In file included from ./src/SGSDL2Core.cpp:24:
+./include/SGSDL2Text.h:9:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Text__
+        ^
+In file included from ./src/SGSDL2Core.cpp:25:
+./include/SGSDL2Network.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Network__
+        ^
+In file included from ./src/SGSDL2Core.cpp:26:
+./include/SGSDL2Web.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Web__
+        ^
+./src/SGSDL2Core.cpp:122:35: warning: use of old-style cast [-Wold-style-cast]
+            sg_mode * new_modes = (sg_mode*) realloc(disp.modes, disp.num_modes * sizeof(sg_mode));
+                                  ^          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Core.cpp:160:35: warning: use of old-style cast [-Wold-style-cast]
+    _sgsdk_system_data.displays = (sg_display *)malloc(sizeof(sg_display) * _sgsdk_system_data.num_displays);
+                                  ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+11 warnings generated.
+In file included from ./src/SGSDL2Graphics.cpp:25:
+./include/SGSDL2Graphics.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Graphics__
+        ^
+In file included from ./src/SGSDL2Graphics.cpp:26:
+./include/sgBackendUtils.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__sgBackendUtils__
+        ^
+./src/SGSDL2Graphics.cpp:49:26: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Window *window = (SDL_Window *)p;
+                         ^             ~
+./src/SGSDL2Graphics.cpp:165:30: warning: use of old-style cast [-Wold-style-cast]
+    _sgsdl2_initial_window = (sg_window_be *) malloc(sizeof(sg_window_be));
+                             ^                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:197:28: warning: use of old-style cast [-Wold-style-cast]
+    _sgsdl2_open_windows = (sg_window_be**)malloc(sizeof(sg_window_be *));
+                           ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:222:24: warning: use of old-style cast [-Wold-style-cast]
+            textures = (SDL_Texture**)realloc(current_bmp->texture, sizeof(SDL_Texture*) * _sgsdl2_num_open_windows);
+                       ^              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:291:15: warning: use of old-style cast [-Wold-style-cast]
+    windows = (sg_window_be**)realloc(_sgsdl2_open_windows, sizeof(sg_window_be*) * _sgsdl2_num_open_windows);
+              ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:313:20: warning: use of old-style cast [-Wold-style-cast]
+        textures = (SDL_Texture**)realloc(current_bmp->texture, sizeof(SDL_Texture*) * _sgsdl2_num_open_windows);
+                   ^              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:343:23: warning: use of old-style cast [-Wold-style-cast]
+    int *raw_pixels = (int*)malloc( sizeof(int) * static_cast<unsigned long>(w * h) );
+                      ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:398:23: warning: variable length arrays are a C99 feature [-Wvla-extension]
+            int pixels[w * h];
+                      ^
+./src/SGSDL2Graphics.cpp:398:23: warning: variable length array used [-Wvla]
+./src/SGSDL2Graphics.cpp:411:22: warning: use of old-style cast [-Wold-style-cast]
+            int *p = (int*)_sgsdl2_open_bitmaps[i]->surface->pixels;
+                     ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:458:50: warning: use of old-style cast [-Wold-style-cast]
+        _sgsdl2_open_bitmaps[bmp_idx]->texture = (SDL_Texture**)realloc(_sgsdl2_open_bitmaps[bmp_idx]->texture, sizeof(sg_bitmap_be *) * _sgsdl2_num_open_windows - 1);
+                                                 ^              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:476:32: warning: use of old-style cast [-Wold-style-cast]
+        sg_window_be ** temp = (sg_window_be **)realloc(_sgsdl2_open_windows, sizeof(sg_window_be*) * _sgsdl2_num_open_windows);
+                               ^                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:536:30: warning: use of old-style cast [-Wold-style-cast]
+    sg_bitmap_be **new_arr = (sg_bitmap_be **)realloc(_sgsdl2_open_bitmaps, sizeof(sg_bitmap_be *) * _sgsdl2_num_open_bitmaps);
+                             ^                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:571:32: warning: use of old-style cast [-Wold-style-cast]
+        sg_bitmap_be ** temp = (sg_bitmap_be**)realloc(_sgsdl2_open_bitmaps, sizeof(sg_bitmap_be *) * _sgsdl2_num_open_bitmaps);
+                               ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:686:17: warning: use of old-style cast [-Wold-style-cast]
+    window_be = (sg_window_be *) malloc(sizeof(sg_window_be));
+                ^                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:734:37: warning: use of old-style cast [-Wold-style-cast]
+            _sgsdl2_destroy_window( (sg_window_be*) surface->_data);
+                                    ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:738:37: warning: use of old-style cast [-Wold-style-cast]
+            _sgsdl2_destroy_bitmap( (sg_bitmap_be*) surface->_data);
+                                    ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:762:17: warning: use of old-style cast [-Wold-style-cast]
+    window_be = (sg_window_be *)window->_data;
+                ^               ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:776:32: warning: use of old-style cast [-Wold-style-cast]
+    sg_bitmap_be * bitmap_be = (sg_bitmap_be *)bitmap->_data;
+                               ^               ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:832:17: warning: use of old-style cast [-Wold-style-cast]
+    window_be = (sg_window_be *)window->_data;
+                ^               ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:846:21: warning: use of old-style cast [-Wold-style-cast]
+            return ((sg_window_be *)surface->_data)->renderer;
+                    ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:850:39: warning: use of old-style cast [-Wold-style-cast]
+            sg_bitmap_be *bitmap_be = (sg_bitmap_be *)surface->_data;
+                                      ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:872:82: warning: use of old-style cast [-Wold-style-cast]
+                _sgsdl2_restore_default_render_target(_sgsdl2_open_windows[idx], (sg_bitmap_be *)surface->_data);
+                                                                                 ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:904:23: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                      ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:904:37: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                                    ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:904:51: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                                                  ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:904:65: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                                                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:927:23: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                      ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:927:37: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                                    ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:927:51: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                                                  ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:927:65: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect rect = { (int)data[0], (int)data[1], (int)data[2], (int)data[3] };
+                                                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:961:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:961:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:962:14: warning: use of old-style cast [-Wold-style-cast]
+    int x2 = (int)data[2], y2 = (int)data[3];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:962:33: warning: use of old-style cast [-Wold-style-cast]
+    int x2 = (int)data[2], y2 = (int)data[3];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:963:14: warning: use of old-style cast [-Wold-style-cast]
+    int x3 = (int)data[4], y3 = (int)data[5];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:963:33: warning: use of old-style cast [-Wold-style-cast]
+    int x3 = (int)data[4], y3 = (int)data[5];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:964:14: warning: use of old-style cast [-Wold-style-cast]
+    int x4 = (int)data[6], y4 = (int)data[7];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:964:33: warning: use of old-style cast [-Wold-style-cast]
+    int x4 = (int)data[6], y4 = (int)data[7];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1017:19: warning: use of old-style cast [-Wold-style-cast]
+        Uint8 a = (Uint8)(clr.a * 255);
+                  ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1018:46: warning: use of old-style cast [-Wold-style-cast]
+        filledPolygonRGBA(renderer, x, y, 4, (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a);
+                                             ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1018:68: warning: use of old-style cast [-Wold-style-cast]
+        filledPolygonRGBA(renderer, x, y, 4, (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a);
+                                                                   ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1018:90: warning: use of old-style cast [-Wold-style-cast]
+        filledPolygonRGBA(renderer, x, y, 4, (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a);
+                                                                                         ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1040:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1040:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1041:14: warning: use of old-style cast [-Wold-style-cast]
+    int x2 = (int)data[2], y2 = (int)data[3];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1041:33: warning: use of old-style cast [-Wold-style-cast]
+    int x2 = (int)data[2], y2 = (int)data[3];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1042:14: warning: use of old-style cast [-Wold-style-cast]
+    int x3 = (int)data[4], y3 = (int)data[5];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1042:33: warning: use of old-style cast [-Wold-style-cast]
+    int x3 = (int)data[4], y3 = (int)data[5];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1107:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1107:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1108:13: warning: use of old-style cast [-Wold-style-cast]
+    int w = (int)data[2], h = (int)data[3];
+            ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1108:31: warning: use of old-style cast [-Wold-style-cast]
+    int w = (int)data[2], h = (int)data[3];
+                              ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1115:19: warning: use of old-style cast [-Wold-style-cast]
+        Uint8 a = (Uint8)(clr.a * 255);
+                  ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1139:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1139:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1140:13: warning: use of old-style cast [-Wold-style-cast]
+    int w = (int)data[2], h = (int)data[3];
+            ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1140:31: warning: use of old-style cast [-Wold-style-cast]
+    int w = (int)data[2], h = (int)data[3];
+                              ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1147:19: warning: use of old-style cast [-Wold-style-cast]
+        Uint8 a = (Uint8)(clr.a * 255);
+                  ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1176:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1176:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1245:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1245:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1246:13: warning: use of old-style cast [-Wold-style-cast]
+    int r = (int)data[2];
+            ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1253:19: warning: use of old-style cast [-Wold-style-cast]
+        Uint8 a = (Uint8)(clr.a * 255);
+                  ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1256:20: warning: use of old-style cast [-Wold-style-cast]
+                   (Sint16)    x1,
+                   ^           ~~
+./src/SGSDL2Graphics.cpp:1257:20: warning: use of old-style cast [-Wold-style-cast]
+                   (Sint16)    y1,
+                   ^           ~~
+./src/SGSDL2Graphics.cpp:1258:20: warning: use of old-style cast [-Wold-style-cast]
+                   (Sint16)    r,
+                   ^           ~
+./src/SGSDL2Graphics.cpp:1259:20: warning: use of old-style cast [-Wold-style-cast]
+                   (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a );
+                   ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1259:42: warning: use of old-style cast [-Wold-style-cast]
+                   (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a );
+                                         ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1259:64: warning: use of old-style cast [-Wold-style-cast]
+                   (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a );
+                                                               ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1275:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1275:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1276:13: warning: use of old-style cast [-Wold-style-cast]
+    int r = (int)data[2];
+            ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1283:19: warning: use of old-style cast [-Wold-style-cast]
+        Uint8 a = (Uint8)(clr.a * 255);
+                  ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1286:26: warning: use of old-style cast [-Wold-style-cast]
+                         (Sint16)    x1,
+                         ^           ~~
+./src/SGSDL2Graphics.cpp:1287:26: warning: use of old-style cast [-Wold-style-cast]
+                         (Sint16)    y1,
+                         ^           ~~
+./src/SGSDL2Graphics.cpp:1288:26: warning: use of old-style cast [-Wold-style-cast]
+                         (Sint16)    r,
+                         ^           ~
+./src/SGSDL2Graphics.cpp:1289:26: warning: use of old-style cast [-Wold-style-cast]
+                         (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a );
+                         ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1289:48: warning: use of old-style cast [-Wold-style-cast]
+                         (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a );
+                                               ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1289:70: warning: use of old-style cast [-Wold-style-cast]
+                         (Uint8)(clr.r * 255), (Uint8)(clr.g * 255), (Uint8)(clr.b * 255), a );
+                                                                     ^      ~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1310:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1310:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1311:14: warning: use of old-style cast [-Wold-style-cast]
+    int x2 = (int)data[2], y2 = (int)data[3];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1311:33: warning: use of old-style cast [-Wold-style-cast]
+    int x2 = (int)data[2], y2 = (int)data[3];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1314:13: warning: use of old-style cast [-Wold-style-cast]
+    int w = (int)data[4];
+            ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1361:14: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+             ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1361:33: warning: use of old-style cast [-Wold-style-cast]
+    int x1 = (int)data[0], y1 = (int)data[1];
+                                ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1362:13: warning: use of old-style cast [-Wold-style-cast]
+    int w = (int)data[2], h = (int)data[3];
+            ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1362:31: warning: use of old-style cast [-Wold-style-cast]
+    int w = (int)data[2], h = (int)data[3];
+                              ^    ~~~~~~~
+./src/SGSDL2Graphics.cpp:1368:25: warning: use of old-style cast [-Wold-style-cast]
+            window_be = (sg_window_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1384:25: warning: use of old-style cast [-Wold-style-cast]
+            bitmap_be = (sg_bitmap_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1410:25: warning: use of old-style cast [-Wold-style-cast]
+            window_be = (sg_window_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1421:25: warning: use of old-style cast [-Wold-style-cast]
+            bitmap_be = (sg_bitmap_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1449:9: warning: use of old-style cast [-Wold-style-cast]
+    p = (Uint8 *)surface->pixels
+        ^        ~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1459:21: warning: use of old-style cast [-Wold-style-cast]
+            return *(Uint16 *)p;
+                    ^         ~
+./src/SGSDL2Graphics.cpp:1459:21: warning: cast from 'Uint8 *' (aka 'unsigned char *') to 'Uint16 *' (aka 'unsigned short *') increases required alignment from 1 to 2 [-Wcast-align]
+            return *(Uint16 *)p;
+                    ^~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1469:22: warning: use of old-style cast [-Wold-style-cast]
+            color = *(Uint32 *)p;
+                     ^         ~
+./src/SGSDL2Graphics.cpp:1469:22: warning: cast from 'Uint8 *' (aka 'unsigned char *') to 'Uint32 *' (aka 'unsigned int *') increases required alignment from 1 to 4 [-Wcast-align]
+            color = *(Uint32 *)p;
+                     ^~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1471:17: warning: use of old-style cast [-Wold-style-cast]
+            r = (uint8_t)((color & surface->format->Rmask) >> (surface->format->Rshift));
+                ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1472:17: warning: use of old-style cast [-Wold-style-cast]
+            g = (uint8_t)((color & surface->format->Gmask) >> (surface->format->Gshift));
+                ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1473:17: warning: use of old-style cast [-Wold-style-cast]
+            b = (uint8_t)((color & surface->format->Bmask) >> (surface->format->Bshift));
+                ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1474:17: warning: use of old-style cast [-Wold-style-cast]
+            a = (uint8_t)((color & surface->format->Amask) >> (surface->format->Ashift));
+                ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1475:20: warning: use of old-style cast [-Wold-style-cast]
+            return (uint32_t)(r << 24 | g << 16 | b << 8 | a);
+                   ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1495:25: warning: use of old-style cast [-Wold-style-cast]
+            window_be = (sg_window_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1505:25: warning: use of old-style cast [-Wold-style-cast]
+            bitmap_be = (sg_bitmap_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1518:58: warning: use of old-style cast [-Wold-style-cast]
+                        pixels[y * surface->width + x] = (int)_get_pixel(bitmap_be->surface, x, y);
+                                                         ^    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1540:17: warning: use of old-style cast [-Wold-style-cast]
+    window_be = (sg_window_be *)surface->_data;
+                ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1564:17: warning: use of old-style cast [-Wold-style-cast]
+    window_be = (sg_window_be *)surface->_data;
+                ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1588:17: warning: use of old-style cast [-Wold-style-cast]
+    window_be = (sg_window_be *)surface->_data;
+                ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1643:32: warning: unused parameter 'ctx' [-Wunused-parameter]
+void png_user_warn(png_structp ctx, png_const_charp str)
+                               ^
+./src/SGSDL2Graphics.cpp:1643:53: warning: unused parameter 'str' [-Wunused-parameter]
+void png_user_warn(png_structp ctx, png_const_charp str)
+                                                    ^
+./src/SGSDL2Graphics.cpp:1648:33: warning: unused parameter 'ctx' [-Wunused-parameter]
+void png_user_error(png_structp ctx, png_const_charp str)
+                                ^
+./src/SGSDL2Graphics.cpp:1648:54: warning: unused parameter 'str' [-Wunused-parameter]
+void png_user_error(png_structp ctx, png_const_charp str)
+                                                     ^
+./src/SGSDL2Graphics.cpp:1690:18: warning: use of old-style cast [-Wold-style-cast]
+                 (png_uint_32)surface->width, (png_uint_32)surface->height, 8, colortype,
+                 ^            ~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1690:47: warning: use of old-style cast [-Wold-style-cast]
+                 (png_uint_32)surface->width, (png_uint_32)surface->height, 8, colortype,
+                                              ^            ~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1701:10: warning: use of old-style cast [-Wold-style-cast]
+    sz = (unsigned long)(surface->width * surface->height) * sizeof(uint8_t);
+         ^              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1702:14: warning: use of old-style cast [-Wold-style-cast]
+    pixels = (uint8_t *) malloc(sizeof(uint8_t) * sz * 4);
+             ^           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1704:31: warning: use of old-style cast [-Wold-style-cast]
+    sgsdl2_to_pixels(surface, (int *)pixels, (int)sz);
+                              ^      ~~~~~~
+./src/SGSDL2Graphics.cpp:1704:31: warning: cast from 'uint8_t *' (aka 'unsigned char *') to 'int *' increases required alignment from 1 to 4 [-Wcast-align]
+    sgsdl2_to_pixels(surface, (int *)pixels, (int)sz);
+                              ^~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1704:46: warning: use of old-style cast [-Wold-style-cast]
+    sgsdl2_to_pixels(surface, (int *)pixels, (int)sz);
+                                             ^    ~~
+./src/SGSDL2Graphics.cpp:1706:52: warning: use of old-style cast [-Wold-style-cast]
+    row_pointers = (png_bytepp)png_malloc(png_ptr, (unsigned long)surface->height * sizeof(png_bytep));
+                                                   ^              ~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1706:20: warning: use of old-style cast [-Wold-style-cast]
+    row_pointers = (png_bytepp)png_malloc(png_ptr, (unsigned long)surface->height * sizeof(png_bytep));
+                   ^           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1775:26: warning: use of old-style cast [-Wold-style-cast]
+    sg_bitmap_be *data = (sg_bitmap_be *)malloc(sizeof(sg_bitmap_be));
+                         ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1785:21: warning: use of old-style cast [-Wold-style-cast]
+    data->texture = (SDL_Texture**)malloc(sizeof(SDL_Texture*) * _sgsdl2_num_open_windows);
+                    ^              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1816:26: warning: use of old-style cast [-Wold-style-cast]
+    sg_bitmap_be *data = (sg_bitmap_be *)malloc(sizeof(sg_bitmap_be));
+                         ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1822:25: warning: use of old-style cast [-Wold-style-cast]
+        data->texture = (SDL_Texture**)malloc(sizeof(SDL_Texture*) * _sgsdl2_num_open_windows);
+                        ^              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1880:13: warning: use of old-style cast [-Wold-style-cast]
+            (int)(x - (src_w * scale_x / 2.0) + src_w/2.0),
+            ^    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1881:13: warning: use of old-style cast [-Wold-style-cast]
+            (int)(y - (src_h * scale_y / 2.0) + src_h/2.0), //fix the drawing position as scaling broke it
+            ^    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1882:13: warning: use of old-style cast [-Wold-style-cast]
+            (int)(src_w * scale_x),
+            ^    ~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1883:13: warning: use of old-style cast [-Wold-style-cast]
+            (int)(src_h * scale_y)
+            ^    ~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1880:19: warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+            (int)(x - (src_w * scale_x / 2.0) + src_w/2.0),
+                  ^ ~
+./src/SGSDL2Graphics.cpp:1880:30: warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+            (int)(x - (src_w * scale_x / 2.0) + src_w/2.0),
+                       ~~~~~~^~~~~~~~~ ~
+./src/SGSDL2Graphics.cpp:1880:49: warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+            (int)(x - (src_w * scale_x / 2.0) + src_w/2.0),
+                                                ^~~~~~
+./src/SGSDL2Graphics.cpp:1881:19: warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+            (int)(y - (src_h * scale_y / 2.0) + src_h/2.0), //fix the drawing position as scaling broke it
+                  ^ ~
+./src/SGSDL2Graphics.cpp:1881:30: warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+            (int)(y - (src_h * scale_y / 2.0) + src_h/2.0), //fix the drawing position as scaling broke it
+                       ~~~~~~^~~~~~~~~ ~
+./src/SGSDL2Graphics.cpp:1881:49: warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+            (int)(y - (src_h * scale_y / 2.0) + src_h/2.0), //fix the drawing position as scaling broke it
+                                                ^~~~~~
+./src/SGSDL2Graphics.cpp:1886:26: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect src_rect = {(int)src_x, (int)src_y, (int)src_w, (int)src_h};
+                         ^    ~~~~~
+./src/SGSDL2Graphics.cpp:1886:38: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect src_rect = {(int)src_x, (int)src_y, (int)src_w, (int)src_h};
+                                     ^    ~~~~~
+./src/SGSDL2Graphics.cpp:1886:50: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect src_rect = {(int)src_x, (int)src_y, (int)src_w, (int)src_h};
+                                                 ^    ~~~~~
+./src/SGSDL2Graphics.cpp:1886:62: warning: use of old-style cast [-Wold-style-cast]
+    SDL_Rect src_rect = {(int)src_x, (int)src_y, (int)src_w, (int)src_h};
+                                                             ^    ~~~~~
+./src/SGSDL2Graphics.cpp:1904:33: warning: use of old-style cast [-Wold-style-cast]
+            unsigned int idx = ((sg_window_be *)dst->_data)->idx;
+                                ^               ~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1906:21: warning: use of old-style cast [-Wold-style-cast]
+            srcT = ((sg_bitmap_be *)src->_data)->texture[ idx ];
+                    ^               ~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1909:21: warning: use of old-style cast [-Wold-style-cast]
+            srcT = ((sg_bitmap_be *)src->_data)->texture[ i ];
+                    ^               ~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1912:23: warning: use of old-style cast [-Wold-style-cast]
+                SDL_Point centre = {(int)centre_x, (int)centre_y};
+                                    ^    ~~~~~~~~
+./src/SGSDL2Graphics.cpp:1912:38: warning: use of old-style cast [-Wold-style-cast]
+                SDL_Point centre = {(int)centre_x, (int)centre_y};
+                                                   ^    ~~~~~~~~
+./src/SGSDL2Graphics.cpp:1913:31: warning: use of old-style cast [-Wold-style-cast]
+                SDL_RendererFlip sdl_flip = (SDL_RendererFlip) ((flip == SG_FLIP_BOTH) ? (SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL) : flip); //SDL does not have a FLIP_BOTH
+                                            ^                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Graphics.cpp:1916:64: warning: implicit conversion increases floating-point precision: 'float' to 'double' [-Wdouble-promotion]
+        SDL_RenderCopyEx(renderer, srcT, &src_rect, &dst_rect, angle, &centre, sdl_flip);
+        ~~~~~~~~~~~~~~~~                                       ^~~~~
+150 warnings generated.
+In file included from ./src/SGSDL2Input.cpp:15:
+./include/SGSDL2Input.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Input__
+        ^
+In file included from ./src/SGSDL2Input.cpp:16:
+./include/SGSDL2Graphics.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Graphics__
+        ^
+In file included from ./src/SGSDL2Input.cpp:18:
+./include/sgBackendUtils.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__sgBackendUtils__
+        ^
+./src/SGSDL2Input.cpp:187:10: warning: use of old-style cast [-Wold-style-cast]
+    if (((sg_window_be*)surf->_data)->event_data.close_requested)
+         ^              ~~~~~~~~~~~
+./src/SGSDL2Input.cpp:228:25: warning: use of old-style cast [-Wold-style-cast]
+            window_be = (sg_window_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Input.cpp:256:25: warning: use of old-style cast [-Wold-style-cast]
+            window_be = (sg_window_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Input.cpp:281:25: warning: use of old-style cast [-Wold-style-cast]
+            window_be = (sg_window_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Input.cpp:276:13: warning: enumeration values 'SGDS_Unknown' and 'SGDS_Bitmap' not explicitly handled in switch [-Wswitch-enum]
+    switch (surface->kind)
+            ^
+./src/SGSDL2Input.cpp:300:25: warning: use of old-style cast [-Wold-style-cast]
+            window_be = (sg_window_be *)surface->_data;
+                        ^               ~~~~~~~~~~~~~~
+./src/SGSDL2Input.cpp:295:13: warning: enumeration values 'SGDS_Unknown' and 'SGDS_Bitmap' not explicitly handled in switch [-Wswitch-enum]
+    switch (surface->kind)
+            ^
+10 warnings generated.
+In file included from ./src/SGSDL2Network.cpp:9:
+./include/SGSDL2Network.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Network__
+        ^
+./src/SGSDL2Network.cpp:25:18: warning: no previous extern declaration for non-static variable '_sockets' [-Wmissing-variable-declarations]
+SDLNet_SocketSet _sockets; // allocate on setup of functions.
+                 ^
+./src/SGSDL2Network.cpp:86:9: warning: use of old-style cast [-Wold-style-cast]
+    if ((TCPsocket)con->_socket)
+        ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:89:32: warning: use of old-style cast [-Wold-style-cast]
+        sent = SDLNet_TCP_Send((TCPsocket)con->_socket, buffer, size);
+                               ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:101:19: warning: use of old-style cast [-Wold-style-cast]
+    packet.data = (Uint8*)buffer;
+                  ^       ~~~~~~
+./src/SGSDL2Network.cpp:102:28: warning: use of old-style cast [-Wold-style-cast]
+    return SDLNet_UDP_Send((UDPsocket)con->_socket, -1, &packet);
+                           ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:110:33: warning: use of old-style cast [-Wold-style-cast]
+    packet = SDLNet_AllocPacket((int)*size);
+                                ^    ~~~~~
+./src/SGSDL2Network.cpp:114:26: warning: use of old-style cast [-Wold-style-cast]
+    if ( SDLNet_UDP_Recv((UDPsocket)con->_socket, packet) > 0 )
+                         ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:123:50: warning: use of old-style cast [-Wold-style-cast]
+            unsigned int buf_sz = sizeof(char) * (unsigned int)packet->len;
+                                                 ^             ~~~~~~~~~~~
+./src/SGSDL2Network.cpp:133:28: warning: use of old-style cast [-Wold-style-cast]
+    return SDLNet_TCP_Recv((TCPsocket)con->_socket, buffer, size);
+                           ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:140:40: warning: use of old-style cast [-Wold-style-cast]
+        SDLNet_TCP_DelSocket(_sockets, (TCPsocket)con->_socket);
+                                       ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:141:26: warning: use of old-style cast [-Wold-style-cast]
+        SDLNet_TCP_Close((TCPsocket)con->_socket);
+                         ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:145:40: warning: use of old-style cast [-Wold-style-cast]
+        SDLNet_UDP_DelSocket(_sockets, (UDPsocket)con->_socket);
+                                       ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:146:26: warning: use of old-style cast [-Wold-style-cast]
+        SDLNet_UDP_Close((UDPsocket)con->_socket);
+                         ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:156:44: warning: use of old-style cast [-Wold-style-cast]
+        remote = SDLNet_TCP_GetPeerAddress((TCPsocket)con->_socket);
+                                           ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:158:44: warning: use of old-style cast [-Wold-style-cast]
+        remote = SDLNet_UDP_GetPeerAddress((UDPsocket)con->_socket, -1);
+                                           ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:166:44: warning: use of old-style cast [-Wold-style-cast]
+        remote = SDLNet_TCP_GetPeerAddress((TCPsocket)con->_socket);
+                                           ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:168:44: warning: use of old-style cast [-Wold-style-cast]
+        remote = SDLNet_UDP_GetPeerAddress((UDPsocket)con->_socket, -1);
+                                           ^          ~~~~~~~~~~~~
+./src/SGSDL2Network.cpp:179:37: warning: use of old-style cast [-Wold-style-cast]
+    if ((client = SDLNet_TCP_Accept((TCPsocket)con->_socket)) != NULL)
+                                    ^          ~~~~~~~~~~~~
+19 warnings generated.
+In file included from ./src/SGSDL2Text.cpp:20:
+./include/SGSDL2Text.h:9:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Text__
+        ^
+In file included from ./src/SGSDL2Text.cpp:21:
+./include/SGSDL2Graphics.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Graphics__
+        ^
+./src/SGSDL2Text.cpp:50:23: warning: use of old-style cast [-Wold-style-cast]
+        TTF_CloseFont((TTF_Font*)font->_data);
+                      ^          ~~~~~~~~~~~
+./src/SGSDL2Text.cpp:59:33: warning: use of old-style cast [-Wold-style-cast]
+        return TTF_FontLineSkip((TTF_Font*)font->_data);
+                                ^          ~~~~~~~~~~~
+./src/SGSDL2Text.cpp:67:29: warning: use of old-style cast [-Wold-style-cast]
+        return TTF_SizeText((TTF_Font*)font->_data, text, w, h); 
+                            ^          ~~~~~~~~~~~
+./src/SGSDL2Text.cpp:75:26: warning: use of old-style cast [-Wold-style-cast]
+        TTF_SetFontStyle((TTF_Font*)font->_data, style); 
+                         ^          ~~~~~~~~~~~
+./src/SGSDL2Text.cpp:81:33: warning: use of old-style cast [-Wold-style-cast]
+        return TTF_GetFontStyle((TTF_Font*)font->_data); 
+                                ^          ~~~~~~~~~~~
+./src/SGSDL2Text.cpp:132:43: warning: use of old-style cast [-Wold-style-cast]
+    text_surface = TTF_RenderText_Blended((TTF_Font*)font->_data, text, sdl_color);
+                                          ^          ~~~~~~~~~~~
+./src/SGSDL2Text.cpp:153:26: warning: use of old-style cast [-Wold-style-cast]
+                rect.x = (int)x;
+                         ^    ~
+./src/SGSDL2Text.cpp:154:26: warning: use of old-style cast [-Wold-style-cast]
+                rect.y = (int)y;
+                         ^    ~
+10 warnings generated.
+In file included from ./src/SGSDL2Utils.cpp:9:
+./include/SGSDL2Utils.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Utils__
+        ^
+1 warning generated.
+In file included from ./src/SGSDL2Web.cpp:9:
+./include/SGSDL2Web.h:10:9: warning: macro name is a reserved identifier [-Wreserved-id-macro]
+#define __sgsdl2__SGSDL2Web__
+        ^
+./src/SGSDL2Web.cpp:20:29: warning: use of old-style cast [-Wold-style-cast]
+    sg_http_response *mem = (sg_http_response *)userp;
+                            ^                   ~~~~~
+./src/SGSDL2Web.cpp:22:17: warning: use of old-style cast [-Wold-style-cast]
+    mem->data = (char *)realloc(mem->data, mem->size + realsize + 1);
+                ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/SGSDL2Web.cpp:49:31: warning: use of old-style cast [-Wold-style-cast]
+    request_stream *request = (request_stream *)stream;
+                              ^                 ~~~~~~
+./src/SGSDL2Web.cpp:62:17: warning: use of old-style cast [-Wold-style-cast]
+        strncpy((char*)ptr, request->body + request->at, sizeof(char) * to_read);
+                ^      ~~~
+./src/SGSDL2Web.cpp:92:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_URL, host);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:95:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_PORT, port);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:97:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1L);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:99:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, body);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:101:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_SSL_VERIFYPEER, 0L);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:108:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_HTTPHEADER, list);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:111:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_memory_callback);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:114:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:114:54: warning: use of old-style cast [-Wold-style-cast]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+                                                     ^       ~~~~~~~
+/usr/include/curl/curl.h:2438:72: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                                                       ^~~~~
+./src/SGSDL2Web.cpp:117:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:133:9: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+        curl_easy_getinfo(curl_handle, CURLINFO_RESPONSE_CODE, &status);
+        ^
+/usr/include/curl/curl.h:2439:44: note: expanded from macro 'curl_easy_getinfo'
+#define curl_easy_getinfo(handle,info,arg) curl_easy_getinfo(handle,info,arg)
+                                           ^
+./src/SGSDL2Web.cpp:153:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_URL, host);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:156:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_PORT, port);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:158:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1L);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:161:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_memory_callback);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:164:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:164:54: warning: use of old-style cast [-Wold-style-cast]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+                                                     ^       ~~~~~~~
+/usr/include/curl/curl.h:2438:72: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                                                       ^~~~~
+./src/SGSDL2Web.cpp:167:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:180:9: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+        curl_easy_getinfo(curl_handle, CURLINFO_RESPONSE_CODE, &status);
+        ^
+/usr/include/curl/curl.h:2439:44: note: expanded from macro 'curl_easy_getinfo'
+#define curl_easy_getinfo(handle,info,arg) curl_easy_getinfo(handle,info,arg)
+                                           ^
+./src/SGSDL2Web.cpp:200:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_URL, host);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:203:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_PORT, port);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:205:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1L);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:211:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_HTTPHEADER, list);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:214:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_memory_callback);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:217:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:217:54: warning: use of old-style cast [-Wold-style-cast]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+                                                     ^       ~~~~~~~
+/usr/include/curl/curl.h:2438:72: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                                                       ^~~~~
+./src/SGSDL2Web.cpp:220:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:223:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_READFUNCTION, read_request_body);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:226:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_UPLOAD, 1L);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:231:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_READDATA, &data);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:234:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_INFILESIZE, (curl_off_t)strlen(data.body));
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:234:55: warning: use of old-style cast [-Wold-style-cast]
+    curl_easy_setopt(curl_handle, CURLOPT_INFILESIZE, (curl_off_t)strlen(data.body));
+                                                      ^           ~~~~~~~~~~~~~~~~~
+/usr/include/curl/curl.h:2438:72: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                                                       ^~~~~
+./src/SGSDL2Web.cpp:247:9: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+        curl_easy_getinfo(curl_handle, CURLINFO_RESPONSE_CODE, &status);
+        ^
+/usr/include/curl/curl.h:2439:44: note: expanded from macro 'curl_easy_getinfo'
+#define curl_easy_getinfo(handle,info,arg) curl_easy_getinfo(handle,info,arg)
+                                           ^
+./src/SGSDL2Web.cpp:269:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_URL, host);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:272:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_PORT, port);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:274:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1L);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:276:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, body);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:282:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_HTTPHEADER, list);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:285:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_memory_callback);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:288:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:288:54: warning: use of old-style cast [-Wold-style-cast]
+    curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *)&result);
+                                                     ^       ~~~~~~~
+/usr/include/curl/curl.h:2438:72: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                                                       ^~~~~
+./src/SGSDL2Web.cpp:291:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:293:5: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+    curl_easy_setopt(curl_handle, CURLOPT_CUSTOMREQUEST, "DELETE");
+    ^
+/usr/include/curl/curl.h:2438:44: note: expanded from macro 'curl_easy_setopt'
+#define curl_easy_setopt(handle,opt,param) curl_easy_setopt(handle,opt,param)
+                                           ^
+./src/SGSDL2Web.cpp:306:9: warning: disabled expansion of recursive macro [-Wdisabled-macro-expansion]
+        curl_easy_getinfo(curl_handle, CURLINFO_RESPONSE_CODE, &status);
+        ^
+/usr/include/curl/curl.h:2439:44: note: expanded from macro 'curl_easy_getinfo'
+#define curl_easy_getinfo(handle,info,arg) curl_easy_getinfo(handle,info,arg)
+                                           ^
+./src/SGSDL2Web.cpp:329:9: warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+        default:
+        ^
+50 warnings generated.
