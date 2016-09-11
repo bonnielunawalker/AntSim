@@ -7,7 +7,7 @@ namespace MyGame
     {
         public static void Main()
         {
-            SwinGame.OpenWindow("AntSim", 720, 480);
+            SwinGame.OpenWindow("AntSim", 1920, 1080);
             Console.WriteLine("Everything appears to be working!");
 
             while (!SwinGame.WindowCloseRequested() && !GameState.Exit)
@@ -16,7 +16,7 @@ namespace MyGame
                 GameLogic.Process();
                 GameLogic.DrawObjects();
                 SwinGame.RefreshScreen(60);
-                SwinGame.Delay(20);
+                SwinGame.Delay(40);
             }
         }
     }

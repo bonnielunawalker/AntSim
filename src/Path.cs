@@ -51,16 +51,16 @@ namespace MyGame
             int newY;
 
             if (w.Location.X < d.X)
-                newX = w.Location.X + _rand.Next(0, 5);
+                newX = w.Location.X + _rand.Next(-2, 5);
             else if (w.Location.X > d.X)
-                newX = w.Location.X - _rand.Next(0, 5);
+                newX = w.Location.X - _rand.Next(-2, 5);
             else
                 newX = w.Location.X + _rand.Next(-5, 5);
 
             if (w.Location.Y < d.Y)
-                newY = w.Location.Y + _rand.Next(0, 5);
+                newY = w.Location.Y + _rand.Next(-2, 5);
             else if (w.Location.Y > d.Y)
-                newY = w.Location.Y - _rand.Next(0, 5);
+                newY = w.Location.Y - _rand.Next(-2, 5);
             else
                 newY = w.Location.Y + _rand.Next(-5, 5);
 

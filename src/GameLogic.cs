@@ -25,19 +25,17 @@ namespace MyGame
         {
             SwinGame.ProcessEvents();
 
-            Point2D p = SwinGame.RandomScreenPoint();
-
             if (GameState.Setup)
             {
-                for (int i = 0; i <= 1; i++)
-                    _creatures.Add(new Creature(new Location(_rand.Next(720), _rand.Next(480))));
+                for (int i = 0; i <= 1000; i++)
+                    _creatures.Add(new Creature(new Location(_rand.Next(1920), _rand.Next(1080))));
 
                 foreach (Creature c in _creatures)
                 {
-                    c.NewPath = c.GetPathTo(new Location(_rand.Next(720), _rand.Next(480)));
+                    c.NewPath = c.GetPathTo(new Location(_rand.Next(1920), _rand.Next(1080)));
                     c.CurrentPath = c.NewPath;
                     _drawables.Add(c);
-                    _drawables.Add(c.CurrentPath.Waypoints.Last.Value);
+                    //_drawables.Add(c.CurrentPath.Waypoints.Last.Value);
                 }
 
                 GameState.Setup = false;
