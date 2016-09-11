@@ -1,4 +1,6 @@
-﻿namespace MyGame
+﻿using SwinGameSDK;
+
+namespace MyGame
 {
     public class Location
     {
@@ -20,6 +22,11 @@
         {
             get { return _y; }
             set { _y = value; }
+        }
+
+        public void Draw()
+        {
+            SwinGame.FillRectangle(Color.Blue, _x, _y, 4, 4);
         }
     }
 }

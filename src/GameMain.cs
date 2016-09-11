@@ -16,7 +16,7 @@ namespace MyGame
                 GameLogic.Process();
                 GameLogic.DrawObjects();
                 SwinGame.RefreshScreen(60);
-                //SwinGame.Delay(100);
+                SwinGame.Delay(20);
             }
         }
     }

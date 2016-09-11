@@ -46,9 +46,10 @@ namespace MyGame
 
         public static void DrawObjects()
         {
-            foreach (DrawableObject obj in _creatures)
+            foreach (Creature c in _creatures)
             {
-                obj.Draw();
+                c.CurrentPath.Destination.Draw();
+                c.Draw();
             }
         }
     }
