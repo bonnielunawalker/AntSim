@@ -37,12 +37,6 @@ namespace MyGame
             if (_currentWaypoint == null)
                 _currentWaypoint = _currentPath.Waypoints.First.Value;
 
-            Console.WriteLine(_currentWaypoint.Location.X);
-            //Console.WriteLine(_currentWaypoint.Location.Y);
-            Console.WriteLine(Location.X);
-            //Console.WriteLine(Location.Y);
-
-
             if (Location == _currentPath.Destination)
                 Console.WriteLine("Made it!");
             else

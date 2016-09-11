@@ -55,14 +55,14 @@ namespace MyGame
             else if (w.Location.X > d.X)
                 newX = w.Location.X - _rand.Next(0, 5);
             else
-                newX = w.Location.X;
+                newX = w.Location.X + _rand.Next(-5, 5);
 
             if (w.Location.Y < d.Y)
                 newY = w.Location.Y + _rand.Next(0, 5);
             else if (w.Location.Y > d.Y)
                 newY = w.Location.Y - _rand.Next(0, 5);
             else
-                newY = w.Location.Y;
+                newY = w.Location.Y + _rand.Next(-5, 5);
 
             return new Waypoint(new Location(newX, newY));
         }
