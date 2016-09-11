@@ -1,18 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
+using SwinGameSDK;
 
 namespace MyGame
 {
-    public class Creature : DrawableObject
+    public class Creature : IDrawable
     {
         private Path _currentPath;
         private Waypoint _currentWaypoint;
         private Path _newPath;
+        private Location _location;
 
         public Creature(Location l)
-            : base (l)
         {
+            _location = l;
+        }
 
+        public Location Location
+        {
+            get { return _location; }
         }
 
         public Path NewPath
@@ -54,6 +59,11 @@ namespace MyGame
 
             if (Location.X == _currentWaypoint.Location.X && Location.Y == _currentWaypoint.Location.Y)
                 _currentWaypoint = _currentPath.NextWaypoint(_currentWaypoint);
+        }
+
+        public void Draw()
+        {
+            SwinGame.FillRectangle(Color.Red, _location.X, _location.Y, 4, 4);
         }
     }
 }

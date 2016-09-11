@@ -8,6 +8,7 @@ namespace MyGame
     {
         private static List<Creature> _creatures = new List<Creature>();
         private static readonly Random _rand = new Random();
+        private static List<IDrawable> _drawables = new List<IDrawable>();
 
         public static Random Random
         {
@@ -35,6 +36,8 @@ namespace MyGame
                 {
                     c.NewPath = c.GetPathTo(new Location(_rand.Next(720), _rand.Next(480)));
                     c.CurrentPath = c.NewPath;
+                    _drawables.Add(c);
+                    _drawables.Add(c.CurrentPath.Waypoints.Last.Value);
                 }
 
                 GameState.Setup = false;
@@ -46,11 +49,8 @@ namespace MyGame
 
         public static void DrawObjects()
         {
-            foreach (Creature c in _creatures)
-            {
-                c.CurrentPath.Destination.Draw();
-                c.Draw();
-            }
+            foreach (IDrawable obj in _drawables)
+                obj.Draw();
         }
     }
 }

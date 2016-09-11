@@ -1,6 +1,7 @@
-﻿namespace MyGame
+﻿using SwinGameSDK;
+namespace MyGame
 {
-    public class Waypoint : IHasLocation
+    public class Waypoint : IHasLocation, IDrawable
     {
         private readonly Location _location;
 
@@ -17,6 +18,11 @@
         public bool IsAt(Location d)
         {
             return _location.X == d.X && _location.Y == d.Y;
+        }
+
+        public void Draw()
+        {
+            SwinGame.FillRectangle(Color.Blue, _location.X, _location.Y, 4, 4);
         }
     }
 }

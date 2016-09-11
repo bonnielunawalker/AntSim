@@ -53,7 +53,7 @@
     <Compile Include="src\RngUnitTests.cs" />
     <Compile Include="src\Waypoint.cs" />
     <Compile Include="src\Path.cs" />
-    <Compile Include="src\DrawableObject.cs" />
+    <Compile Include="src\IDrawable.cs" />
     <Compile Include="src\Location.cs" />
     <Compile Include="src\IHasPaths.cs" />
     <Compile Include="src\Creature.cs" />
