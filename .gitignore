@@ -6,4 +6,5 @@ MyGameUnx.prefs
 MyGameWin.csproj
 MyGameWin.sln
 obj/
-
+bin/Debug/MyGame.exe
+bin/Debug/MyGame.exe.mdb
