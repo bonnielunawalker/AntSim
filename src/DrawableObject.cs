@@ -5,7 +5,7 @@ namespace MyGame
 {
     public abstract class DrawableObject : IHasLocation
     {
-        private Location _location;
+        private readonly Location _location;
 
         public DrawableObject(Location l)
         {
@@ -19,7 +19,7 @@ namespace MyGame
 
         public void Draw()
         {
-            SwinGame.FillCircle(Color.Red, _location.X, _location.Y, 4);
+            SwinGame.FillRectangle(Color.Red, _location.X, _location.Y, 4, 4);
         }
 
     }
