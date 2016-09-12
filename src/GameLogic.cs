@@ -10,6 +10,8 @@ namespace MyGame
         private static List<IDrawable> _drawables = new List<IDrawable>();
         private static Nest _nest;
 
+        // Allows a single instance of Random to be used throughout the program.
+        // This avoids the possibility of duplicate random values being generated.
         public static Random Random
         {
             get { return _rand; }
