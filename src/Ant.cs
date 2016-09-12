@@ -58,5 +58,25 @@ namespace MyGame
             else if (_getFood)
                 base.Move();
         }
+
+        public void CheckFood()
+        {
+            foreach (Food f in GameLogic.Food)
+            {
+                if (FoodProximity(f))
+                {
+                    CurrentPath = GetPathTo(f.Location);
+                    _wander = false;
+                    _getFood = true;
+                    return;
+                }
+            }
+        }
+
+        private bool FoodProximity(Food f)
+        {
+            return (f.Location.X - Location.X < 50 || f.Location.X + Location.X < 50)
+                   && (f.Location.Y - Location.Y < 50 || f.Location.Y + Location.Y < 50);
+        }
     }
 }

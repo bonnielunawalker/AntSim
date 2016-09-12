@@ -1,6 +1,7 @@
 ﻿using SwinGameSDK;
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 
 namespace MyGame
 {
@@ -8,6 +9,7 @@ namespace MyGame
     {
         private static readonly Random _rand = new Random();
         private static List<IDrawable> _drawables = new List<IDrawable>();
+        private static List<Food> _food = new List<Food>();
         private static Nest _nest;
 
         // Allows a single instance of Random to be used throughout the program.
@@ -15,6 +17,12 @@ namespace MyGame
         public static Random Random
         {
             get { return _rand; }
+        }
+
+        public static List<Food> Food
+        {
+            get { return _food; }
+            set { _food = value; }
         }
 
         public static void Process()
@@ -35,11 +43,23 @@ namespace MyGame
                     _drawables.Add(a);
                 }
 
+                for (int i = 0; i < 5; i++)
+                    _food.Add(new Food(new Location(_rand.Next(720), _rand.Next(480))));
+
+                foreach (Food f in _food)
+                    _drawables.Add(f);
+
                 GameState.Setup = false;
             }
 
             foreach (Ant a in _nest.Ants)
+            {
+                if (a.Wander)
+                    a.CheckFood();
+
                 a.Move();
+            }
+
         }
 
         public static void DrawObjects()
