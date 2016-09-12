@@ -18,6 +18,7 @@ namespace MyGame
         public Location Location
         {
             get { return _location; }
+            set { _location = value; }
         }
 
         public Path NewPath
@@ -32,6 +33,12 @@ namespace MyGame
             set { _currentPath = value; }
         }
 
+        public Waypoint CurrentWaypoint
+        {
+            get { return _currentWaypoint; }
+            set { _currentWaypoint = value; }
+        }
+
         public Path GetPathTo(Location d)
         {
            return new Path(Location, d);
@@ -39,31 +46,31 @@ namespace MyGame
 
         public void Move()
         {
-            if (_currentWaypoint == null)
-                _currentWaypoint = _currentPath.Waypoints.First.Value;
+            if (CurrentWaypoint == null)
+                CurrentWaypoint = CurrentPath.Waypoints.First.Value;
 
-            if (Location == _currentPath.Destination)
+            if (Location == CurrentPath.Destination)
                 Console.WriteLine("Made it!");
             else
             {
-                if (_currentWaypoint.Location.X < Location.X)
+                if (CurrentWaypoint.Location.X < Location.X)
                     Location.X--;
-                else if (_currentWaypoint.Location.X > Location.X)
+                else if (CurrentWaypoint.Location.X > Location.X)
                     Location.X++;
 
-                if (_currentWaypoint.Location.Y < Location.Y)
+                if (CurrentWaypoint.Location.Y < Location.Y)
                     Location.Y--;
-                else if (_currentWaypoint.Location.Y > Location.Y)
+                else if (CurrentWaypoint.Location.Y > Location.Y)
                     Location.Y++;
             }
 
-            if (Location.X == _currentWaypoint.Location.X && Location.Y == _currentWaypoint.Location.Y)
-                _currentWaypoint = _currentPath.NextWaypoint(_currentWaypoint);
+            if (Location.X == CurrentWaypoint.Location.X && Location.Y == CurrentWaypoint.Location.Y)
+                CurrentWaypoint = CurrentPath.NextWaypoint(CurrentWaypoint);
         }
 
         public void Draw()
         {
-            SwinGame.FillRectangle(Color.Red, _location.X, _location.Y, 4, 4);
+            SwinGame.FillRectangle(Color.Red, Location.X, Location.Y, 4, 4);
         }
     }
 }

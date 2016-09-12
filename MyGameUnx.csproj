@@ -48,8 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src/GameMain.cs" />
+    <Compile Include="src\Ant.cs" />
     <Compile Include="src\GameLogic.cs" />
     <Compile Include="src\GameState.cs" />
+    <Compile Include="src\Nest.cs" />
     <Compile Include="src\RngUnitTests.cs" />
     <Compile Include="src\Waypoint.cs" />
     <Compile Include="src\Path.cs" />

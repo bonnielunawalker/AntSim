@@ -6,19 +6,13 @@ namespace MyGame
 {
     public static class GameLogic
     {
-        private static List<Creature> _creatures = new List<Creature>();
         private static readonly Random _rand = new Random();
         private static List<IDrawable> _drawables = new List<IDrawable>();
+        private static Nest _nest;
 
         public static Random Random
         {
             get { return _rand; }
-        }
-
-        public static List<Creature> Creatures
-        {
-            get { return _creatures; }
-            set { _creatures = value; }
         }
 
         public static void Process()
@@ -27,22 +21,25 @@ namespace MyGame
 
             if (GameState.Setup)
             {
-                for (int i = 0; i <= 1000; i++)
-                    _creatures.Add(new Creature(new Location(_rand.Next(1920), _rand.Next(1080))));
+                _nest = new Nest(new Location(_rand.Next(720), _rand.Next(480)));
+                _drawables.Add(_nest);
 
-                foreach (Creature c in _creatures)
+                for (int i = 0; i <= 10; i++)
+                    _nest.Ants.Add(new Ant(new Location(_nest.Location.X, _nest.Location.Y), _nest));
+
+                foreach (Ant a in _nest.Ants)
                 {
-                    c.NewPath = c.GetPathTo(new Location(_rand.Next(1920), _rand.Next(1080)));
-                    c.CurrentPath = c.NewPath;
-                    _drawables.Add(c);
-                    //_drawables.Add(c.CurrentPath.Waypoints.Last.Value);
+                    a.NewPath = a.GetPathTo(new Location(_rand.Next(720), _rand.Next(480)));
+                    a.CurrentPath = a.NewPath;
+                    _drawables.Add(a);
+                    _drawables.Add(a.CurrentPath.Waypoints.Last.Value);
                 }
 
                 GameState.Setup = false;
             }
 
-            foreach (Creature c in _creatures)
-                c.Move();
+            foreach (Ant a in _nest.Ants)
+                a.Move();
         }
 
         public static void DrawObjects()
