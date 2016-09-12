@@ -4,7 +4,6 @@ namespace MyGame
 {
     public class Ant : Creature
     {
-
         private Nest _nest;
         private bool _wander;
         private bool _return;
@@ -25,13 +24,13 @@ namespace MyGame
             set { _nest = value; }
         }
 
-        public bool Wander
+        public bool Wandering
         {
             get { return _wander; }
             set { _wander = value; }
         }
 
-        public bool Return
+        public bool Returning
         {
             get { return _return; }
             set { _return = value; }
@@ -47,13 +46,11 @@ namespace MyGame
         {
             if (_wander)
             {
-                if (CurrentPath == null)
-                {
-                    Wander();
-                    base.Move();
-                }
-                else
-                    base.Move();
+                if (CurrentPath == null || (Location.X == CurrentPath.Destination.X
+                                            && Location.Y == CurrentPath.Destination.Y))
+                    CurrentPath = Wander();
+
+                base.Move();
             }
             else if (_getFood)
                 base.Move();
@@ -75,8 +72,8 @@ namespace MyGame
 
         private bool FoodProximity(Food f)
         {
-            return (f.Location.X - Location.X < 50 || f.Location.X + Location.X < 50)
-                   && (f.Location.Y - Location.Y < 50 || f.Location.Y + Location.Y < 50);
+            return (f.Location.X - Location.X < 50 && f.Location.X - Location.X > -50 )
+                    && (f.Location.Y - Location.Y < 50 && f.Location.Y - Location.Y > -50);
         }
     }
 }

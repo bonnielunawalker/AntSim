@@ -36,7 +36,14 @@ namespace MyGame
         public Waypoint NextWaypoint(Waypoint w)
         {
             LinkedListNode<Waypoint> current = _waypoints.Find(w);
-            return current.Next.Value;
+            try
+            {
+                return current.Next.Value;
+            }
+            catch (NullReferenceException e)
+            {
+                return null;
+            }
         }
 
         private void GetRoute()

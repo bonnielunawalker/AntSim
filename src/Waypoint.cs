@@ -1,7 +1,7 @@
 ﻿using SwinGameSDK;
 namespace MyGame
 {
-    public class Waypoint : IHasLocation, IDrawable
+    public class Waypoint : IDrawable
     {
         private readonly Location _location;
 

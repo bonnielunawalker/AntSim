@@ -31,7 +31,7 @@ namespace MyGame
 
             if (GameState.Setup)
             {
-                _nest = new Nest(new Location(_rand.Next(720), _rand.Next(480)));
+                _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
                 _drawables.Add(_nest);
 
                 for (int i = 0; i < 9; i++)
@@ -41,10 +41,11 @@ namespace MyGame
                 {
                     a.Move();
                     _drawables.Add(a);
+                    _drawables.Add(a.CurrentPath.Waypoints.Last.Value);
                 }
 
                 for (int i = 0; i < 5; i++)
-                    _food.Add(new Food(new Location(_rand.Next(720), _rand.Next(480))));
+                    _food.Add(new Food(new Location(_rand.Next(GameState.WindowWidth), _rand.Next(GameState.WindowHeight))));
 
                 foreach (Food f in _food)
                     _drawables.Add(f);
@@ -54,7 +55,7 @@ namespace MyGame
 
             foreach (Ant a in _nest.Ants)
             {
-                if (a.Wander)
+                if (a.Wandering)
                     a.CheckFood();
 
                 a.Move();

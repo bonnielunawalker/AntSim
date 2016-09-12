@@ -47,13 +47,14 @@ namespace MyGame
         public virtual void Move()
         {
             if (CurrentWaypoint == null)
+            {
                 if (CurrentPath == null)
                 {
                     CurrentPath = Wander();
-                    return;
                 }
                 else
                     CurrentWaypoint = CurrentPath.Waypoints.First.Value;
+            }
 
             if (Location == CurrentPath.Destination)
                 Console.WriteLine("Made it!");
@@ -76,8 +77,8 @@ namespace MyGame
 
         public Path Wander()
         {
-            Location destination = new Location(GameLogic.Random.Next(Location.X - 70, Location.X + 70),
-                                                GameLogic.Random.Next(Location.Y - 70, Location.Y + 70));
+            Location destination = new Location(GameLogic.Random.Next(Location.X - 100, Location.X + 100),
+                                                GameLogic.Random.Next(Location.Y - 100, Location.Y + 100));
             return GetPathTo(destination);
         }
 

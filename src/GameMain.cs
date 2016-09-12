@@ -7,7 +7,7 @@ namespace MyGame
     {
         public static void Main()
         {
-            SwinGame.OpenWindow("AntSim", 720, 480);
+            SwinGame.OpenWindow("AntSim", GameState.WindowWidth, GameState.WindowHeight);
 
             while (!SwinGame.WindowCloseRequested() && !GameState.Exit)
             {
