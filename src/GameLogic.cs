@@ -26,15 +26,13 @@ namespace MyGame
                 _nest = new Nest(new Location(_rand.Next(720), _rand.Next(480)));
                 _drawables.Add(_nest);
 
-                for (int i = 0; i <= 10; i++)
+                for (int i = 0; i < 9; i++)
                     _nest.Ants.Add(new Ant(new Location(_nest.Location.X, _nest.Location.Y), _nest));
 
                 foreach (Ant a in _nest.Ants)
                 {
-                    a.NewPath = a.GetPathTo(new Location(_rand.Next(720), _rand.Next(480)));
-                    a.CurrentPath = a.NewPath;
+                    a.Move();
                     _drawables.Add(a);
-                    _drawables.Add(a.CurrentPath.Waypoints.Last.Value);
                 }
 
                 GameState.Setup = false;

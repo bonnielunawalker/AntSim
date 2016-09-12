@@ -42,5 +42,21 @@ namespace MyGame
             get { return _getFood; }
             set { _getFood = value; }
         }
+
+        public override void Move()
+        {
+            if (_wander)
+            {
+                if (CurrentPath == null)
+                {
+                    Wander();
+                    base.Move();
+                }
+                else
+                    base.Move();
+            }
+            else if (_getFood)
+                base.Move();
+        }
     }
 }

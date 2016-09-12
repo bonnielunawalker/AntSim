@@ -3,7 +3,7 @@ using SwinGameSDK;
 
 namespace MyGame
 {
-    public class Creature : IDrawable
+    public abstract class Creature : IDrawable
     {
         private Path _currentPath;
         private Waypoint _currentWaypoint;
@@ -44,10 +44,16 @@ namespace MyGame
            return new Path(Location, d);
         }
 
-        public void Move()
+        public virtual void Move()
         {
             if (CurrentWaypoint == null)
-                CurrentWaypoint = CurrentPath.Waypoints.First.Value;
+                if (CurrentPath == null)
+                {
+                    CurrentPath = Wander();
+                    return;
+                }
+                else
+                    CurrentWaypoint = CurrentPath.Waypoints.First.Value;
 
             if (Location == CurrentPath.Destination)
                 Console.WriteLine("Made it!");
@@ -66,6 +72,13 @@ namespace MyGame
 
             if (Location.X == CurrentWaypoint.Location.X && Location.Y == CurrentWaypoint.Location.Y)
                 CurrentWaypoint = CurrentPath.NextWaypoint(CurrentWaypoint);
+        }
+
+        public Path Wander()
+        {
+            Location destination = new Location(GameLogic.Random.Next(Location.X - 70, Location.X + 70),
+                                                GameLogic.Random.Next(Location.Y - 70, Location.Y + 70));
+            return GetPathTo(destination);
         }
 
         public void Draw()
