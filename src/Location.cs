@@ -11,7 +11,13 @@
         }
 
         public Location()
-            :this (GameLogic.Random.Next(GameState.WindowWidth), GameLogic.Random.Next(GameState.WindowWidth))
+            :this (GameLogic.Random.Next(0, GameState.WindowWidth), GameLogic.Random.Next(0, GameState.WindowWidth))
+        {
+
+        }
+
+        public Location(Location l)
+            : this(l.X, l.Y)
         {
 
         }

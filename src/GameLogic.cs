@@ -9,6 +9,7 @@ namespace MyGame
         private static readonly Random _rand = new Random();
         private static List<IDrawable> _drawables = new List<IDrawable>();
         private static List<Food> _food = new List<Food>();
+        private static List<Obstacle> _obstacles = new List<Obstacle>();
         private static Nest _nest;
 
         // Allows a single instance of Random to be used throughout the program.
@@ -43,7 +44,7 @@ namespace MyGame
             _drawables.Add(_nest);
 
             for (int i = 0; i < 100; i++)
-                _nest.Ants.Add(new Ant(new Location(_nest.Location.X, _nest.Location.Y), _nest));
+                _nest.Ants.Add(new Ant(new Location(_nest.Location), _nest));
 
             foreach (Ant a in _nest.Ants)
             {
@@ -57,6 +58,12 @@ namespace MyGame
 
             foreach (Food f in _food)
                 _drawables.Add(f);
+
+            for (int i = 0; i < _rand.Next(10, 40); i++)
+                _obstacles.Add(new Obstacle(new Location()));
+
+            foreach (Obstacle o in _obstacles)
+                _drawables.Add(o);
         }
 
         public static void DrawObjects()
