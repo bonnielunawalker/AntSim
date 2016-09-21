@@ -10,6 +10,12 @@
             _y = y;
         }
 
+        public Location()
+            :this (GameLogic.Random.Next(GameState.WindowWidth), GameLogic.Random.Next(GameState.WindowWidth))
+        {
+
+        }
+
         public int X
         {
             get { return _x; }

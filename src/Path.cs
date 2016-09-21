@@ -40,7 +40,7 @@ namespace MyGame
             {
                 return current.Next.Value;
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return null;
             }

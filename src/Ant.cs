@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyGame
+﻿namespace MyGame
 {
     public class Ant : Creature
     {

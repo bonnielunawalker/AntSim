@@ -1,7 +1,6 @@
 ﻿using SwinGameSDK;
 using System;
 using System.Collections.Generic;
-using System.Security.Policy;
 
 namespace MyGame
 {
@@ -29,30 +28,6 @@ namespace MyGame
         {
             SwinGame.ProcessEvents();
 
-            if (GameState.Setup)
-            {
-                _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
-                _drawables.Add(_nest);
-
-                for (int i = 0; i < 100; i++)
-                    _nest.Ants.Add(new Ant(new Location(_nest.Location.X, _nest.Location.Y), _nest));
-
-                foreach (Ant a in _nest.Ants)
-                {
-                    a.Move();
-                    _drawables.Add(a);
-                    _drawables.Add(a.CurrentPath.Waypoints.Last.Value);
-                }
-
-                for (int i = 0; i < 5; i++)
-                    _food.Add(new Food(new Location(_rand.Next(GameState.WindowWidth), _rand.Next(GameState.WindowHeight))));
-
-                foreach (Food f in _food)
-                    _drawables.Add(f);
-
-                GameState.Setup = false;
-            }
-
             foreach (Ant a in _nest.Ants)
             {
                 if (a.Wandering)
@@ -60,6 +35,28 @@ namespace MyGame
 
                 a.Move();
             }
+        }
+
+        public static void Setup()
+        {
+            _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
+            _drawables.Add(_nest);
+
+            for (int i = 0; i < 100; i++)
+                _nest.Ants.Add(new Ant(new Location(_nest.Location.X, _nest.Location.Y), _nest));
+
+            foreach (Ant a in _nest.Ants)
+            {
+                a.Move();
+                _drawables.Add(a);
+                _drawables.Add(a.CurrentPath.Waypoints.Last.Value);
+            }
+
+            for (int i = 0; i < 5; i++)
+                _food.Add(new Food(new Location()));
+
+            foreach (Food f in _food)
+                _drawables.Add(f);
         }
 
         public static void DrawObjects()
