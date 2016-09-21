@@ -49,9 +49,7 @@ namespace MyGame
             if (CurrentWaypoint == null)
             {
                 if (CurrentPath == null)
-                {
                     CurrentPath = Wander();
-                }
                 else
                     CurrentWaypoint = CurrentPath.Waypoints.First.Value;
             }

@@ -22,7 +22,8 @@ namespace MyGame
 
         public void Draw()
         {
-            SwinGame.FillRectangle(Color.Blue, _location.X, _location.Y, 4, 4);
+            //SwinGame.FillRectangle(Color.Blue, _location.X, _location.Y, 4, 4);
+            return;
         }
     }
 }

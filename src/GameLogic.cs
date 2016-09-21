@@ -34,7 +34,7 @@ namespace MyGame
                 _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
                 _drawables.Add(_nest);
 
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 100; i++)
                     _nest.Ants.Add(new Ant(new Location(_nest.Location.X, _nest.Location.Y), _nest));
 
                 foreach (Ant a in _nest.Ants)
@@ -60,7 +60,6 @@ namespace MyGame
 
                 a.Move();
             }
-
         }
 
         public static void DrawObjects()
