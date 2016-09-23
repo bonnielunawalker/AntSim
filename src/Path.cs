@@ -8,14 +8,15 @@ namespace MyGame
         private readonly Random _rand;
         private readonly LinkedList<Waypoint> _waypoints;
         private readonly Location _destination;
+        private List<Location> _closed;
+        private List<Location> _open;
 
         public Path(Location l, Location d)
         {
             _rand = GameLogic.Random;
             _destination = d;
             _waypoints = new LinkedList<Waypoint>();
-            _waypoints.AddFirst(new Waypoint(new Location(l.X, l.Y)));
-            GetRoute();
+            _waypoints.AddFirst(new Waypoint(new Location(l.X, l.Y), 0));
         }
 
         public LinkedList<Waypoint> Waypoints
@@ -51,32 +52,22 @@ namespace MyGame
             }
         }
 
-        private void GetRoute()
+        public void GetRoute()
         {
-            while (!_waypoints.Last.Value.IsAt(_destination))
-                _waypoints.AddAfter(_waypoints.Last, GetNewWaypoint(_waypoints.Last.Value, _destination));
+
         }
 
-        private Waypoint GetNewWaypoint(Waypoint w, Location d)
+        private void AddNeigbours(Location l)
         {
-            int newX;
-            int newY;
+            Location up = new Location(l.X, l.Y-1);
+            Location down = new Location(l.X, l.Y + 1);
+            Location left = new Location(l.X-1, l.Y);
+            Location right = new Location(l.X+1, l.Y);
 
-            if (w.Location.X < d.X)
-                newX = w.Location.X + _rand.Next(0, 2);
-            else if (w.Location.X > d.X)
-                newX = w.Location.X - _rand.Next(0, 2);
-            else
-                newX = w.Location.X + _rand.Next(-4, 4);
-
-            if (w.Location.Y < d.Y)
-                newY = w.Location.Y + _rand.Next(0, 2);
-            else if (w.Location.Y > d.Y)
-                newY = w.Location.Y - _rand.Next(0, 2);
-            else
-                newY = w.Location.Y + _rand.Next(-4, 4);
-
-            return new Waypoint(new Location(newX, newY));
+            _open.Add(up);
+            _open.Add(down);
+            _open.Add(left);
+            _open.Add(right);
         }
     }
 }

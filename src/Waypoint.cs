@@ -3,10 +3,12 @@
     public class Waypoint : IDrawable
     {
         private readonly Location _location;
+        private readonly int _gScore;
 
-        public Waypoint(Location l)
+        public Waypoint(Location l, int gScore)
         {
             _location = l;
+            _gScore = gScore;
         }
 
         public Location Location

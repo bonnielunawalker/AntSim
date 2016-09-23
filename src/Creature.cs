@@ -104,10 +104,7 @@ namespace MyGame
             Location topLeft = new Location(leftEdge, topEdge);
             Location bottomRight = new Location(leftEdge + obstacle.Size, topEdge + obstacle.Size);
 
-            if (UtilityFunctions.InField(this, topLeft, bottomRight))
-                return true;
-
-            return false;
+            return UtilityFunctions.InField(this, topLeft, bottomRight);
         }
     }
 }

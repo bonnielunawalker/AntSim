@@ -10,7 +10,7 @@ namespace MyGame
         private static List<Food> _food = new List<Food>();
         private static List<Obstacle> _obstacles = new List<Obstacle>();
         private static Nest _nest;
-        private static GameGrid _gameGrid = new GameGrid();
+        private static List<IDrawable> _drawables = new List<IDrawable>();
 
         // Allows a single instance of Random to be used throughout the program.
         // This avoids the possibility of duplicate random values being generated.
@@ -44,7 +44,7 @@ namespace MyGame
             GenerateEntities();
             Console.WriteLine("Done!");
             Console.WriteLine("Adding objects to game grid...");
-            AddEntitiesToGrid();
+            AddEntitiesToEnvironment();
             Console.WriteLine("Done!");
         }
 
@@ -62,29 +62,24 @@ namespace MyGame
                 _obstacles.Add(new Obstacle(new Location()));
         }
 
-        private static void AddEntitiesToGrid()
+        private static void AddEntitiesToEnvironment()
         {
+            _drawables.Add(_nest);
+
             foreach (Ant a in _nest.Ants)
-            {
-                _gameGrid.Add(a);
-                _gameGrid.Add(a.CurrentPath.LastWaypoint);
-            }
+                _drawables.Add(a);
 
             foreach (Food f in _food)
-                _gameGrid.Add(f);
+                _drawables.Add(f);
 
             foreach (Obstacle o in _obstacles)
-                _gameGrid.Add(o);
-
-            _gameGrid.Add(_nest);
+                _drawables.Add(o);
         }
 
         public static void DrawObjects()
         {
-            for (int i = 0; i < _gameGrid.Grid.GetLength(0); i++)
-                for (int j = 0; j < _gameGrid.Grid.GetLength(1); j++)
-                    if (_gameGrid.Grid[i, j] != null)
-                        _gameGrid.Grid[i, j].Draw();
+            foreach (IDrawable obj in _drawables)
+                obj.Draw();
         }
     }
 }
