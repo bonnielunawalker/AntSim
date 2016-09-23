@@ -1,6 +1,6 @@
 ﻿namespace MyGame
 {
-    public class UtilityMethods
+    public class UtilityFunctions
     {
         public static bool InField(IDrawable obj, Location topLeft, Location bottomRight)
         {
