@@ -1,5 +1,4 @@
-﻿using SwinGameSDK;
-namespace MyGame
+﻿namespace MyGame
 {
     public class Waypoint : IDrawable
     {
@@ -13,6 +12,16 @@ namespace MyGame
         public Location Location
         {
             get { return _location; }
+        }
+
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
         }
 
         public bool IsAt(Location d)

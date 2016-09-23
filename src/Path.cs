@@ -23,6 +23,11 @@ namespace MyGame
             get { return _waypoints; }
         }
 
+        public Waypoint LastWaypoint
+        {
+            get { return _waypoints.Last.Value; }
+        }
+
         public Location Destination
         {
             get { return _destination; }

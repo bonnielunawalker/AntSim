@@ -14,9 +14,9 @@
             get { return _grid; }
         }
 
-        public void AddDrawable(IDrawable drawable)
+        public void Add(IDrawable drawable)
         {
-            _grid[drawable.Location.X, drawable.Location.Y] = drawable;
+            _grid[drawable.X, drawable.Y] = drawable;
         }
     }
 }

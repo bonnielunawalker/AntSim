@@ -19,6 +19,16 @@ namespace MyGame
             get { return _location; }
         }
 
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
+        }
+
         public List<Ant> Ants
         {
             get { return _ants; }

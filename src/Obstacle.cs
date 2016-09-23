@@ -18,6 +18,16 @@ namespace MyGame
             get { return _location; }
         }
 
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
+        }
+
         public int Size
         {
             get { return _size; }

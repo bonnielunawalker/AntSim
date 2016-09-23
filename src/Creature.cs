@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Messaging;
 using SwinGameSDK;
 
 namespace MyGame
@@ -19,6 +21,16 @@ namespace MyGame
         {
             get { return _location; }
             set { _location = value; }
+        }
+
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
         }
 
         public Path NewPath
@@ -83,6 +95,19 @@ namespace MyGame
         public void Draw()
         {
             SwinGame.FillRectangle(Color.Red, Location.X, Location.Y, 4, 4);
+        }
+
+        public bool CheckCollision(Obstacle obstacle)
+        {
+            int leftEdge = obstacle.X - (obstacle.Size / 2);
+            int topEdge = obstacle.Y - (obstacle.Size / 2);
+            Location topLeft = new Location(leftEdge, topEdge);
+            Location bottomRight = new Location(leftEdge + obstacle.Size, topEdge + obstacle.Size);
+
+            if (UtilityMethods.InField(this, topLeft, bottomRight))
+                return true;
+
+            return false;
         }
     }
 }
