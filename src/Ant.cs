@@ -7,8 +7,8 @@
         private bool _return;
         private bool _getFood;
 
-        public Ant(Location l, Nest n)
-            : base(l)
+        public Ant(Nest n)
+            : base(n.Location)
         {
             _nest = n;
             _wander = true;
