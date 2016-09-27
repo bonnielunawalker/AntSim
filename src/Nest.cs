@@ -1,4 +1,5 @@
 ﻿using SwinGameSDK;
+using System;
 using System.Collections.Generic;
 
 namespace MyGame
@@ -8,6 +9,7 @@ namespace MyGame
         private readonly Location _location;
         private List<Ant> _ants;
         private readonly int _size;
+        private int _food;
 
         public Nest(Location l)
         {
@@ -27,6 +29,31 @@ namespace MyGame
             pointToCheck.X = l.X;
             pointToCheck.Y = l.Y;
             return SwinGame.PointInCircle(pointToCheck, _location.X, _location.Y, _size);
+        }
+
+        public void CreateNewAnts()
+        {
+            if (FoodThresholdReached())
+            {
+                for (int i = 0; i <= _food / 10; i++)
+                {
+                    Ant newAnt = new Ant(this);
+                    _ants.Add(newAnt);
+                    GameLogic.Drawables.Add(newAnt);
+                    _food -= 10;
+                }
+            }
+        }
+
+        private bool FoodThresholdReached()
+        {
+            return (_food >= 10);
+        }
+
+        public void AddFood(int amount)
+        {
+            _food += amount;
+            Console.WriteLine(_food);
         }
 
 

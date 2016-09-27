@@ -51,6 +51,7 @@ namespace MyGame
 
             if (_nest.CheckCollision(Location))
             {
+                _nest.AddFood(_food);
                 _food = 0;
             }
 

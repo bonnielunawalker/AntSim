@@ -23,6 +23,8 @@ namespace MyGame
 
                 a.Move();
             }
+
+            _nest.CreateNewAnts();
         }
 
         public static void Setup()
@@ -81,6 +83,12 @@ namespace MyGame
         {
             get { return _food; }
             set { _food = value; }
+        }
+
+        public static List<IDrawable> Drawables
+        {
+            get { return _drawables; }
+            set { _drawables = value; }
         }
     }
 }
