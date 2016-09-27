@@ -41,7 +41,7 @@ namespace MyGame
         {
             _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 10; i++)
                 _nest.Ants.Add(new Ant(_nest));
 
             for (int i = 0; i < 10; i++)

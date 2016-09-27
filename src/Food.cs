@@ -6,13 +6,11 @@ namespace MyGame
     {
         private readonly Location _location;
         private int _size;
-        private Color _color;
 
         public Food(Location l)
         {
             _location = l;
-            _size = GameLogic.Random.Next(3, 20);
-            _color = Color.Brown;
+            _size = GameLogic.Random.Next(15, 100);
         }
 
         public int TakeFood(int takeAmount)
@@ -23,7 +21,7 @@ namespace MyGame
 
         public void Draw()
         {
-            SwinGame.FillCircle(Color.Brown, Location.X, Location.Y, _size);
+            SwinGame.FillCircle(Color.Brown, Location.X, Location.Y, _size / 5);
         }
 
         public bool CheckCollision(Location l)
@@ -31,7 +29,7 @@ namespace MyGame
             Point2D pointToCheck = new Point2D();
             pointToCheck.X = l.X;
             pointToCheck.Y = l.Y;
-            return SwinGame.PointInCircle(pointToCheck, _location.X, _location.Y, _size);
+            return SwinGame.PointInCircle(pointToCheck, _location.X, _location.Y, _size / 5);
         }
 
 
