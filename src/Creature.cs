@@ -30,7 +30,7 @@ namespace MyGame
                     CurrentWaypoint = CurrentPath.Waypoints.First.Value;
             }
 
-            if (Location == CurrentPath.Destination)
+            if (_location.IsAt(CurrentPath.Destination))
                 Console.WriteLine("Made it!");
             else
             {
@@ -45,7 +45,7 @@ namespace MyGame
                     Location.Y++;
             }
 
-            if (Location.X == CurrentWaypoint.Location.X && Location.Y == CurrentWaypoint.Location.Y)
+            if (_location.IsAt(CurrentWaypoint.Location))
                 CurrentWaypoint = CurrentPath.NextWaypoint(CurrentWaypoint);
         }
 
@@ -61,12 +61,12 @@ namespace MyGame
             SwinGame.FillRectangle(Color.Red, Location.X, Location.Y, 4, 4);
         }
 
-        public bool CheckCollision(Obstacle obstacle)
+        public bool CheckCollision(ICollidable collidable)
         {
-            int leftEdge = obstacle.X - (obstacle.Size / 2);
-            int topEdge = obstacle.Y - (obstacle.Size / 2);
+            int leftEdge = collidable.X - (collidable.Size / 2);
+            int topEdge = collidable.Y - (collidable.Size / 2);
             Location topLeft = new Location(leftEdge, topEdge);
-            Location bottomRight = new Location(leftEdge + obstacle.Size, topEdge + obstacle.Size);
+            Location bottomRight = new Location(leftEdge + collidable.Size, topEdge + collidable.Size);
 
             return UtilityFunctions.InField(this, topLeft, bottomRight);
         }

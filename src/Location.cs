@@ -12,7 +12,7 @@
 
         // Empty constructor generates a randomised location.
         public Location()
-            :this (GameLogic.Random.Next(0, GameState.WindowWidth), GameLogic.Random.Next(0, GameState.WindowWidth))
+            :this (GameLogic.Random.Next(0, GameState.WindowWidth), GameLogic.Random.Next(0, GameState.WindowHeight))
         {
 
         }
@@ -21,6 +21,11 @@
             : this(l.X, l.Y)
         {
 
+        }
+
+        public bool IsAt(Location d)
+        {
+            return _x == d.X && _y == d.Y;
         }
 
         public int X

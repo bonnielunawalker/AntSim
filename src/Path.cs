@@ -37,7 +37,7 @@ namespace MyGame
             Node current = _open[0];
             LinkedListNode<Node> previous = _closed.First;
 
-            while (!PathingUtils.IsAt(current, _destination))
+            while (!current.IsAt(_destination))
             {
                 _open.Remove(current);
                 _closed.AddAfter(previous, current);
@@ -55,13 +55,11 @@ namespace MyGame
         {
             _waypoints = new LinkedList<Waypoint>();
             LinkedListNode<Node> currentNode = _closed.Last;
-            LinkedListNode<Node> previousNode;
             _waypoints.AddFirst(new Waypoint(currentNode.Value));
             LinkedListNode<Waypoint> currentWaypoint = _waypoints.First;
 
-            while (!PathingUtils.IsAt(currentNode.Value, _startingNode))
+            while (!currentNode.Value.IsAt(_startingNode))
             {
-                //previousNode = currentNode;
                 currentNode = currentNode.Previous;
                 _waypoints.AddAfter(currentWaypoint, new Waypoint(currentNode.Value));
             }

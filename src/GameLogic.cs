@@ -53,14 +53,14 @@ namespace MyGame
         {
             _drawables.Add(_nest);
 
-            foreach (Ant a in _nest.Ants)
-                _drawables.Add(a);
-
             foreach (Food f in _food)
                 _drawables.Add(f);
 
-            foreach (Obstacle o in _obstacles)
-                _drawables.Add(o);
+            foreach (Ant a in _nest.Ants)
+                _drawables.Add(a);
+
+//            foreach (Obstacle o in _obstacles)
+//                _drawables.Add(o);
         }
 
         public static void DrawObjects()

@@ -43,7 +43,6 @@
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibsToOut</PrepareForRunDependsOn>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src" />
     <Folder Include="src\" />
     <Folder Include="Resources\" />
   </ItemGroup>
@@ -53,6 +52,7 @@
     <Compile Include="src\Food.cs" />
     <Compile Include="src\GameLogic.cs" />
     <Compile Include="src\GameState.cs" />
+    <Compile Include="src\ICollidable.cs" />
     <Compile Include="src\Nest.cs" />
     <Compile Include="src\Node.cs" />
     <Compile Include="src\Obstacle.cs" />

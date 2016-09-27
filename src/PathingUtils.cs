@@ -59,10 +59,5 @@ namespace MyGame
 
             return distance + manhattan;
         }
-
-        public static bool IsAt(Location l, Location d)
-        {
-            return l.X == d.X && l.Y == d.Y;
-        }
     }
 }

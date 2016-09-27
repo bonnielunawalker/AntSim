@@ -1,4 +1,6 @@
-﻿namespace MyGame
+﻿using System;
+
+namespace MyGame
 {
     public class Ant : Creature
     {
@@ -6,6 +8,8 @@
         private bool _wander;
         private bool _return;
         private bool _getFood;
+        private int _food;
+        private int _maxFood;
 
         public Ant(Nest n)
             : base(new Location(n.Location))
@@ -15,6 +19,8 @@
             _wander = false;
             _return = false;
             _getFood = true;
+
+            _maxFood = 1;
         }
 
         public override void Move()
@@ -32,6 +38,20 @@
                 if (CurrentPath == null || (Location.X == CurrentPath.Destination.X
                                             && Location.Y == CurrentPath.Destination.Y))
                     CurrentPath = GetPathToFood();
+            }
+
+            foreach (Food f in GameLogic.Food)
+            {
+                if (f.CheckCollision(Location) && _food < _maxFood)
+                {
+                    Console.WriteLine("Taking food!");
+                    _food = f.TakeFood(1);
+                }
+            }
+
+            if (_nest.CheckCollision(Location))
+            {
+                _food = 0;
             }
 
             base.Move();
