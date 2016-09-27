@@ -43,6 +43,7 @@
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibsToOut</PrepareForRunDependsOn>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src" />
     <Folder Include="src\" />
     <Folder Include="Resources\" />
   </ItemGroup>
@@ -50,12 +51,12 @@
     <Compile Include="src/GameMain.cs" />
     <Compile Include="src\Ant.cs" />
     <Compile Include="src\Food.cs" />
-    <Compile Include="src\GameGrid.cs" />
     <Compile Include="src\GameLogic.cs" />
     <Compile Include="src\GameState.cs" />
     <Compile Include="src\Nest.cs" />
     <Compile Include="src\Node.cs" />
     <Compile Include="src\Obstacle.cs" />
+    <Compile Include="src\PathingUtils.cs" />
     <Compile Include="src\UtilityFunctions.cs" />
     <Compile Include="src\Waypoint.cs" />
     <Compile Include="src\Path.cs" />

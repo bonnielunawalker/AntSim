@@ -10,6 +10,7 @@
             _y = y;
         }
 
+        // Empty constructor generates a randomised location.
         public Location()
             :this (GameLogic.Random.Next(0, GameState.WindowWidth), GameLogic.Random.Next(0, GameState.WindowWidth))
         {

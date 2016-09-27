@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Messaging;
 using SwinGameSDK;
 
 namespace MyGame
@@ -15,40 +13,6 @@ namespace MyGame
         public Creature(Location l)
         {
             _location = l;
-        }
-
-        public Location Location
-        {
-            get { return _location; }
-            set { _location = value; }
-        }
-
-        public int X
-        {
-            get { return _location.X; }
-        }
-
-        public int Y
-        {
-            get { return _location.Y; }
-        }
-
-        public Path NewPath
-        {
-            get { return _newPath; }
-            set { _newPath = value; }
-        }
-
-        public Path CurrentPath
-        {
-            get { return _currentPath; }
-            set { _currentPath = value; }
-        }
-
-        public Waypoint CurrentWaypoint
-        {
-            get { return _currentWaypoint; }
-            set { _currentWaypoint = value; }
         }
 
         public Path GetPathTo(Location d)
@@ -105,6 +69,41 @@ namespace MyGame
             Location bottomRight = new Location(leftEdge + obstacle.Size, topEdge + obstacle.Size);
 
             return UtilityFunctions.InField(this, topLeft, bottomRight);
+        }
+
+
+        public Location Location
+        {
+            get { return _location; }
+            set { _location = value; }
+        }
+
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
+        }
+
+        public Path NewPath
+        {
+            get { return _newPath; }
+            set { _newPath = value; }
+        }
+
+        public Path CurrentPath
+        {
+            get { return _currentPath; }
+            set { _currentPath = value; }
+        }
+
+        public Waypoint CurrentWaypoint
+        {
+            get { return _currentWaypoint; }
+            set { _currentWaypoint = value; }
         }
     }
 }

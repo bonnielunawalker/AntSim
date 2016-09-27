@@ -13,6 +13,12 @@ namespace MyGame
             _size = GameLogic.Random.Next(10, 300);
         }
 
+        public void Draw()
+        {
+            SwinGame.FillRectangle(Color.Grey, _location.X, _location.Y, _size / 2, _size / 2);
+        }
+
+
         public Location Location
         {
             get { return _location; }
@@ -31,11 +37,6 @@ namespace MyGame
         public int Size
         {
             get { return _size; }
-        }
-
-        public void Draw()
-        {
-            SwinGame.FillRectangle(Color.Grey, _location.X, _location.Y, _size / 2, _size / 2);
         }
     }
 }

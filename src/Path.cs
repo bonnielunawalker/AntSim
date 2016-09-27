@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,23 +6,67 @@ namespace MyGame
 {
     public class Path
     {
-        private readonly Random _rand;
-        private readonly LinkedList<Waypoint> _waypoints;
-        private readonly Location _destination;
-        private List<Node> _closed;
+        private LinkedList<Waypoint> _waypoints;
+        private LinkedList<Node> _closed;
         private List<Node> _open;
+        private readonly Location _destination;
+        private readonly Location _startingNode;
 
         public Path(Location l, Location d)
         {
-            _rand = GameLogic.Random;
             _destination = d;
-            _waypoints = new LinkedList<Waypoint>();
-            _closed = new List<Node>();
-            _open = new List<Node>();
-            _closed.Add(new Node(l.X, l.Y, 0));
-            _waypoints.AddFirst(new Waypoint(new Location(l.X, l.Y), 0));
-            AddNeigbours(_closed.First());
+            _startingNode = l;
+
+            AddInitialNode(l);
+
+            PathingUtils.AddNeigbours(_open, _closed.First());
+
+            GetRoute();
         }
+
+        private void AddInitialNode(Location l)
+        {
+            _closed = new LinkedList<Node>();
+            _open = new List<Node>();
+
+            _closed.AddFirst(new Node(l.X, l.Y, 0));
+        }
+
+        public void GetRoute()
+        {
+            Node current = _open[0];
+            LinkedListNode<Node> previous = _closed.First;
+
+            while (!PathingUtils.IsAt(current, _destination))
+            {
+                _open.Remove(current);
+                _closed.AddAfter(previous, current);
+                previous = previous.Next;
+
+                PathingUtils.AddNeigbours(_open, current);
+
+                current = PathingUtils.GetPriorityNode(_open, _destination);
+            }
+
+            CreateWaypoints();
+        }
+
+        private void CreateWaypoints()
+        {
+            _waypoints = new LinkedList<Waypoint>();
+            LinkedListNode<Node> currentNode = _closed.Last;
+            LinkedListNode<Node> previousNode;
+            _waypoints.AddFirst(new Waypoint(currentNode.Value));
+            LinkedListNode<Waypoint> currentWaypoint = _waypoints.First;
+
+            while (!PathingUtils.IsAt(currentNode.Value, _startingNode))
+            {
+                //previousNode = currentNode;
+                currentNode = currentNode.Previous;
+                _waypoints.AddAfter(currentWaypoint, new Waypoint(currentNode.Value));
+            }
+        }
+
 
         public LinkedList<Waypoint> Waypoints
         {
@@ -56,64 +99,6 @@ namespace MyGame
             {
                 return null;
             }
-        }
-
-        public void GetRoute()
-        {
-
-        }
-
-        private void AddNeigbours(Node n)
-        {
-            Node north = new Node(n.X, n.Y - 1, n.GScore);
-            Node south = new Node(n.X, n.Y + 1, n.GScore);
-            Node east = new Node(n.X - 1, n.Y, n.GScore);
-            Node west = new Node(n.X + 1, n.Y, n.GScore);
-            Node northeast = new Node(n.X - 1, n.Y - 1, n.GScore);
-            Node southeast = new Node(n.X - 1, n.Y + 1, n.GScore);
-            Node northwest = new Node(n.X - 1, n.Y + 1, n.GScore);
-            Node southwest = new Node(n.X + 1, n.Y + 1, n.GScore);
-
-            _open.Add(north);
-            _open.Add(south);
-            _open.Add(east);
-            _open.Add(west);
-            _open.Add(northeast);
-            _open.Add(southeast);
-            _open.Add(northwest);
-            _open.Add(southwest);
-        }
-
-        private Node GetPriorityNode(Node current)
-        {
-            int score;
-            int lowestScore = 2073600;
-            Node bestNode = null;
-
-            foreach (Location l in _open)
-            {
-                score = GetFScore(current, l);
-
-                if (score < lowestScore)
-                {
-                    lowestScore = score;
-                    bestNode = l as Node;
-                }
-            }
-
-            return bestNode;
-        }
-
-        private int GetFScore(Node current, Location destination)
-        {
-            int manhattanX, manhattanY, distance;
-
-            distance = current.GScore + 1;
-
-            manhattanX = Math.Abs(current.X - destination.X);
-            manhattanY = Math.Abs(current.Y - destination.Y);
-
-            return distance + manhattanX + manhattanY;
         }
     }
 }

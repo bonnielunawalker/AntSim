@@ -12,19 +12,6 @@ namespace MyGame
         private static Nest _nest;
         private static List<IDrawable> _drawables = new List<IDrawable>();
 
-        // Allows a single instance of Random to be used throughout the program.
-        // This avoids the possibility of duplicate random values being generated.
-        public static Random Random
-        {
-            get { return _rand; }
-        }
-
-        public static List<Food> Food
-        {
-            get { return _food; }
-            set { _food = value; }
-        }
-
         public static void Process()
         {
             SwinGame.ProcessEvents();
@@ -32,7 +19,7 @@ namespace MyGame
             foreach (Ant a in _nest.Ants)
             {
                 if (a.Wandering)
-                    a.CheckFood();
+                    a.CheckForFood();
 
                 a.Move();
             }
@@ -52,8 +39,8 @@ namespace MyGame
         {
             _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
 
-            for (int i = 0; i < 100; i++)
-                _nest.Ants.Add(new Ant(new Location(_nest.Location), _nest));
+            for (int i = 0; i < 1; i++)
+                _nest.Ants.Add(new Ant(_nest));
 
             for (int i = 0; i < 5; i++)
                 _food.Add(new Food(new Location()));
@@ -80,6 +67,20 @@ namespace MyGame
         {
             foreach (IDrawable obj in _drawables)
                 obj.Draw();
+        }
+
+
+        // Allows a single instance of Random to be used throughout the program.
+        // This avoids the possibility of duplicate random values being generated.
+        public static Random Random
+        {
+            get { return _rand; }
+        }
+
+        public static List<Food> Food
+        {
+            get { return _food; }
+            set { _food = value; }
         }
     }
 }

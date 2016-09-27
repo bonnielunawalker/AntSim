@@ -14,6 +14,12 @@ namespace MyGame
             _ants = new List<Ant>();
         }
 
+        public void Draw()
+        {
+            SwinGame.FillCircle(Color.Orange, _location.X, _location.Y, 8);
+        }
+
+
         public Location Location
         {
             get { return _location; }
@@ -33,11 +39,6 @@ namespace MyGame
         {
             get { return _ants; }
             set { _ants = value; }
-        }
-
-        public void Draw()
-        {
-            SwinGame.FillCircle(Color.Orange, _location.X, _location.Y, 8);
         }
     }
 }
