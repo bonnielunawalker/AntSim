@@ -12,10 +12,9 @@
         {
             _nest = n;
 
-            // Default pathfinding state is wandering.
-            _wander = true;
+            _wander = false;
             _return = false;
-            _getFood = false;
+            _getFood = true;
         }
 
         public override void Move()
@@ -29,7 +28,19 @@
                 base.Move();
             }
             else if (_getFood)
-                base.Move();
+            {
+                if (CurrentPath == null || (Location.X == CurrentPath.Destination.X
+                                            && Location.Y == CurrentPath.Destination.Y))
+                    CurrentPath = GetPathToFood();
+            }
+
+            base.Move();
+        }
+
+        public Path GetPathToFood()
+        {
+            Location destination = new Location(GameLogic.Food[GameLogic.Random.Next(GameLogic.Food.Count)].Location);
+            return GetPathTo(destination);
         }
 
         public void CheckForFood()

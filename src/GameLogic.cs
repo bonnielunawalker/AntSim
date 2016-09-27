@@ -39,10 +39,10 @@ namespace MyGame
         {
             _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 7; i++)
                 _nest.Ants.Add(new Ant(_nest));
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
                 _food.Add(new Food(new Location()));
 
             for (int i = 0; i < _rand.Next(10, 40); i++)
