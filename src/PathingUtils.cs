@@ -13,7 +13,7 @@ namespace MyGame
             Node south = new Node(n.X, n.Y + 1, n.GScore + 1);
             Node east = new Node(n.X - 1, n.Y, n.GScore + 1);
             Node west = new Node(n.X + 1, n.Y, n.GScore + 1);
-            Node northeast = new Node(n.X - 1, n.Y - 1, n.GScore + 1);
+            Node northeast = new Node(n.X + 1, n.Y - 1, n.GScore + 1);
             Node southeast = new Node(n.X + 1, n.Y + 1, n.GScore + 1);
             Node northwest = new Node(n.X - 1, n.Y - 1, n.GScore + 1);
             Node southwest = new Node(n.X - 1, n.Y + 1, n.GScore + 1);

@@ -4,15 +4,17 @@ namespace MyGame
 {
     public class Ant : Creature
     {
-        private Nest _nest;
+        private readonly Nest _nest;
+
         private bool _wander;
         private bool _return;
         private bool _getFood;
+
         private int _food;
-        private int _maxFood;
+        private readonly int _maxFood;
 
         public Ant(Nest n)
-            : base(new Location(n.Location))
+            :base(new Location(n.Location))
         {
             _nest = n;
 
@@ -25,21 +27,6 @@ namespace MyGame
 
         public override void Move()
         {
-            if (_wander)
-            {
-                if (CurrentPath == null || (Location.X == CurrentPath.Destination.X
-                                            && Location.Y == CurrentPath.Destination.Y))
-                    CurrentPath = Wander();
-
-                base.Move();
-            }
-            else if (_getFood)
-            {
-                if (CurrentPath == null || (Location.X == CurrentPath.Destination.X
-                                            && Location.Y == CurrentPath.Destination.Y))
-                    CurrentPath = GetPathToFood();
-            }
-
             foreach (Food f in GameLogic.Food)
             {
                 if (f.CheckCollision(Location) && _food < _maxFood)
@@ -49,19 +36,64 @@ namespace MyGame
                 }
             }
 
-            if (_nest.CheckCollision(Location))
+            if (_food == _maxFood)
+            {
+                _return = true;
+                _wander = false;
+                _getFood = false;
+            }
+
+            if (_nest.CheckCollision(Location) && _food > 0)
             {
                 _nest.AddFood(_food);
                 _food = 0;
+                _getFood = true;
+                _return = false;
+                CurrentPath = null;
+            }
+
+            if (_wander)
+            {
+                if (CurrentPath == null || Location.IsAt(CurrentPath.Destination))
+                    CurrentPath = Wander();
+
+                base.Move();
+            }
+            else if (_getFood)
+            {
+                if (CurrentPath == null || Location.IsAt(CurrentPath.Destination))
+                    CurrentPath = PathfindToRandomFood();
+            }
+            else if (_return)
+            {
+                CurrentPath = GetPathTo(_nest.Location);
             }
 
             base.Move();
         }
 
-        public Path GetPathToFood()
+        public Path PathfindToRandomFood()
         {
-            Location destination = new Location(GameLogic.Food[GameLogic.Random.Next(GameLogic.Food.Count)].Location);
+            Food targetFood = GetRandomFood();
+            Location destination = new Location(targetFood.Location);
             return GetPathTo(destination);
+        }
+
+        public Food GetRandomFood()
+        {
+            Food bestFood = null;
+            int bestScore = 0;
+
+            foreach (Food f in GameLogic.Food)
+            {
+                if (f.Size + GameLogic.Random.Next(-25, 25) > bestScore)
+                {
+                    bestFood = f;
+                    bestScore = f.Size;
+                }
+            }
+
+            return bestFood;
         }
 
         public void CheckForFood()
@@ -80,8 +112,8 @@ namespace MyGame
 
         private bool FoodProximity(Food f)
         {
-            return (f.Location.X - Location.X < 300 && f.Location.X - Location.X > -300 )
-                    && (f.Location.Y - Location.Y < 300 && f.Location.Y - Location.Y > -300);
+            return (f.Location.X - Location.X < 1000 && f.Location.X - Location.X > -1000 )
+                    && (f.Location.Y - Location.Y < 1000 && f.Location.Y - Location.Y > -1000);
         }
 
 
@@ -106,6 +138,11 @@ namespace MyGame
         {
             get { return _getFood; }
             set { _getFood = value; }
+        }
+
+        public int Food
+        {
+            get { return _food; }
         }
     }
 }

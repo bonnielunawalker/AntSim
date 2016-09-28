@@ -10,6 +10,12 @@
             _gScore = gScore;
         }
 
+        public Node(int x, int y)
+            :this(x, y, 0)
+        {
+
+        }
+
         public int GScore
         {
             get { return _gScore; }

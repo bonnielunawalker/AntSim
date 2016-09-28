@@ -29,7 +29,7 @@ namespace MyGame
             _closed = new LinkedList<Node>();
             _open = new List<Node>();
 
-            _closed.AddFirst(new Node(l.X, l.Y, 0));
+            _closed.AddFirst(new Node(l.X, l.Y));
         }
 
         public void GetRoute()

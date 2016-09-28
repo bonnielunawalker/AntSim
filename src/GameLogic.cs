@@ -24,6 +24,8 @@ namespace MyGame
                 a.Move();
             }
 
+            RemoveEmptyFoods();
+
             _nest.CreateNewAnts();
         }
 
@@ -41,7 +43,7 @@ namespace MyGame
         {
             _nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 3; i++)
                 _nest.Ants.Add(new Ant(_nest));
 
             for (int i = 0; i < 10; i++)
@@ -69,6 +71,18 @@ namespace MyGame
         {
             foreach (IDrawable obj in _drawables)
                 obj.Draw();
+        }
+
+        private static void RemoveEmptyFoods()
+        {
+            for (int i = _food.Count - 1; i >= 0; i--)
+            {
+                if (_food[i].Size == 0)
+                {
+                    _food.RemoveAt(i);
+                    _drawables.Remove(_food[i]);
+                }
+            }
         }
 
 
