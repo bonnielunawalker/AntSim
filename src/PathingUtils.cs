@@ -5,7 +5,7 @@ namespace MyGame
 {
     public static class PathingUtils //TODO: Rename this (consider factory, manager or handler?)
     {
-        private const int MAX_INT = 2147483647;
+        private const int MAX_INT = int.MaxValue;
 
         public static void AddNeigbours(List<Node> list, Node n)
         {
@@ -14,9 +14,9 @@ namespace MyGame
             Node east = new Node(n.X - 1, n.Y, n.GScore + 1);
             Node west = new Node(n.X + 1, n.Y, n.GScore + 1);
             Node northeast = new Node(n.X - 1, n.Y - 1, n.GScore + 1);
-            Node southeast = new Node(n.X - 1, n.Y + 1, n.GScore + 1);
-            Node northwest = new Node(n.X - 1, n.Y + 1, n.GScore + 1);
-            Node southwest = new Node(n.X + 1, n.Y + 1, n.GScore + 1);
+            Node southeast = new Node(n.X + 1, n.Y + 1, n.GScore + 1);
+            Node northwest = new Node(n.X - 1, n.Y - 1, n.GScore + 1);
+            Node southwest = new Node(n.X - 1, n.Y + 1, n.GScore + 1);
 
             list.Add(north);
             list.Add(south);
@@ -50,12 +50,10 @@ namespace MyGame
 
         private static int GetFScore(Location destination, Node nodeToCheck)
         {
-            int manhattan, distance;
+            int distance = nodeToCheck.GScore;
 
-            distance = nodeToCheck.GScore;
-
-            manhattan = Math.Abs(nodeToCheck.X - destination.X) +
-                        Math.Abs(nodeToCheck.Y - destination.Y);
+            int manhattan = Math.Abs(nodeToCheck.X - destination.X) +
+                            Math.Abs(nodeToCheck.Y - destination.Y);
 
             return distance + manhattan;
         }
