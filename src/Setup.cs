@@ -4,7 +4,7 @@ namespace MyGame
 {
     public static class Setup
     {
-        static Setup()
+        public static void Run()
         {
             Console.WriteLine("Generating entities...");
             GenerateEntities();
@@ -39,7 +39,7 @@ namespace MyGame
                 GameLogic.Renderer.AddDrawable(a);
 
 //            foreach (Obstacle o in _obstacles)
-//                _drawables.Add(o);
+//                GameLogic.Renderer.AddDrawable(o);
         }
     }
 }
