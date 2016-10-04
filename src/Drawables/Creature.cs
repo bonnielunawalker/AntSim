@@ -3,7 +3,7 @@ using SwinGameSDK;
 
 namespace MyGame
 {
-    public abstract class Creature : IDrawable
+    public abstract class Creature : Drawable
     {
         private Path _currentPath;
         private Waypoint _currentWaypoint;
@@ -61,7 +61,7 @@ namespace MyGame
             SwinGame.FillRectangle(Color.Red, Location.X, Location.Y, 4, 4);
         }
 
-        public bool CheckCollision(ICollidable collidable)
+        public bool CheckCollision(Collidable collidable)
         {
             int leftEdge = collidable.X - (collidable.Size / 2);
             int topEdge = collidable.Y - (collidable.Size / 2);

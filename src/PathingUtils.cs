@@ -48,7 +48,7 @@ namespace MyGame
             return bestNode;
         }
 
-        private static int GetFScore(Location destination, Node nodeToCheck)
+        public static int GetFScore(Location destination, Node nodeToCheck)
         {
             int distance = nodeToCheck.GScore;
 

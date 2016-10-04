@@ -1,6 +1,6 @@
 ﻿namespace MyGame
 {
-    public class Waypoint : IDrawable
+    public class Waypoint : Drawable
     {
         private readonly Location _location;
 
@@ -17,7 +17,7 @@
 
         public void Draw()
         {
-            //SwinGame.FillRectangle(Color.Blue, _location.X, _location.Y, 4, 4);
+            //SwinGame.FillRectangle(Color.Bzlue, _location.X, _location.Y, 4, 4);
             return;
         }
 

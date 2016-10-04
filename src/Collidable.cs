@@ -1,6 +1,6 @@
 ﻿namespace MyGame
 {
-    public interface ICollidable: IDrawable
+    public interface Collidable: Drawable
     {
         bool CheckCollision(Location l);
 

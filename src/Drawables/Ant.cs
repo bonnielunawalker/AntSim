@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyGame
+﻿namespace MyGame
 {
     public class Ant : Creature
     {
@@ -27,12 +25,20 @@ namespace MyGame
 
         public override void Move()
         {
-            foreach (Food f in GameLogic.Food)
+            foreach (Food f in GameLogic.Foods)
             {
                 if (f.CheckCollision(Location) && _food < _maxFood)
                 {
-                    Console.WriteLine("Taking food!");
-                    _food = f.TakeFood(1);
+                    if (f.Size == 0)
+                    {
+                        _return = true;
+                        _getFood = false;
+                    }
+                    else
+                    {
+                        //Console.WriteLine("Taking food!");
+                        _food = f.TakeFood(1);
+                    }
                 }
             }
 
@@ -43,7 +49,7 @@ namespace MyGame
                 _getFood = false;
             }
 
-            if (_nest.CheckCollision(Location) && _food > 0)
+            if (_nest.CheckCollision(Location))
             {
                 _nest.AddFood(_food);
                 _food = 0;
@@ -84,9 +90,10 @@ namespace MyGame
             Food bestFood = null;
             int bestScore = 0;
 
-            foreach (Food f in GameLogic.Food)
+            foreach (Food f in GameLogic.Foods)
             {
-                if (f.Size + GameLogic.Random.Next(-25, 25) > bestScore)
+                if (100 + f.Size + GameLogic.Random.Next(50) -
+                    PathingUtils.GetFScore(f.Location, new Node(Location.X, Location.Y)) > bestScore)
                 {
                     bestFood = f;
                     bestScore = f.Size;
@@ -98,22 +105,13 @@ namespace MyGame
 
         public void CheckForFood()
         {
-            foreach (Food f in GameLogic.Food)
+            foreach (Food f in GameLogic.Foods)
             {
-                if (FoodProximity(f))
-                {
-                    CurrentPath = GetPathTo(f.Location);
-                    _wander = false;
-                    _getFood = true;
-                    return;
-                }
+                CurrentPath = GetPathTo(f.Location);
+                _wander = false;
+                _getFood = true;
+                return;
             }
-        }
-
-        private bool FoodProximity(Food f)
-        {
-            return (f.Location.X - Location.X < 1000 && f.Location.X - Location.X > -1000 )
-                    && (f.Location.Y - Location.Y < 1000 && f.Location.Y - Location.Y > -1000);
         }
 
 

@@ -1,6 +1,6 @@
 ﻿namespace MyGame
 {
-    public interface IDrawable
+    public interface Drawable
     {
         Location Location
         {

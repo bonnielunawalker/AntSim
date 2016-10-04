@@ -43,27 +43,30 @@
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibsToOut</PrepareForRunDependsOn>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src" />
     <Folder Include="src\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src/GameMain.cs" />
-    <Compile Include="src\Ant.cs" />
-    <Compile Include="src\Food.cs" />
+    <Compile Include="src\Drawables\Ant.cs" />
+    <Compile Include="src\Drawables\Creature.cs" />
+    <Compile Include="src\Drawables\Drawable.cs" />
+    <Compile Include="src\Drawables\Food.cs" />
+    <Compile Include="src\Drawables\Nest.cs" />
+    <Compile Include="src\Drawables\Obstacle.cs" />
+    <Compile Include="src\Drawables\Waypoint.cs" />
     <Compile Include="src\GameLogic.cs" />
     <Compile Include="src\GameState.cs" />
-    <Compile Include="src\ICollidable.cs" />
-    <Compile Include="src\Nest.cs" />
+    <Compile Include="src\Collidable.cs" />
     <Compile Include="src\Node.cs" />
-    <Compile Include="src\Obstacle.cs" />
     <Compile Include="src\PathingUtils.cs" />
+    <Compile Include="src\Renderer.cs" />
+    <Compile Include="src\Setup.cs" />
     <Compile Include="src\UtilityFunctions.cs" />
-    <Compile Include="src\Waypoint.cs" />
     <Compile Include="src\Path.cs" />
-    <Compile Include="src\IDrawable.cs" />
     <Compile Include="src\Location.cs" />
-    <Compile Include="src\IHasPaths.cs" />
-    <Compile Include="src\Creature.cs" />
+    <Compile Include="src\HasPaths.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">

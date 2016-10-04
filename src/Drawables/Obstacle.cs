@@ -2,7 +2,7 @@
 
 namespace MyGame
 {
-    public class Obstacle: IDrawable
+    public class Obstacle: Drawable
     {
         private Location _location;
         private int _size;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyGame
 {
-    public class Nest : ICollidable
+    public class Nest : Collidable
     {
         private readonly Location _location;
         private List<Ant> _ants;
@@ -39,7 +39,7 @@ namespace MyGame
                 {
                     Ant newAnt = new Ant(this);
                     _ants.Add(newAnt);
-                    GameLogic.Drawables.Add(newAnt);
+                    GameLogic.Renderer.AddDrawable(newAnt);
                     _food -= 10;
                 }
             }

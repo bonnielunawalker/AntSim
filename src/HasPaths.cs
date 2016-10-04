@@ -2,7 +2,7 @@
 
 namespace MyGame
 {
-    public interface IHasPaths
+    public interface HasPaths
     {
         List<Path> Paths
         {
