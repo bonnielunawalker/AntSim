@@ -4,18 +4,24 @@ namespace MyGame
 {
     public class Pheremone : Drawable
     {
-        private byte _strength;
+        private int _strength;
         private Location _location;
 
         public Pheremone(Location location, byte strength)
         {
-            _strength = strength;
+            _strength = strength * 100;
             _location = location;
         }
 
         public void Draw()
         {
-            SwinGame.FillRectangle(SwinGame.RGBAColor(245, 245, 0, _strength), _location.X, _location.Y, 4, 4);
+            SwinGame.FillRectangle(SwinGame.RGBAColor(245, 245, 0, (byte)(_strength / 100)), _location.X, _location.Y, 4, 4);
+        }
+
+        public int Strength
+        {
+            get { return _strength; }
+            set { _strength = value * 100; }
         }
 
         public Location Location

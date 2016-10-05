@@ -12,6 +12,7 @@ namespace MyGame
         private static List<Pheremone> _pheremones = new List<Pheremone>();
         private static Nest _nest;
         private static Renderer _renderer = new Renderer();
+        private static int _pheremoneDecayRate = 20;
 
         // Methods
         public static void Process()
@@ -29,6 +30,11 @@ namespace MyGame
             {
                 if (!Renderer.Drawables.Contains(p))
                     Renderer.AddDrawable(p);
+
+                if (p.Strength > 0)
+                    p.Strength -= _pheremoneDecayRate;
+                else if (p.Strength < _pheremoneDecayRate)
+                    p.Strength = 0;
             }
         }
 

@@ -12,7 +12,7 @@ namespace MyGame
         public Food(Location l)
         {
             _location = l;
-            _size = GameLogic.Random.Next(5, 50);
+            _size = GameLogic.Random.Next(20, 75);
         }
 
         public int TakeFood(int takeAmount)

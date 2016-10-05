@@ -21,7 +21,7 @@ namespace MyGame
             for (int i = 0; i < 3; i++)
                 GameLogic.Nest.Ants.Add(new Ant(GameLogic.Nest));
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 5; i++)
                 GameLogic.Foods.Add(new Food(new Location()));
 
             for (int i = 0; i < GameLogic.Random.Next(10, 40); i++)
