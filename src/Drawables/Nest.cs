@@ -10,12 +10,14 @@ namespace MyGame
         private List<Ant> _ants;
         private readonly int _size;
         private int _food;
+        private readonly Layer _layer;
 
         public Nest(Location l)
         {
             _location = l;
             _ants = new List<Ant>();
             _size = 8;
+            _layer = Layer.Back;
         }
 
         public void Draw()
@@ -81,6 +83,11 @@ namespace MyGame
         {
             get { return _ants; }
             set { _ants = value; }
+        }
+
+        public Layer Layer
+        {
+            get { return _layer; }
         }
     }
 }

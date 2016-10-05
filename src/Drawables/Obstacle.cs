@@ -6,11 +6,13 @@ namespace MyGame
     {
         private Location _location;
         private int _size;
+        private readonly Layer _layer;
 
         public Obstacle(Location l)
         {
             _location = l;
             _size = GameLogic.Random.Next(10, 300);
+            _layer = Layer.Back;
         }
 
         public void Draw()
@@ -37,6 +39,11 @@ namespace MyGame
         public int Size
         {
             get { return _size; }
+        }
+
+        public Layer Layer
+        {
+            get { return _layer; }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MyGame
         {
             GameLogic.Nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 1; i++)
                 GameLogic.Nest.Ants.Add(new Ant(GameLogic.Nest));
 
             for (int i = 0; i < 5; i++)

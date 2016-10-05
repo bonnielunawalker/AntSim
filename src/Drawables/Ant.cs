@@ -98,12 +98,11 @@ namespace MyGame
             {
                 if (p.Location.IsAt(Location))
                 {
-                    if (p.Strength < _targetFood.Size)
-                        p.Strength = _targetFood.Size;
+                    if (p.Strength < _targetFood.Size * 100)
+                        p.Strength = _targetFood.Size * 100;
 
                     return;
                 }
-
             }
 
             GameLogic.Pheremones.Add(new Pheremone(new Location(Location), (Byte)_targetFood.Size));

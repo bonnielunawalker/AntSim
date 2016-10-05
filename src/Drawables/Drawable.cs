@@ -2,6 +2,11 @@
 {
     public interface Drawable
     {
+        Layer Layer
+        {
+            get;
+        }
+
         Location Location
         {
             get;

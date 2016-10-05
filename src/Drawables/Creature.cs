@@ -9,10 +9,12 @@ namespace MyGame
         private Waypoint _currentWaypoint;
         private Path _newPath;
         private Location _location;
+        private readonly Layer _layer;
 
         public Creature(Location l)
         {
             _location = l;
+            _layer = Layer.Front;
         }
 
         public Path GetPathTo(Location d)
@@ -104,6 +106,11 @@ namespace MyGame
         {
             get { return _currentWaypoint; }
             set { _currentWaypoint = value; }
+        }
+
+        public Layer Layer
+        {
+            get { return _layer; }
         }
     }
 }

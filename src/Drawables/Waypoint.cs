@@ -3,10 +3,13 @@
     public class Waypoint : Drawable
     {
         private readonly Location _location;
+        private readonly Layer _layer;
 
         public Waypoint(Location l)
         {
             _location = l;
+            _layer = Layer.Mid;
+
         }
 
         public Waypoint(Node n)
@@ -35,6 +38,11 @@
         public int Y
         {
             get { return _location.Y; }
+        }
+
+        public Layer Layer
+        {
+            get { return _layer; }
         }
     }
 }

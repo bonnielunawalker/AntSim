@@ -31,10 +31,11 @@ namespace MyGame
                 if (!Renderer.Drawables.Contains(p))
                     Renderer.AddDrawable(p);
 
+                if (p.Strength < _pheremoneDecayRate)
+                    p.Strength = 0;
+
                 if (p.Strength > 0)
                     p.Strength -= _pheremoneDecayRate;
-                else if (p.Strength < _pheremoneDecayRate)
-                    p.Strength = 0;
             }
         }
 

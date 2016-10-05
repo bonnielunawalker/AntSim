@@ -16,10 +16,20 @@ namespace MyGame
             _drawables.Add(drawable);
         }
 
-        public void Render()
+        public void RenderAll()
+        {
+            Render(Layer.Back);
+            Render(Layer.Mid);
+            Render(Layer.Front);
+        }
+
+        private void Render(Layer l)
         {
             foreach (Drawable d in _drawables)
-                d.Draw();
+            {
+                if (d.Layer == l)
+                    d.Draw();
+            }
         }
 
         public List<Drawable> Drawables

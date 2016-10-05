@@ -43,7 +43,6 @@
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibsToOut</PrepareForRunDependsOn>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src" />
     <Folder Include="src\" />
     <Folder Include="Resources\" />
   </ItemGroup>
@@ -59,6 +58,7 @@
     <Compile Include="src\GameLogic.cs" />
     <Compile Include="src\GameState.cs" />
     <Compile Include="src\Collidable.cs" />
+    <Compile Include="src\Layer.cs" />
     <Compile Include="src\Node.cs" />
     <Compile Include="src\PathingState.cs" />
     <Compile Include="src\PathingUtils.cs" />

@@ -8,11 +8,13 @@ namespace MyGame
     {
         private readonly Location _location;
         private int _size;
+        private readonly Layer _layer;
 
         public Food(Location l)
         {
             _location = l;
             _size = GameLogic.Random.Next(20, 75);
+            _layer = Layer.Back;
         }
 
         public int TakeFood(int takeAmount)
@@ -59,6 +61,11 @@ namespace MyGame
         public int Size
         {
             get { return _size; }
+        }
+
+        public Layer Layer
+        {
+            get { return _layer; }
         }
     }
 }

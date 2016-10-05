@@ -1,4 +1,5 @@
-﻿using SwinGameSDK;
+﻿using System;
+using SwinGameSDK;
 
 namespace MyGame
 {
@@ -6,22 +7,25 @@ namespace MyGame
     {
         private int _strength;
         private Location _location;
+        private Layer _layer;
 
         public Pheremone(Location location, byte strength)
         {
             _strength = strength * 100;
             _location = location;
+            _layer = Layer.Mid;
         }
 
         public void Draw()
         {
-            SwinGame.FillRectangle(SwinGame.RGBAColor(245, 245, 0, (byte)(_strength / 100)), _location.X, _location.Y, 4, 4);
+            SwinGame.FillRectangle(SwinGame.RGBAColor(245, 245, 0, (byte)(_strength / 100)),
+                                   _location.X, _location.Y, 4, 4);
         }
 
         public int Strength
         {
             get { return _strength; }
-            set { _strength = value * 100; }
+            set { _strength = value; }
         }
 
         public Location Location
@@ -40,6 +44,11 @@ namespace MyGame
         {
             get { return _location.Y; }
             set { _location.Y = value; }
+        }
+
+        public Layer Layer
+        {
+            get { return _layer; }
         }
     }
 }
