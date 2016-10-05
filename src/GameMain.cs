@@ -14,6 +14,7 @@ namespace MyGame
                 SwinGame.ClearScreen(Color.White);
                 GameLogic.Process();
                 GameLogic.Renderer.Render();
+                SwinGame.DrawFramerate(10, 10);
                 SwinGame.RefreshScreen(60);
                 //SwinGame.Delay(40);
             }

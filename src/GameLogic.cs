@@ -9,6 +9,7 @@ namespace MyGame
         private static readonly Random _rand = new Random();
         private static List<Food> _foods = new List<Food>();
         private static List<Obstacle> _obstacles = new List<Obstacle>();
+        private static List<Pheremone> _pheremones = new List<Pheremone>();
         private static Nest _nest;
         private static Renderer _renderer = new Renderer();
 
@@ -20,14 +21,15 @@ namespace MyGame
             Food.RemoveEmptyFoods(_foods);
 
             foreach (Ant a in _nest.Ants)
-            {
-                if (a.Wandering)
-                    a.CheckForFood();
-
                 a.Move();
-            }
 
             _nest.CreateNewAnts();
+
+            foreach (Pheremone p in _pheremones)
+            {
+                if (!Renderer.Drawables.Contains(p))
+                    Renderer.AddDrawable(p);
+            }
         }
 
 
@@ -55,6 +57,12 @@ namespace MyGame
         {
             get { return _obstacles; }
             set { _obstacles = value; }
+        }
+
+        public static List<Pheremone> Pheremones
+        {
+            get { return _pheremones; }
+            set { _pheremones = value; }
         }
 
         public static Renderer Renderer

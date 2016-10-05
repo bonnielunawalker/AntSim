@@ -21,5 +21,10 @@ namespace MyGame
             foreach (Drawable d in _drawables)
                 d.Draw();
         }
+
+        public List<Drawable> Drawables
+        {
+            get { return _drawables; }
+        }
     }
 }

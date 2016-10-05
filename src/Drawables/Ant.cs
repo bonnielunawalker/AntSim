@@ -1,24 +1,24 @@
-﻿namespace MyGame
+﻿using System;
+
+namespace MyGame
 {
     public class Ant : Creature
     {
         private readonly Nest _nest;
 
-        private bool _wander;
-        private bool _return;
-        private bool _getFood;
+        private PathingState _state;
 
         private int _food;
         private readonly int _maxFood;
+
+        private Food _targetFood;
 
         public Ant(Nest n)
             :base(new Location(n.Location))
         {
             _nest = n;
 
-            _wander = false;
-            _return = false;
-            _getFood = true;
+            _state = PathingState.GetFood;
 
             _maxFood = 1;
         }
@@ -30,62 +30,51 @@
                 if (f.CheckCollision(Location) && _food < _maxFood)
                 {
                     if (f.Size == 0)
-                    {
-                        _return = true;
-                        _getFood = false;
-                    }
+                        _state = PathingState.Return;
                     else
-                    {
-                        //Console.WriteLine("Taking food!");
                         _food = f.TakeFood(1);
-                    }
                 }
             }
 
             if (_food == _maxFood)
-            {
-                _return = true;
-                _wander = false;
-                _getFood = false;
-            }
+                _state = PathingState.Return;
 
             if (_nest.CheckCollision(Location))
             {
                 _nest.AddFood(_food);
                 _food = 0;
-                _getFood = true;
-                _return = false;
+                _state = PathingState.GetFood;
                 CurrentPath = null;
             }
 
-            if (_wander)
+            if (_state == PathingState.Wander)
             {
                 if (CurrentPath == null || Location.IsAt(CurrentPath.Destination))
                     CurrentPath = Wander();
-
-                base.Move();
             }
-            else if (_getFood)
+            else if (_state == PathingState.GetFood)
             {
                 if (CurrentPath == null || Location.IsAt(CurrentPath.Destination))
-                    CurrentPath = PathfindToRandomFood();
+                    CurrentPath = GetPathToFood();
             }
-            else if (_return)
+            else if (_state == PathingState.Return)
             {
                 CurrentPath = GetPathTo(_nest.Location);
+                LeavePheremone();
             }
+
 
             base.Move();
         }
 
-        public Path PathfindToRandomFood()
+        public Path GetPathToFood()
         {
-            Food targetFood = GetRandomFood();
-            Location destination = new Location(targetFood.Location);
+            _targetFood = GetBestFood();
+            Location destination = new Location(_targetFood.Location);
             return GetPathTo(destination);
         }
 
-        public Food GetRandomFood()
+        public Food GetBestFood()
         {
             Food bestFood = null;
             int bestScore = 0;
@@ -103,15 +92,15 @@
             return bestFood;
         }
 
-        public void CheckForFood()
+        public void LeavePheremone()
         {
-            foreach (Food f in GameLogic.Foods)
+            foreach (Pheremone p in GameLogic.Pheremones)
             {
-                CurrentPath = GetPathTo(f.Location);
-                _wander = false;
-                _getFood = true;
-                return;
+                if (p.Location.IsAt(Location))
+                    return;
             }
+
+            GameLogic.Pheremones.Add(new Pheremone(new Location(Location), (Byte) _targetFood.Size));
         }
 
 
@@ -120,22 +109,10 @@
             get { return _nest; }
         }
 
-        public bool Wandering
+        public PathingState State
         {
-            get { return _wander; }
-            set { _wander = value; }
-        }
-
-        public bool Returning
-        {
-            get { return _return; }
-            set { _return = value; }
-        }
-
-        public bool GetFood
-        {
-            get { return _getFood; }
-            set { _getFood = value; }
+            get { return _state; }
+            set { _state = value; }
         }
 
         public int Food

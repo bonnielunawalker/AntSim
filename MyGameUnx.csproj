@@ -43,7 +43,6 @@
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibsToOut</PrepareForRunDependsOn>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src" />
     <Folder Include="src\" />
     <Folder Include="Resources\" />
   </ItemGroup>
@@ -60,7 +59,9 @@
     <Compile Include="src\GameState.cs" />
     <Compile Include="src\Collidable.cs" />
     <Compile Include="src\Node.cs" />
+    <Compile Include="src\PathingState.cs" />
     <Compile Include="src\PathingUtils.cs" />
+    <Compile Include="src\Pheremone.cs" />
     <Compile Include="src\Renderer.cs" />
     <Compile Include="src\Setup.cs" />
     <Compile Include="src\UtilityFunctions.cs" />
