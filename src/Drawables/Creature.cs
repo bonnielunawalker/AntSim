@@ -17,19 +17,16 @@ namespace MyGame
             _layer = Layer.Front;
         }
 
-        public Path GetPathTo(Location d)
+        public virtual Path GetPathTo(Location d)
         {
-           return new Path(Location, d);
+            return new Path(Location, d);
         }
 
         public virtual void Move()
         {
             if (CurrentWaypoint == null)
             {
-                if (CurrentPath == null)
-                    CurrentPath = Wander();
-                else
-                    CurrentWaypoint = CurrentPath.Waypoints.First.Value;
+                CurrentWaypoint = CurrentPath.Waypoints.First.Value;
             }
 
             if (_location.IsAt(CurrentPath.Destination))
@@ -49,13 +46,6 @@ namespace MyGame
 
             if (_location.IsAt(CurrentWaypoint.Location))
                 CurrentWaypoint = CurrentPath.NextWaypoint(CurrentWaypoint);
-        }
-
-        public Path Wander()
-        {
-            Location destination = new Location(GameLogic.Random.Next(Location.X - 100, Location.X + 100),
-                                                GameLogic.Random.Next(Location.Y - 100, Location.Y + 100));
-            return GetPathTo(destination);
         }
 
         public void Draw()

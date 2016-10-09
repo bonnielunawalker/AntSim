@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 namespace MyGame
 {
@@ -51,11 +52,28 @@ namespace MyGame
         public static int GetFScore(Location destination, Node nodeToCheck)
         {
             int distance = nodeToCheck.GScore;
-
-            int manhattan = Math.Abs(nodeToCheck.X - destination.X) +
-                            Math.Abs(nodeToCheck.Y - destination.Y);
-
+            int manhattan = Manhattan(new Location(nodeToCheck.X, nodeToCheck.Y), destination);
             return distance + manhattan;
+        }
+
+        public static Location EstimateLocation(Location start, Location dest)
+        {
+            int dist = (int)DistanceBetween(start, dest);
+            return new Location(dest.X + GameLogic.Random.Next(-dist / 2, dist / 2),
+                dest.Y + GameLogic.Random.Next(-dist / 2, dist / 2));
+        }
+
+        public static double DistanceBetween(Location start, Location dest)
+        {
+            float startValue = (start.X - start.Y) ^ 2;
+            float destValue = (dest.X - dest.Y) ^ 2;
+            return Math.Sqrt(startValue + destValue);
+        }
+
+        public static int Manhattan(Location start, Location dest)
+        {
+            return Math.Abs(start.X - dest.X) +
+                   Math.Abs(start.Y - dest.Y);
         }
     }
 }

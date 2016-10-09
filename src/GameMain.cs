@@ -9,7 +9,7 @@ namespace MyGame
             SwinGame.OpenWindow("AntSim", GameState.WindowWidth, GameState.WindowHeight);
             Setup.Run();
 
-            while (!SwinGame.WindowCloseRequested() && !GameState.Exit)
+            while (!SwinGame.WindowCloseRequested())
             {
                 SwinGame.ClearScreen(Color.White);
                 GameLogic.Process();

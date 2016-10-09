@@ -2,7 +2,6 @@
 {
     public enum PathingState
     {
-        Wander,
         GetFood,
         Return
     }

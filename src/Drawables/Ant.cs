@@ -1,43 +1,33 @@
 ﻿using System;
+using SwinGameSDK;
 
 namespace MyGame
 {
     public class Ant : Creature
     {
         private readonly Nest _nest;
-
         private PathingState _state;
-
         private int _food;
         private readonly int _maxFood;
-
         private Food _targetFood;
 
         public Ant(Nest n)
             :base(new Location(n.Location))
         {
             _nest = n;
-
             _state = PathingState.GetFood;
-
             _maxFood = 1;
         }
 
         public override void Move()
         {
-            foreach (Food f in GameLogic.Foods)
-            {
-                if (f.CheckCollision(Location) && _food < _maxFood)
-                {
-                    if (f.Size == 0)
-                        _state = PathingState.Return;
-                    else
-                        _food = f.TakeFood(1);
-                }
-            }
+            CheckFoodCollision();
 
             if (_food == _maxFood)
+            {
                 _state = PathingState.Return;
+                CurrentPath = null;
+            }
 
             if (_nest.CheckCollision(Location))
             {
@@ -45,33 +35,52 @@ namespace MyGame
                 _food = 0;
                 _state = PathingState.GetFood;
                 CurrentPath = null;
+                _targetFood = null;
             }
 
-            if (_state == PathingState.Wander)
+            if (_state == PathingState.GetFood)
             {
-                if (CurrentPath == null || Location.IsAt(CurrentPath.Destination))
-                    CurrentPath = Wander();
-            }
-            else if (_state == PathingState.GetFood)
-            {
-                if (CurrentPath == null || Location.IsAt(CurrentPath.Destination))
+                if (CurrentPath == null)
+                {
+                    _targetFood = GetBestFood();
                     CurrentPath = GetPathToFood();
+                }
             }
             else if (_state == PathingState.Return)
             {
-                CurrentPath = GetPathTo(_nest.Location);
+                if (CurrentPath == null)
+                    CurrentPath = GetPathTo(_nest.Location);
                 LeavePheremone();
             }
-
 
             base.Move();
         }
 
+        public void CheckFoodCollision()
+        {
+            foreach (Food f in GameLogic.Foods)
+            {
+                if (f.CheckCollision(Location) && _food < _maxFood)
+                {
+                    if (f.Size == 0)
+                        _state = PathingState.GetFood;
+                    else
+                        _food = f.TakeFood(1);
+                }
+            }
+        }
+
+        public override Path GetPathTo(Location d)
+        {
+            return new Path(Location, d);
+        }
+
         public Path GetPathToFood()
         {
-            _targetFood = GetBestFood();
+            if (_targetFood == null)
+                _targetFood = GetBestFood();
             Location destination = new Location(_targetFood.Location);
-            return GetPathTo(destination);
+            return GetPathTo(PathingUtils.EstimateLocation(Location, destination));
         }
 
         public Food GetBestFood()
@@ -107,7 +116,6 @@ namespace MyGame
 
             GameLogic.Pheremones.Add(new Pheremone(new Location(Location), (Byte)_targetFood.Size));
         }
-
 
         public Nest Nest
         {
