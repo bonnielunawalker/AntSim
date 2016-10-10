@@ -52,9 +52,10 @@ namespace MyGame
             return (_food >= 10);
         }
 
-        public void AddFood(int amount)
+        public void AddFood(ref int amount)
         {
             _food += amount;
+            amount = 0;
             Console.WriteLine(_food);
         }
 

@@ -53,14 +53,23 @@ namespace MyGame
         {
             int distance = nodeToCheck.GScore;
             int manhattan = Manhattan(new Location(nodeToCheck.X, nodeToCheck.Y), destination);
+
+            foreach (Pheremone p in GameLogic.Pheremones)
+            {
+                if (p.Location.IsAt(new Location(nodeToCheck.X, nodeToCheck.Y)))
+                {
+                    distance -= p.Strength;
+                }
+            }
+
             return distance + manhattan;
         }
 
         public static Location EstimateLocation(Location start, Location dest)
         {
             int dist = (int)DistanceBetween(start, dest);
-            return new Location(dest.X + GameLogic.Random.Next(-dist / 2, dist / 2),
-                dest.Y + GameLogic.Random.Next(-dist / 2, dist / 2));
+            return new Location(dest.X + GameLogic.Random.Next(-dist, dist),
+                dest.Y + GameLogic.Random.Next(-dist, dist));
         }
 
         public static double DistanceBetween(Location start, Location dest)

@@ -12,7 +12,7 @@ namespace MyGame
         private static List<Pheremone> _pheremones = new List<Pheremone>();
         private static Nest _nest;
         private static Renderer _renderer = new Renderer();
-        private static int _pheremoneDecayRate = 20;
+        private static int _pheremoneDecayRate = 2;
 
         // Methods
         public static void Process()
@@ -36,6 +36,12 @@ namespace MyGame
 
                 if (p.Strength > 0)
                     p.Strength -= _pheremoneDecayRate;
+            }
+
+            for (int i = _pheremones.Count - 1; i >= 0; i--)
+            {
+                if (_pheremones[i].Strength == 0)
+                    _pheremones.RemoveAt(i);
             }
         }
 

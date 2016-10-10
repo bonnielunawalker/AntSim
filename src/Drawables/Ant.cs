@@ -23,7 +23,7 @@ namespace MyGame
         {
             CheckFoodCollision();
 
-            if (_food == _maxFood)
+            if (_food == _maxFood && _state != PathingState.Return)
             {
                 _state = PathingState.Return;
                 CurrentPath = null;
@@ -31,7 +31,7 @@ namespace MyGame
 
             if (_nest.CheckCollision(Location))
             {
-                _nest.AddFood(_food);
+                _nest.AddFood(ref _food);
                 _food = 0;
                 _state = PathingState.GetFood;
                 CurrentPath = null;
@@ -41,10 +41,8 @@ namespace MyGame
             if (_state == PathingState.GetFood)
             {
                 if (CurrentPath == null)
-                {
                     _targetFood = GetBestFood();
-                    CurrentPath = GetPathToFood();
-                }
+                CurrentPath = GetPathToFood();
             }
             else if (_state == PathingState.Return)
             {
@@ -79,8 +77,7 @@ namespace MyGame
         {
             if (_targetFood == null)
                 _targetFood = GetBestFood();
-            Location destination = new Location(_targetFood.Location);
-            return GetPathTo(PathingUtils.EstimateLocation(Location, destination));
+            return GetPathTo(PathingUtils.EstimateLocation(Location, _targetFood.Location));
         }
 
         public Food GetBestFood()
