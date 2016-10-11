@@ -1,38 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 
 namespace MyGame
 {
-    public static class PathingUtils //TODO: Rename this (consider factory, manager or handler?)
+    public static class PathingUtils
     {
         private const int MAX_INT = int.MaxValue;
 
-        public static void AddNeigbours(List<Node> list, Node n)
+        public static void AddNeigbours(List<Node> open, LinkedList<Node> closed, Node n)
         {
-            Node north = new Node(n.X, n.Y - 1, n.GScore + 1);
-            Node south = new Node(n.X, n.Y + 1, n.GScore + 1);
-            Node east = new Node(n.X - 1, n.Y, n.GScore + 1);
-            Node west = new Node(n.X + 1, n.Y, n.GScore + 1);
-            Node northeast = new Node(n.X + 1, n.Y - 1, n.GScore + 1);
-            Node southeast = new Node(n.X + 1, n.Y + 1, n.GScore + 1);
-            Node northwest = new Node(n.X - 1, n.Y - 1, n.GScore + 1);
-            Node southwest = new Node(n.X - 1, n.Y + 1, n.GScore + 1);
+            List<Node> newNodes = new List<Node>();
 
-            list.Add(north);
-            list.Add(south);
-            list.Add(east);
-            list.Add(west);
-            list.Add(northeast);
-            list.Add(southeast);
-            list.Add(northwest);
-            list.Add(southwest);
+            newNodes.Add(new Node(n.X, n.Y - 1, n.GScore + 1));
+            newNodes.Add(new Node(n.X, n.Y + 1, n.GScore + 1));
+            newNodes.Add(new Node(n.X - 1, n.Y, n.GScore + 1));
+            newNodes.Add(new Node(n.X + 1, n.Y, n.GScore + 1));
+
+            // Diagonals
+            newNodes.Add(new Node(n.X + 1, n.Y - 1, n.GScore + 1.41));
+            newNodes.Add(new Node(n.X + 1, n.Y + 1, n.GScore + 1.41));
+            newNodes.Add(new Node(n.X - 1, n.Y - 1, n.GScore + 1.41));
+            newNodes.Add(new Node(n.X - 1, n.Y + 1, n.GScore + 1.41));
+
+            if (open.Count != 0)
+            {
+                for (int i = 0; i < newNodes.Count; i++)
+                {
+                    Node newNode = newNodes[i];
+                    for (int j = 0; j < open.Count; j++)
+                    {
+                        Node oldNode = open[j];
+                        if (newNode.X != oldNode.X && newNode.Y != oldNode.Y  && !open.Contains(newNode) && !closed.Contains(newNode))
+
+                            open.Add(newNode);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Node newNode in newNodes)
+                    open.Add(newNode);
+            }
         }
 
         public static Node GetPriorityNode(List<Node> list, Location destination)
         {
-            int score;
-            int lowestScore = MAX_INT;
+            double score;
+            double lowestScore = MAX_INT;
             Node bestNode = null;
 
             for (int i = 0; i < list.Count; i++)
@@ -49,9 +63,9 @@ namespace MyGame
             return bestNode;
         }
 
-        public static int GetFScore(Location destination, Node nodeToCheck)
+        public static double GetFScore(Location destination, Node nodeToCheck)
         {
-            int distance = nodeToCheck.GScore;
+            double distance = nodeToCheck.GScore;
             int manhattan = Manhattan(new Location(nodeToCheck.X, nodeToCheck.Y), destination);
 
             foreach (Pheremone p in GameLogic.Pheremones)
