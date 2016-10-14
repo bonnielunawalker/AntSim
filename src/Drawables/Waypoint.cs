@@ -1,4 +1,6 @@
-﻿namespace MyGame
+﻿using SwinGameSDK;
+
+namespace MyGame
 {
     public class Waypoint : Drawable
     {
@@ -10,6 +12,7 @@
             _location = l;
             _layer = Layer.Mid;
 
+            GameLogic.Renderer.AddDrawable(this);
         }
 
         public Waypoint(Node n)
@@ -20,8 +23,7 @@
 
         public void Draw()
         {
-            //SwinGame.FillRectangle(Color.Blue, _location.X, _location.Y, 4, 4);
-            return;
+            SwinGame.FillRectangle(Color.Blue, _location.X, _location.Y, 4, 4);
         }
 
 

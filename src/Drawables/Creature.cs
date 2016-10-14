@@ -3,18 +3,20 @@ using SwinGameSDK;
 
 namespace MyGame
 {
-    public abstract class Creature : Drawable
+    public abstract class Creature : Drawable, Collidable
     {
         private Path _currentPath;
         private Waypoint _currentWaypoint;
         private Path _newPath;
         private Location _location;
         private readonly Layer _layer;
+        private int _size;
 
-        public Creature(Location l)
+        public Creature(Location l, int size)
         {
             _location = l;
             _layer = Layer.Front;
+            _size = size;
         }
 
         public virtual Path GetPathTo(Location d)
@@ -50,7 +52,7 @@ namespace MyGame
 
         public void Draw()
         {
-            SwinGame.FillRectangle(Color.Red, Location.X, Location.Y, 4, 4);
+            SwinGame.FillRectangle(Color.Red, Location.X, Location.Y, 4, _size);
         }
 
         public bool CheckCollision(Collidable collidable)
@@ -61,6 +63,14 @@ namespace MyGame
             Location bottomRight = new Location(leftEdge + collidable.Size, topEdge + collidable.Size);
 
             return UtilityFunctions.InField(this, topLeft, bottomRight);
+        }
+
+        public bool CheckCollision(Location l)
+        {
+            Point2D pointToCheck = new Point2D();
+            pointToCheck.X = l.X;
+            pointToCheck.Y = l.Y;
+            return SwinGame.PointInCircle(pointToCheck, _location.X, _location.Y, _size);
         }
 
 
@@ -78,6 +88,12 @@ namespace MyGame
         public int Y
         {
             get { return _location.Y; }
+        }
+
+        public int Size
+        {
+            get { return _size; }
+            set { _size = value; }
         }
 
         public Path NewPath

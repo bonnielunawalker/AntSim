@@ -16,26 +16,26 @@ namespace MyGame
 
         private static void GenerateEntities()
         {
-            GameLogic.Nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
+            World.Instance.Nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
 
             for (int i = 0; i < 1; i++)
-                GameLogic.Nest.Ants.Add(new Ant(GameLogic.Nest));
+                World.Instance.Nest.Ants.Add(new Ant(World.Instance.Nest));
 
             for (int i = 0; i < 5; i++)
-                GameLogic.Foods.Add(new Food(new Location()));
+                World.Instance.Foods.Add(new Food(new Location()));
 
             for (int i = 0; i < GameLogic.Random.Next(10, 40); i++)
-                GameLogic.Obstacles.Add(new Obstacle(new Location()));
+                World.Instance.Obstacles.Add(new Obstacle(new Location()));
         }
 
         private static void AddEntitiesToRenderer()
         {
-            GameLogic.Renderer.AddDrawable(GameLogic.Nest);
+            GameLogic.Renderer.AddDrawable(World.Instance.Nest);
 
-            foreach (Food f in GameLogic.Foods)
+            foreach (Food f in World.Instance.Foods)
                 GameLogic.Renderer.AddDrawable(f);
 
-            foreach (Ant a in GameLogic.Nest.Ants)
+            foreach (Ant a in World.Instance.Nest.Ants)
                 GameLogic.Renderer.AddDrawable(a);
 
 //            foreach (Obstacle o in _obstacles)

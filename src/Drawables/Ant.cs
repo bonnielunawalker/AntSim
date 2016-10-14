@@ -12,7 +12,7 @@ namespace MyGame
         private Food _targetFood;
 
         public Ant(Nest n)
-            :base(new Location(n.Location))
+            :base(new Location(n.Location), 4)
         {
             _nest = n;
             _state = PathingState.GetFood;
@@ -23,7 +23,7 @@ namespace MyGame
         {
             CheckFoodCollision();
 
-            if (_food == _maxFood && _state != PathingState.Return)
+            if (_food == _maxFood && _state == PathingState.GetFood)
             {
                 _state = PathingState.Return;
                 CurrentPath = null;
@@ -32,10 +32,10 @@ namespace MyGame
             if (_nest.CheckCollision(Location))
             {
                 _nest.AddFood(ref _food);
-                _food = 0;
                 _state = PathingState.GetFood;
                 CurrentPath = null;
                 _targetFood = null;
+                CurrentWaypoint = null;
             }
 
             if (_state == PathingState.GetFood)
@@ -43,6 +43,8 @@ namespace MyGame
                 if (CurrentPath == null)
                     _targetFood = GetBestFood();
                 CurrentPath = GetPathToFood();
+                CurrentWaypoint = null;
+
             }
             else if (_state == PathingState.Return)
             {
@@ -50,20 +52,19 @@ namespace MyGame
                     CurrentPath = GetPathTo(_nest.Location);
                 LeavePheremone();
             }
-
             base.Move();
         }
 
         public void CheckFoodCollision()
         {
-            foreach (Food f in GameLogic.Foods)
+            for (int i = 0; i < World.Instance.Foods.Count; i++)
             {
-                if (f.CheckCollision(Location) && _food < _maxFood)
+                if (World.Instance.Foods[i].CheckCollision(Location) && _food < _maxFood)
                 {
-                    if (f.Size == 0)
+                    if (World.Instance.Foods[i].Size == 0)
                         _state = PathingState.GetFood;
                     else
-                        _food = f.TakeFood(1);
+                        _food = World.Instance.Foods[i].TakeFood(1);
                 }
             }
         }
@@ -84,11 +85,16 @@ namespace MyGame
         {
             Food bestFood = null;
             int bestScore = 0;
+            int currentScore = 0;
 
-            foreach (Food f in GameLogic.Foods)
+            foreach (Food f in World.Instance.Foods)
             {
-                if (100 + f.Size + GameLogic.Random.Next(50) -
-                    PathingUtils.GetFScore(f.Location, new Node(Location.X, Location.Y)) > bestScore)
+                currentScore = f.Size + GameLogic.Random.Next(50);
+
+                if (currentScore - PathingUtils.GetFScore(f.Location, new Node(Location.X, Location.Y)) < 0)
+                    currentScore = 0;
+
+                if (currentScore >= bestScore)
                 {
                     bestFood = f;
                     bestScore = f.Size;
@@ -100,7 +106,7 @@ namespace MyGame
 
         public void LeavePheremone()
         {
-            foreach (Pheremone p in GameLogic.Pheremones)
+            foreach (Pheremone p in World.Instance.Pheremones)
             {
                 if (p.Location.IsAt(Location))
                 {
@@ -111,7 +117,7 @@ namespace MyGame
                 }
             }
 
-            GameLogic.Pheremones.Add(new Pheremone(new Location(Location), (Byte)_targetFood.Size));
+            World.Instance.Pheremones.Add(new Pheremone(new Location(Location), (Byte)_targetFood.Size));
         }
 
         public Nest Nest

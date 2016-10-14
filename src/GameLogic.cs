@@ -1,16 +1,11 @@
 ﻿using SwinGameSDK;
 using System;
-using System.Collections.Generic;
 
 namespace MyGame
 {
     public static class GameLogic
     {
         private static readonly Random _rand = new Random();
-        private static List<Food> _foods = new List<Food>();
-        private static List<Obstacle> _obstacles = new List<Obstacle>();
-        private static List<Pheremone> _pheremones = new List<Pheremone>();
-        private static Nest _nest;
         private static Renderer _renderer = new Renderer();
         private static int _pheremoneDecayRate = 2;
 
@@ -19,14 +14,18 @@ namespace MyGame
         {
             SwinGame.ProcessEvents();
 
-            Food.RemoveEmptyFoods(_foods);
+            Food.RemoveEmptyFoods(World.Instance.Foods);
 
-            foreach (Ant a in _nest.Ants)
+            foreach (Ant a in World.Instance.Nest.Ants)
+            {
+                Renderer.Drawables.RemoveAll(item => item is Waypoint);
                 a.Move();
+                Console.WriteLine("{0},{1}", a.Location.X, a.Location.Y);
+            }
 
-            _nest.CreateNewAnts();
+            World.Instance.Nest.CreateNewAnts();
 
-            foreach (Pheremone p in _pheremones)
+            foreach (Pheremone p in World.Instance.Pheremones)
             {
                 if (!Renderer.Drawables.Contains(p))
                     Renderer.AddDrawable(p);
@@ -38,10 +37,10 @@ namespace MyGame
                     p.Strength -= _pheremoneDecayRate;
             }
 
-            for (int i = _pheremones.Count - 1; i >= 0; i--)
+            for (int i = World.Instance.Pheremones.Count - 1; i >= 0; i--)
             {
-                if (_pheremones[i].Strength == 0)
-                    _pheremones.RemoveAt(i);
+                if (World.Instance.Pheremones[i].Strength == 0)
+                    World.Instance.Pheremones.RemoveAt(i);
             }
         }
 
@@ -52,30 +51,6 @@ namespace MyGame
         public static Random Random
         {
             get { return _rand; }
-        }
-
-        public static List<Food> Foods
-        {
-            get { return _foods; }
-            set { _foods = value; }
-        }
-
-        public static Nest Nest
-        {
-            get { return _nest; }
-            set { _nest = value; }
-        }
-
-        public static List<Obstacle> Obstacles
-        {
-            get { return _obstacles; }
-            set { _obstacles = value; }
-        }
-
-        public static List<Pheremone> Pheremones
-        {
-            get { return _pheremones; }
-            set { _pheremones = value; }
         }
 
         public static Renderer Renderer

@@ -19,9 +19,10 @@ namespace MyGame
 
             AddInitialNode(l);
 
-            PathingUtils.AddNeigbours(_open, _closed.First());
+            PathingUtils.AddNeigbours(_open, _closed, _closed.First());
 
             GetRoute();
+            CreateWaypoints();
         }
 
         private void AddInitialNode(Location l)
@@ -29,7 +30,7 @@ namespace MyGame
             _closed = new LinkedList<Node>();
             _open = new List<Node>();
 
-            _closed.AddFirst(new Node(l.X, l.Y));
+            _closed.AddFirst(PathingUtils.NodeAt(l.X, l.Y));
         }
 
         public void GetRoute()
@@ -39,16 +40,15 @@ namespace MyGame
 
             while (!current.IsAt(_destination))
             {
-                _open.Remove(current);
                 _closed.AddAfter(previous, current);
                 previous = previous.Next;
 
-                PathingUtils.AddNeigbours(_open, current);
+                PathingUtils.AddNeigbours(_open, _closed, current);
+
+                _open.Remove(current);
 
                 current = PathingUtils.GetPriorityNode(_open, _destination);
             }
-
-            CreateWaypoints();
         }
 
         private void CreateWaypoints()

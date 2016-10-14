@@ -4,10 +4,11 @@ namespace MyGame
 {
     public class World
     {
-        private List<Food> _foods = new List<Food>();
-        private List<Obstacle> _obstacles = new List<Obstacle>();
-        private List<Pheremone> _pheremones = new List<Pheremone>();
+        private List<Food> _foods;
+        private List<Obstacle> _obstacles;
+        private List<Pheremone> _pheremones;
         private Nest _nest;
+        private Grid _grid;
 
         private static World _instance;
 
@@ -16,6 +17,8 @@ namespace MyGame
             _foods = new List<Food>();
             _obstacles = new List<Obstacle>();
             _pheremones = new List<Pheremone>();
+
+            _grid = new Grid();
 
             _instance = this;
         }
@@ -52,6 +55,12 @@ namespace MyGame
         {
             get { return _pheremones; }
             set { _pheremones = value; }
+        }
+
+        public Grid Grid
+        {
+            get { return _grid; }
+            set { _grid = value; }
         }
     }
 }

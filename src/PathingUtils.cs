@@ -11,36 +11,19 @@ namespace MyGame
         {
             List<Node> newNodes = new List<Node>();
 
-            newNodes.Add(new Node(n.X, n.Y - 1, n.GScore + 1));
-            newNodes.Add(new Node(n.X, n.Y + 1, n.GScore + 1));
-            newNodes.Add(new Node(n.X - 1, n.Y, n.GScore + 1));
-            newNodes.Add(new Node(n.X + 1, n.Y, n.GScore + 1));
+            newNodes.Add(NodeAt(n.X, n.Y - 1));
+            newNodes.Add(NodeAt(n.X, n.X + 1));
+            newNodes.Add(NodeAt(n.X - 1, n.Y));
+            newNodes.Add(NodeAt(n.X + 1, n.Y));
 
-            // Diagonals
-            newNodes.Add(new Node(n.X + 1, n.Y - 1, n.GScore + 1.41));
-            newNodes.Add(new Node(n.X + 1, n.Y + 1, n.GScore + 1.41));
-            newNodes.Add(new Node(n.X - 1, n.Y - 1, n.GScore + 1.41));
-            newNodes.Add(new Node(n.X - 1, n.Y + 1, n.GScore + 1.41));
+            newNodes.Add(NodeAt(n.X + 1, n.Y - 1));
+            newNodes.Add(NodeAt(n.X + 1, n.Y + 1));
+            newNodes.Add(NodeAt(n.X - 1, n.Y - 1));
+            newNodes.Add(NodeAt(n.X - 1, n.Y + 1));
 
-            if (open.Count != 0)
-            {
-                for (int i = 0; i < newNodes.Count; i++)
-                {
-                    Node newNode = newNodes[i];
-                    for (int j = 0; j < open.Count; j++)
-                    {
-                        Node oldNode = open[j];
-                        if (newNode.X != oldNode.X && newNode.Y != oldNode.Y  && !open.Contains(newNode) && !closed.Contains(newNode))
-
-                            open.Add(newNode);
-                    }
-                }
-            }
-            else
-            {
-                foreach (Node newNode in newNodes)
+            foreach (Node newNode in newNodes)
+                if (!newNode.IsIn(open) && !newNode.IsIn(closed))
                     open.Add(newNode);
-            }
         }
 
         public static Node GetPriorityNode(List<Node> list, Location destination)
@@ -66,9 +49,9 @@ namespace MyGame
         public static double GetFScore(Location destination, Node nodeToCheck)
         {
             double distance = nodeToCheck.GScore;
-            int manhattan = Manhattan(new Location(nodeToCheck.X, nodeToCheck.Y), destination);
+            int manhattan = Manhattan(nodeToCheck, destination);
 
-            foreach (Pheremone p in GameLogic.Pheremones)
+            foreach (Pheremone p in World.Instance.Pheremones)
             {
                 if (p.Location.IsAt(new Location(nodeToCheck.X, nodeToCheck.Y)))
                 {
@@ -97,6 +80,17 @@ namespace MyGame
         {
             return Math.Abs(start.X - dest.X) +
                    Math.Abs(start.Y - dest.Y);
+        }
+
+        public static Node NodeAt(int x, int y)
+        {
+            foreach (Node n in World.Instance.Grid.Nodes)
+            {
+                if (n.X == x && n.Y == y)
+                    return n;
+            }
+
+            return null;
         }
     }
 }
