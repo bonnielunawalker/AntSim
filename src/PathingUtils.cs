@@ -29,12 +29,8 @@ namespace MyGame
 
         public static double GetFScore(Location destination, Node nodeToCheck)
         {
-            double distance = nodeToCheck.GScore;
+            double distance = nodeToCheck.GScore - nodeToCheck.Pheremone.Strength;
             int manhattan = Manhattan(nodeToCheck, destination);
-
-            foreach (Pheremone p in World.Instance.Pheremones)
-                if (p.Location.IsAt(nodeToCheck))
-                    distance -= p.Strength;
 
             return distance + manhattan;
         }

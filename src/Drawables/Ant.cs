@@ -106,18 +106,13 @@ namespace MyGame
 
         public void LeavePheremone()
         {
-            foreach (Pheremone p in World.Instance.Pheremones)
-            {
-                if (p.Location.IsAt(Location))
-                {
-                    if (p.Strength < _targetFood.Size * 100)
-                        p.Strength = _targetFood.Size * 100;
+            Pheremone p = PathingUtils.NodeAt(X, Y).Pheremone;
+            if (p.Strength < _targetFood.Size * 100)
+                p.Strength = _targetFood.Size * 100;
 
-                    return;
-                }
-            }
+            p.Strength = (byte) _targetFood.Size;
 
-            World.Instance.Pheremones.Add(new Pheremone(new Location(Location), (Byte)_targetFood.Size));
+            GameLogic.Renderer.AddDrawable(p);
         }
 
         public Nest Nest

@@ -23,6 +23,11 @@ namespace MyGame
             _instance = this;
         }
 
+        public static World Touch()
+        {
+            return Instance;
+        }
+
         public static World Instance
         {
             get

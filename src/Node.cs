@@ -5,17 +5,20 @@ namespace MyGame
     public class Node: Location
     {
         private double _gScore;
+        private Pheremone _pheremone;
 
         public Node(int x, int y, double gScore)
             :base(x, y)
         {
             _gScore = gScore;
+            _pheremone = new Pheremone(new Location(X, Y), 0);
         }
 
         public Node(Node n)
             :base(n.X, n.Y)
         {
             _gScore = n.GScore;
+            _pheremone = new Pheremone(new Location(X, Y), 0);
         }
 
         public Node(int x, int y)
@@ -45,6 +48,12 @@ namespace MyGame
         public bool IsIn(LinkedList<Node> list)
         {
             return list.Contains(this);
+        }
+
+        public Pheremone Pheremone
+        {
+            get { return _pheremone; }
+            set { _pheremone = value; }
         }
 
         public double GScore

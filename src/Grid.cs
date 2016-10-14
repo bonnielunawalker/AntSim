@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MyGame
+﻿namespace MyGame
 {
     public class Grid
     {

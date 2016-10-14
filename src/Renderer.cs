@@ -16,6 +16,11 @@ namespace MyGame
             _drawables.Add(drawable);
         }
 
+        public void RemoveDrawable(Drawable drawable)
+        {
+            _drawables.Remove(drawable);
+        }
+
         public void RenderAll()
         {
             Render(Layer.Back);

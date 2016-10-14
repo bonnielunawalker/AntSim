@@ -25,6 +25,7 @@ namespace MyGame
             SwinGame.FillCircle(Color.Orange, _location.X, _location.Y, _size);
         }
 
+        // Currently placeholder. Does not accurately check collisions.
         public bool CheckCollision(Location l)
         {
             Point2D pointToCheck = new Point2D();

@@ -7,7 +7,7 @@ namespace MyGame
     {
         private static readonly Random _rand = new Random();
         private static Renderer _renderer = new Renderer();
-        private static int _pheremoneDecayRate = 2;
+        private static Grid _grid = World.Instance.Grid;
 
         // Methods
         public static void Process()
@@ -25,23 +25,12 @@ namespace MyGame
 
             World.Instance.Nest.CreateNewAnts();
 
-            foreach (Pheremone p in World.Instance.Pheremones)
-            {
-                if (!Renderer.Drawables.Contains(p))
-                    Renderer.AddDrawable(p);
-
-                if (p.Strength < _pheremoneDecayRate)
-                    p.Strength = 0;
-
-                if (p.Strength > 0)
-                    p.Strength -= _pheremoneDecayRate;
-            }
-
-            for (int i = World.Instance.Pheremones.Count - 1; i >= 0; i--)
-            {
-                if (World.Instance.Pheremones[i].Strength == 0)
-                    World.Instance.Pheremones.RemoveAt(i);
-            }
+            for (int x = 0; x < _grid.Nodes.GetLength(0); x++)
+                for (int y = 0; y < _grid.Nodes.GetLength(1); y++)
+                {
+                    Pheremone p = _grid.Nodes[x,y].Pheremone;
+                    p.Decay();
+                }
         }
 
 

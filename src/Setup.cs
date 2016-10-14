@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace MyGame
 {
@@ -6,6 +7,9 @@ namespace MyGame
     {
         public static void Run()
         {
+            Console.WriteLine("Generating grid...");
+            World.Touch();
+            Console.WriteLine("Done!");
             Console.WriteLine("Generating entities...");
             GenerateEntities();
             Console.WriteLine("Done!");

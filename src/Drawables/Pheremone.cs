@@ -8,6 +8,7 @@ namespace MyGame
         private int _strength;
         private Location _location;
         private Layer _layer;
+        private static int _decayRate = 2;
 
         public Pheremone(Location location, byte strength)
         {
@@ -20,6 +21,18 @@ namespace MyGame
         {
             SwinGame.FillRectangle(SwinGame.RGBAColor(245, 245, 0, (byte)(_strength / 100)),
                                    _location.X, _location.Y, 4, 4);
+        }
+
+        public void Decay()
+        {
+            if (Strength < _decayRate)
+                Strength = 0;
+
+            if (Strength > 0)
+                Strength -= _decayRate;
+
+            if (Strength == 0)
+                GameLogic.Renderer.RemoveDrawable(this);
         }
 
         public int Strength
