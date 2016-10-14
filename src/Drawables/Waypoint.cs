@@ -12,7 +12,7 @@ namespace MyGame
             _location = l;
             _layer = Layer.Mid;
 
-            GameLogic.Renderer.AddDrawable(this);
+            //GameLogic.Renderer.AddDrawable(this);
         }
 
         public Waypoint(Node n)

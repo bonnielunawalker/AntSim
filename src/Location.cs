@@ -28,6 +28,11 @@
             return _x == d.X && _y == d.Y;
         }
 
+        public bool IsAt(Node n)
+        {
+            return _x == n.X && _y == n.Y;
+        }
+
         public int X
         {
             get { return _x; }

@@ -85,13 +85,13 @@ namespace MyGame
         {
             Food bestFood = null;
             int bestScore = 0;
-            int currentScore = 0;
+            int currentScore;
 
             foreach (Food f in World.Instance.Foods)
             {
                 currentScore = f.Size + GameLogic.Random.Next(50);
 
-                if (currentScore - PathingUtils.GetFScore(f.Location, new Node(Location.X, Location.Y)) < 0)
+                if (currentScore - PathingUtils.GetFScore(f.Location, PathingUtils.NodeAt(Location.X, Location.Y)) < 0)
                     currentScore = 0;
 
                 if (currentScore >= bestScore)

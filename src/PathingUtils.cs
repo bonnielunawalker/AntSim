@@ -33,12 +33,8 @@ namespace MyGame
             int manhattan = Manhattan(nodeToCheck, destination);
 
             foreach (Pheremone p in World.Instance.Pheremones)
-            {
-                if (p.Location.IsAt(new Location(nodeToCheck.X, nodeToCheck.Y)))
-                {
+                if (p.Location.IsAt(nodeToCheck))
                     distance -= p.Strength;
-                }
-            }
 
             return distance + manhattan;
         }

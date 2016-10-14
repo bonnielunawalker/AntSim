@@ -19,10 +19,6 @@ namespace MyGame
 
             AddInitialNode(l);
 
-
-            // Add the initial node's neighbour nodes to the open list.
-            _closed.First().AddNeigbours(_open, _closed);
-
             GetRoute();
             CreateWaypoints();
         }
@@ -33,6 +29,7 @@ namespace MyGame
             _open = new List<Node>();
 
             _closed.AddFirst(PathingUtils.NodeAt(l.X, l.Y));
+            _closed.First().AddNeigbours(_open, _closed);
         }
 
         public void GetRoute()
