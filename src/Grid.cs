@@ -4,21 +4,19 @@ namespace MyGame
 {
     public class Grid
     {
-        private List<Node> _nodes;
+        private Node[,] _nodes;
 
         public Grid()
         {
-            _nodes = new List<Node>();
+            _nodes = new Node[GameState.WindowHeight - 1, GameState.WindowWidth - 1];
             GenerateNodes();
         }
 
         private void GenerateNodes()
         {
-            for (int x = 0; x < GameState.WindowWidth; x++)
-            {
-                for (int y = 0; y < GameState.WindowHeight; y++)
-                    _nodes.Add(new Node(x, y));
-            }
+            for (int x = 0; x < _nodes.GetLength(0); x++)
+                for (int y = 0; y < _nodes.GetLength(1); y++)
+                    _nodes[x,y] = new Node(x, y);
         }
 
         public void ResetGScores()
@@ -27,7 +25,7 @@ namespace MyGame
                 n.GScore = 0;
         }
 
-        public List<Node> Nodes
+        public Node[,] Nodes
         {
             get { return _nodes; }
             set { _nodes = value; }

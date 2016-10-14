@@ -61,7 +61,7 @@ namespace MyGame
 
         public static Node NodeAt(int x, int y)
         {
-            return World.Instance.Grid.Nodes.Find(node => node.X == x && node.Y == y);
+            return World.Instance.Grid.Nodes[x, y];
         }
     }
 }
