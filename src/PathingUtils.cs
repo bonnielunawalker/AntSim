@@ -61,13 +61,7 @@ namespace MyGame
 
         public static Node NodeAt(int x, int y)
         {
-            List<Node> gridNodes = World.Instance.Grid.Nodes;
-
-            for (int i = 0; i < gridNodes.Count; i++)
-                if (gridNodes[i].X == x && gridNodes[i].Y == y)
-                    return gridNodes[i];
-
-            return null;
+            return World.Instance.Grid.Nodes.Find(node => node.X == x && node.Y == y);
         }
     }
 }
