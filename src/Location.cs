@@ -10,7 +10,7 @@
             _y = y;
         }
 
-        // Empty constructor generates a randomised location.
+        // Location initialised with no parameters generates a random location.
         public Location()
             :this (GameLogic.Random.Next(0, GameState.WindowWidth), GameLogic.Random.Next(0, GameState.WindowHeight))
         {

@@ -65,11 +65,11 @@ namespace MyGame
 
         public static Node NodeAt(int x, int y)
         {
-            foreach (Node n in World.Instance.Grid.Nodes)
-            {
-                if (n.X == x && n.Y == y)
-                    return n;
-            }
+            List<Node> gridNodes = World.Instance.Grid.Nodes;
+
+            for (int i = 0; i < gridNodes.Count; i++)
+                if (gridNodes[i].X == x && gridNodes[i].Y == y)
+                    return gridNodes[i];
 
             return null;
         }

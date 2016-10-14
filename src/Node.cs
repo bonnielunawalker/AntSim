@@ -38,9 +38,9 @@ namespace MyGame
             newNodes.Add(PathingUtils.NodeAt(X - 1, Y - 1));
             newNodes.Add(PathingUtils.NodeAt(X - 1, Y + 1));
 
-            foreach (Node newNode in newNodes)
-                if (!newNode.IsIn(open) && !newNode.IsIn(closed))
-                    open.Add(newNode);
+            for (int i = 1; i < newNodes.Count; i++)
+                if (newNodes[i] != null && !newNodes[i].IsIn(open) && !newNodes[i].IsIn(closed))
+                    open.Add(newNodes[i]);
         }
 
         public bool IsIn(List<Node> list)
