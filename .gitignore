@@ -8,3 +8,4 @@ MyGameWin.sln
 obj/
 bin/Debug/MyGame.exe
 bin/Debug/MyGame.exe.mdb
+output.mlpd
