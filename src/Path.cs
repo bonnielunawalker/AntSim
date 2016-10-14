@@ -19,7 +19,9 @@ namespace MyGame
 
             AddInitialNode(l);
 
-            PathingUtils.AddNeigbours(_open, _closed, _closed.First());
+
+            // Add the initial node's neighbour nodes to the open list.
+            _closed.First().AddNeigbours(_open, _closed);
 
             GetRoute();
             CreateWaypoints();
@@ -43,7 +45,7 @@ namespace MyGame
                 _closed.AddAfter(previous, current);
                 previous = previous.Next;
 
-                PathingUtils.AddNeigbours(_open, _closed, current);
+                current.AddNeigbours(_open, _closed);
 
                 _open.Remove(current);
 
@@ -53,9 +55,8 @@ namespace MyGame
 
         private void CreateWaypoints()
         {
-            _waypoints = new LinkedList<Waypoint>();
+            CreateInitialWaypoint();
             LinkedListNode<Node> currentNode = _closed.Last;
-            _waypoints.AddFirst(new Waypoint(currentNode.Value));
             LinkedListNode<Waypoint> currentWaypoint = _waypoints.First;
 
             while (!currentNode.Value.IsAt(_startingNode))
@@ -63,6 +64,13 @@ namespace MyGame
                 currentNode = currentNode.Previous;
                 _waypoints.AddAfter(currentWaypoint, new Waypoint(currentNode.Value));
             }
+        }
+
+        private void CreateInitialWaypoint()
+        {
+            _waypoints = new LinkedList<Waypoint>();
+            LinkedListNode<Node> currentNode = _closed.Last;
+            _waypoints.AddFirst(new Waypoint(currentNode.Value));
         }
 
 

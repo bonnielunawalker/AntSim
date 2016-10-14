@@ -24,6 +24,25 @@ namespace MyGame
 
         }
 
+        public void AddNeigbours(List<Node> open, LinkedList<Node> closed)
+        {
+            List<Node> newNodes = new List<Node>();
+
+            newNodes.Add(PathingUtils.NodeAt(X, Y - 1));
+            newNodes.Add(PathingUtils.NodeAt(X, X + 1));
+            newNodes.Add(PathingUtils.NodeAt(X - 1, Y));
+            newNodes.Add(PathingUtils.NodeAt(X + 1, Y));
+
+            newNodes.Add(PathingUtils.NodeAt(X + 1, Y - 1));
+            newNodes.Add(PathingUtils.NodeAt(X + 1, Y + 1));
+            newNodes.Add(PathingUtils.NodeAt(X - 1, Y - 1));
+            newNodes.Add(PathingUtils.NodeAt(X - 1, Y + 1));
+
+            foreach (Node newNode in newNodes)
+                if (!newNode.IsIn(open) && !newNode.IsIn(closed))
+                    open.Add(newNode);
+        }
+
         public bool IsIn(List<Node> list)
         {
             return list.Contains(this);

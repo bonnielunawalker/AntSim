@@ -7,25 +7,6 @@ namespace MyGame
     {
         private const int MAX_INT = int.MaxValue;
 
-        public static void AddNeigbours(List<Node> open, LinkedList<Node> closed, Node n)
-        {
-            List<Node> newNodes = new List<Node>();
-
-            newNodes.Add(NodeAt(n.X, n.Y - 1));
-            newNodes.Add(NodeAt(n.X, n.X + 1));
-            newNodes.Add(NodeAt(n.X - 1, n.Y));
-            newNodes.Add(NodeAt(n.X + 1, n.Y));
-
-            newNodes.Add(NodeAt(n.X + 1, n.Y - 1));
-            newNodes.Add(NodeAt(n.X + 1, n.Y + 1));
-            newNodes.Add(NodeAt(n.X - 1, n.Y - 1));
-            newNodes.Add(NodeAt(n.X - 1, n.Y + 1));
-
-            foreach (Node newNode in newNodes)
-                if (!newNode.IsIn(open) && !newNode.IsIn(closed))
-                    open.Add(newNode);
-        }
-
         public static Node GetPriorityNode(List<Node> list, Location destination)
         {
             double score;
