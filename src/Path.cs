@@ -6,7 +6,7 @@ namespace MyGame
 {
     public class Path
     {
-        private LinkedList<Waypoint> _waypoints;
+        private LinkedList<Node> _waypoints;
         private LinkedList<Node> _closed;
         private List<Node> _open;
         private readonly Location _destination;
@@ -55,29 +55,29 @@ namespace MyGame
         {
             CreateInitialWaypoint();
             LinkedListNode<Node> currentNode = _closed.Last;
-            LinkedListNode<Waypoint> currentWaypoint = _waypoints.First;
+            LinkedListNode<Node> previousNode = _waypoints.First;
 
             while (!currentNode.Value.IsAt(_startingNode))
             {
                 currentNode = currentNode.Previous;
-                _waypoints.AddAfter(currentWaypoint, new Waypoint(currentNode.Value));
+                _waypoints.AddAfter(previousNode, currentNode.Value);
             }
         }
 
         private void CreateInitialWaypoint()
         {
-            _waypoints = new LinkedList<Waypoint>();
+            _waypoints = new LinkedList<Node>();
             LinkedListNode<Node> currentNode = _closed.Last;
-            _waypoints.AddFirst(new Waypoint(currentNode.Value));
+            _waypoints.AddFirst(currentNode.Value);
         }
 
 
-        public LinkedList<Waypoint> Waypoints
+        public LinkedList<Node> Waypoints
         {
             get { return _waypoints; }
         }
 
-        public Waypoint LastWaypoint
+        public Node LastWaypoint
         {
             get { return _waypoints.Last.Value; }
         }
@@ -87,14 +87,14 @@ namespace MyGame
             get { return _destination; }
         }
 
-        public LinkedList<Waypoint> Waypoint
+        public LinkedList<Node> Waypoint
         {
             get { return _waypoints; }
         }
 
-        public Waypoint NextWaypoint(Waypoint w)
+        public Node NextWaypoint(Node w)
         {
-            LinkedListNode<Waypoint> current = _waypoints.Find(w);
+            LinkedListNode<Node> current = _waypoints.Find(w);
             try
             {
                 return current.Next.Value;

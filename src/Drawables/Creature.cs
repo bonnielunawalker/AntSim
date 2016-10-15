@@ -6,7 +6,7 @@ namespace MyGame
     public abstract class Creature : Drawable, Collidable
     {
         private Path _currentPath;
-        private Waypoint _currentWaypoint;
+        private Node _currentWaypoint;
         private Path _newPath;
         private Location _location;
         private readonly Layer _layer;
@@ -35,18 +35,18 @@ namespace MyGame
                 Console.WriteLine("Made it!");
             else
             {
-                if (CurrentWaypoint.Location.X < Location.X)
+                if (CurrentWaypoint.X < Location.X)
                     Location.X--;
-                else if (CurrentWaypoint.Location.X > Location.X)
+                else if (CurrentWaypoint.X > Location.X)
                     Location.X++;
 
-                if (CurrentWaypoint.Location.Y < Location.Y)
+                if (CurrentWaypoint.Y < Location.Y)
                     Location.Y--;
-                else if (CurrentWaypoint.Location.Y > Location.Y)
+                else if (CurrentWaypoint.Y > Location.Y)
                     Location.Y++;
             }
 
-            if (_location.IsAt(CurrentWaypoint.Location))
+            if (_location.IsAt(CurrentWaypoint))
                 CurrentWaypoint = CurrentPath.NextWaypoint(CurrentWaypoint);
         }
 
@@ -108,7 +108,7 @@ namespace MyGame
             set { _currentPath = value; }
         }
 
-        public Waypoint CurrentWaypoint
+        public Node CurrentWaypoint
         {
             get { return _currentWaypoint; }
             set { _currentWaypoint = value; }
