@@ -1,7 +1,4 @@
-﻿using System;
-using SwinGameSDK;
-
-namespace MyGame
+﻿namespace MyGame
 {
     public class Ant : Creature
     {
@@ -19,7 +16,7 @@ namespace MyGame
             _maxFood = 1;
         }
 
-        public override void Move()
+        public void GetMove()
         {
             CheckFoodCollision();
 
@@ -48,11 +45,12 @@ namespace MyGame
             }
             else if (_state == PathingState.Return)
             {
-                if (CurrentPath == null)
-                    CurrentPath = GetPathTo(_nest.Location);
+                CurrentPath = GetPathTo(_nest.Location);
                 LeavePheremone();
             }
-            base.Move();
+            Move();
+
+            CurrentPath = null;
         }
 
         public void CheckFoodCollision()
@@ -71,14 +69,14 @@ namespace MyGame
 
         public override Path GetPathTo(Location d)
         {
-            return new Path(Location, d);
+            return new Path(Location, PathingUtils.EstimateLocation(Location, d));
         }
 
         public Path GetPathToFood()
         {
             if (_targetFood == null)
                 _targetFood = GetBestFood();
-            return GetPathTo(PathingUtils.EstimateLocation(Location, _targetFood.Location));
+            return GetPathTo(_targetFood.Location);
         }
 
         public Food GetBestFood()
@@ -106,13 +104,11 @@ namespace MyGame
 
         public void LeavePheremone()
         {
-            Pheremone p = PathingUtils.NodeAt(X, Y).Pheremone;
+            Pheremone p = World.Instance.Grid.Nodes[X,Y].Pheremone;
             if (p.Strength < _targetFood.Size * 100)
-                p.Strength = _targetFood.Size * 100;
+                p.Strength = (byte)_targetFood.Size * 100;
 
-            p.Strength = (byte) _targetFood.Size;
 
-            GameLogic.Renderer.AddDrawable(p);
         }
 
         public Nest Nest

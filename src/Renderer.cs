@@ -31,10 +31,8 @@ namespace MyGame
         private void Render(Layer l)
         {
             foreach (Drawable d in _drawables)
-            {
                 if (d.Layer == l)
                     d.Draw();
-            }
         }
 
         public List<Drawable> Drawables

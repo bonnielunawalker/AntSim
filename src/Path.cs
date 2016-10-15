@@ -50,6 +50,7 @@ namespace MyGame
             }
         }
 
+        // TODO: Refactor to use nodes instead of waypoints. Will improve performance.
         private void CreateWaypoints()
         {
             CreateInitialWaypoint();

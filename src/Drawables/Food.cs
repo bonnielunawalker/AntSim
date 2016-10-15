@@ -39,7 +39,10 @@ namespace MyGame
 
         public static void RemoveEmptyFoods(List<Food> food)
         {
-            food.RemoveAll(item => item.Size == 0);
+            food.RemoveAll(delegate(Food f)
+            {
+                return f.Size == 0;
+            });
         }
 
 

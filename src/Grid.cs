@@ -6,7 +6,7 @@
 
         public Grid()
         {
-            _nodes = new Node[GameState.WindowHeight - 1, GameState.WindowWidth - 1];
+            _nodes = new Node[GameState.WindowWidth - 1, GameState.WindowHeight - 1];
             GenerateNodes();
         }
 

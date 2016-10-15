@@ -18,13 +18,18 @@ namespace MyGame
 
             foreach (Ant a in World.Instance.Nest.Ants)
             {
-                Renderer.Drawables.RemoveAll(item => item is Waypoint);
-                a.Move();
+                a.GetMove();
                 Console.WriteLine("{0},{1}", a.Location.X, a.Location.Y);
             }
 
             World.Instance.Nest.CreateNewAnts();
 
+            ProcessPheremoneDecay();
+
+        }
+
+        private static void ProcessPheremoneDecay()
+        {
             for (int x = 0; x < _grid.Nodes.GetLength(0); x++)
                 for (int y = 0; y < _grid.Nodes.GetLength(1); y++)
                 {

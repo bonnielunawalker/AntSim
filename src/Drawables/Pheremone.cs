@@ -30,9 +30,6 @@ namespace MyGame
 
             if (Strength > 0)
                 Strength -= _decayRate;
-
-            if (Strength == 0)
-                GameLogic.Renderer.RemoveDrawable(this);
         }
 
         public int Strength

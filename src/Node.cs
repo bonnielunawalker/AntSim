@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MyGame
 {
@@ -11,14 +12,12 @@ namespace MyGame
             :base(x, y)
         {
             _gScore = gScore;
-            _pheremone = new Pheremone(new Location(X, Y), 0);
         }
 
         public Node(Node n)
             :base(n.X, n.Y)
         {
             _gScore = n.GScore;
-            _pheremone = new Pheremone(new Location(X, Y), 0);
         }
 
         public Node(int x, int y)
@@ -30,14 +29,34 @@ namespace MyGame
         public void AddNeigbours(List<Node> open, LinkedList<Node> closed)
         {
             Node newNode;
+            int xMax = World.Instance.Grid.Nodes.GetLength(0);
+            int yMax = World.Instance.Grid.Nodes.GetLength(1);
 
             for (int x = X - 1; x <= X + 1; x++)
                 for (int y = Y - 1; y <= Y + 1; y++)
-                {
-                    newNode = PathingUtils.NodeAt(x, y);
-                    if (newNode != null && !newNode.IsIn(open) && !newNode.IsIn(closed))
-                        open.Add(newNode);
-                }
+                    if (InGrid(xMax, yMax, x, y))
+                    {
+                        newNode = World.Instance.Grid.Nodes[x,y];
+                        if (!newNode.IsIn(open) && !newNode.IsIn(closed))
+                        {
+                            open.Add(newNode);
+                            newNode.GScore = GetGScore(newNode);
+                        }
+                    }
+        }
+
+        private double GetGScore(Node n)
+        {
+            // Calculates diagonal cost function.
+            if (Math.Abs(n.X - X) == 1 && Math.Abs(n.Y - Y) == 1)
+                return n.GScore + 1.41;
+
+            return n.GScore + 1;
+        }
+
+        private bool InGrid(int xMax, int yMax, int x, int y)
+        {
+            return x < xMax && y < yMax && x >= 0 && y >= 0;
         }
 
         public bool IsIn(List<Node> list)
@@ -50,10 +69,34 @@ namespace MyGame
             return list.Contains(this);
         }
 
+        public int PheremoneStrength
+        {
+            get
+            {
+                if (_pheremone == null)
+                    return 0;
+                return _pheremone.Strength;
+            }
+        }
+
         public Pheremone Pheremone
         {
-            get { return _pheremone; }
-            set { _pheremone = value; }
+            get
+            {
+                if (_pheremone == null)
+                    _pheremone = new Pheremone(new Location(X, Y), 0);
+
+                if (_pheremone.Strength > 0 && !GameLogic.Renderer.Drawables.Contains(_pheremone))
+                    GameLogic.Renderer.AddDrawable(_pheremone);
+
+                return _pheremone;
+            }
+            set
+            {
+                _pheremone = value;
+                if (_pheremone.Strength == 0)
+                    GameLogic.Renderer.RemoveDrawable(_pheremone);
+            }
         }
 
         public double GScore
