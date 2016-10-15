@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Configuration;
 
 namespace MyGame
 {
@@ -26,7 +27,7 @@ namespace MyGame
 
         }
 
-        public void AddNeigbours(List<Node> open, LinkedList<Node> closed)
+        public void AddNeigbours(PriorityQueue<Node> open, LinkedList<Node> closed)
         {
             Node newNode;
             int xMax = World.Instance.Grid.Nodes.GetLength(0);
@@ -67,6 +68,11 @@ namespace MyGame
         public bool IsIn(LinkedList<Node> list)
         {
             return list.Contains(this);
+        }
+
+        public bool IsIn(PriorityQueue<Node> queue)
+        {
+            return queue.Contains(this);
         }
 
         public int PheremoneStrength

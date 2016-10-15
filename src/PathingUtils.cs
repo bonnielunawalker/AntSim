@@ -1,33 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace MyGame
 {
     public static class PathingUtils
     {
-        private const int MAX_INT = int.MaxValue;
-
-        public static Node GetPriorityNode(List<Node> list, Location destination)
-        {
-            double score;
-            double lowestScore = MAX_INT;
-            Node bestNode = null;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                score = GetFScore(destination, list[i]);
-
-                if (score < lowestScore)
-                {
-                    lowestScore = score;
-                    bestNode = list[i];
-                }
-            }
-
-            return bestNode;
-        }
-
-        public static double GetFScore(Location destination, Node nodeToCheck)
+        public static double GetFScore(Node destination, Node nodeToCheck)
         {
             double distance = nodeToCheck.GScore - nodeToCheck.PheremoneStrength * 100;
             int manhattan = Manhattan(nodeToCheck, destination);
@@ -58,6 +35,11 @@ namespace MyGame
         public static Node NodeAt(int x, int y)
         {
             return World.Instance.Grid.Nodes[x, y];
+        }
+
+        public static Node NodeAt(Location l)
+        {
+            return NodeAt(l.X, l.Y);
         }
     }
 }

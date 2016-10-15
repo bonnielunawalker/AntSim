@@ -89,7 +89,7 @@
             {
                 currentScore = f.Size + GameLogic.Random.Next(50);
 
-                if (currentScore - PathingUtils.GetFScore(f.Location, PathingUtils.NodeAt(Location.X, Location.Y)) < 0)
+                if (currentScore - PathingUtils.GetFScore(PathingUtils.NodeAt(f.Location), PathingUtils.NodeAt(Location.X, Location.Y)) < 0)
                     currentScore = 0;
 
                 if (currentScore >= bestScore)

@@ -8,7 +8,7 @@ namespace MyGame
     {
         private LinkedList<Node> _waypoints;
         private LinkedList<Node> _closed;
-        private List<Node> _open;
+        private PriorityQueue<Node> _open;
         private readonly Location _destination;
         private readonly Location _startingNode;
 
@@ -26,7 +26,7 @@ namespace MyGame
         private void AddInitialNode(Location l)
         {
             _closed = new LinkedList<Node>();
-            _open = new List<Node>();
+            _open = new PriorityQueue<Node>();
 
             _closed.AddFirst(PathingUtils.NodeAt(l.X, l.Y));
             _closed.First().AddNeigbours(_open, _closed);
@@ -34,7 +34,7 @@ namespace MyGame
 
         public void GetRoute()
         {
-            Node current = _open[0];
+            Node current = _open.First;
             LinkedListNode<Node> previous = _closed.First;
 
             while (!current.IsAt(_destination))
@@ -46,7 +46,7 @@ namespace MyGame
 
                 _open.Remove(current);
 
-                current = PathingUtils.GetPriorityNode(_open, _destination);
+                current = _open.PriorityItem(PathingUtils.GetFScore, PathingUtils.NodeAt(_destination));
             }
         }
 

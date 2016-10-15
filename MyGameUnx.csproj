@@ -43,7 +43,6 @@
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibsToOut</PrepareForRunDependsOn>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src" />
     <Folder Include="src\" />
     <Folder Include="Resources\" />
     <Folder Include="src\Drawables" />
@@ -65,6 +64,7 @@
     <Compile Include="src\Node.cs" />
     <Compile Include="src\PathingState.cs" />
     <Compile Include="src\PathingUtils.cs" />
+    <Compile Include="src\PriorityQueue.cs" />
     <Compile Include="src\Renderer.cs" />
     <Compile Include="src\Setup.cs" />
     <Compile Include="src\UtilityFunctions.cs" />
