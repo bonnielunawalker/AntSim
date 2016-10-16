@@ -43,6 +43,24 @@ namespace MyGame
             return priorityItem;
         }
 
+		public T PriorityItem (Func<T, double> sortMethod, Func<double, double, bool> comparison)
+		{
+			double score;
+			double maxScore = double.MaxValue;
+			T priorityItem = default (T);
+
+			foreach (T item in _items) {
+				score = sortMethod (item);
+
+				if (comparison (score, maxScore)) {
+					maxScore = score;
+					priorityItem = item;
+				}
+			}
+
+			return priorityItem;
+		}
+
         public int Count
         {
             get { return _items.Count; }
