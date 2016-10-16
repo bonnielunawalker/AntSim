@@ -46,7 +46,7 @@ namespace MyGame
 
                 _open.Remove(current);
 
-                current = _open.PriorityItem(PathingUtils.GetFScore, PathingUtils.NodeAt(_destination));
+				current = _open.PriorityItem(PathingUtils.GetFScore, PathingUtils.CompareScores, PathingUtils.NodeAt(_destination));
             }
         }
 

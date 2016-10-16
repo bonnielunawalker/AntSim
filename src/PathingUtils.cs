@@ -4,13 +4,13 @@ namespace MyGame
 {
     public static class PathingUtils
     {
-        public static double GetFScore(Node destination, Node nodeToCheck)
-        {
-            double distance = nodeToCheck.GScore - nodeToCheck.PheremoneStrength * 100;
-            int manhattan = Manhattan(nodeToCheck, destination);
+		public static double GetFScore (Node destination, Node nodeToCheck)
+		{
+			double distance = nodeToCheck.GScore - nodeToCheck.PheremoneStrength * 100;
+			int manhattan = Manhattan (nodeToCheck, destination);
 
-            return distance + manhattan;
-        }
+			return distance + manhattan;
+		}
 
         public static Location EstimateLocation(Location start, Location dest)
         {
@@ -41,5 +41,10 @@ namespace MyGame
         {
             return NodeAt(l.X, l.Y);
         }
+
+		public static bool CompareScores (double a, double b)
+		{
+			return a < b;
+		}
     }
 }

@@ -23,7 +23,7 @@ namespace MyGame
             return _items.Contains(value);
         }
 
-        public T PriorityItem(Func<T, T, double> func, T comparisonItem)
+		public T PriorityItem(Func<T, T, double> sortMethod, Func<double, double, bool> comparison, T comparisonItem)
         {
             double score;
             double maxScore = double.MaxValue;
@@ -31,9 +31,9 @@ namespace MyGame
 
             foreach (T item in _items)
             {
-                score = func(item, comparisonItem);
+                score = sortMethod(item, comparisonItem);
 
-                if (score < maxScore)
+				if (comparison(score, maxScore))
                 {
                     maxScore = score;
                     priorityItem = item;
