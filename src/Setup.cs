@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Net;
 
-namespace MyGame
+namespace AntSim
 {
     public static class Setup
     {
         public static void Run()
         {
             Console.WriteLine("Generating grid...");
-            World.Touch();
+            World.CreateInstance();
             Console.WriteLine("Done!");
             Console.WriteLine("Generating entities...");
             GenerateEntities();
@@ -25,11 +24,8 @@ namespace MyGame
             for (int i = 0; i < 1; i++)
                 World.Instance.Nest.Ants.Add(new Ant(World.Instance.Nest));
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
                 World.Instance.Foods.Add(new Food(new Location()));
-
-            for (int i = 0; i < GameLogic.Random.Next(10, 40); i++)
-                World.Instance.Obstacles.Add(new Obstacle(new Location()));
         }
 
         private static void AddEntitiesToRenderer()
@@ -41,9 +37,6 @@ namespace MyGame
 
             foreach (Ant a in World.Instance.Nest.Ants)
                 GameLogic.Renderer.AddDrawable(a);
-
-//            foreach (Obstacle o in _obstacles)
-//                GameLogic.Renderer.AddDrawable(o);
         }
     }
 }

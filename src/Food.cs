@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using SwinGameSDK;
 
-namespace MyGame
+namespace AntSim
 {
-    public class Food : Collidable
+    public class Food : ICollidable
     {
         private readonly Location _location;
         private int _size;
-        private readonly Layer _layer;
+        private readonly Renderer.Layer _layer;
 
         public Food(Location l)
         {
             _location = l;
             _size = GameLogic.Random.Next(20, 75);
-            _layer = Layer.Back;
+            _layer = Renderer.Layer.Back;
         }
 
         public int TakeFood(int takeAmount)
         {
-            _size -= takeAmount;
-            Console.WriteLine(_size);
+            Console.WriteLine("Taking food");
+            _size = _size - takeAmount;
             return takeAmount;
         }
 
@@ -39,12 +39,16 @@ namespace MyGame
 
         public static void RemoveEmptyFoods(List<Food> food)
         {
-            food.RemoveAll(delegate(Food f)
-            {
-                return f.Size == 0;
-            });
+            foreach (Food f in food)
+                if (f.Size == 0)
+                    f.Delete(food);
         }
 
+        public void Delete(List<Food> food)
+        {
+            food.Remove(this);
+            GameLogic.Renderer.RemoveDrawable(this);
+        }
 
         public Location Location
         {
@@ -66,7 +70,7 @@ namespace MyGame
             get { return _size; }
         }
 
-        public Layer Layer
+        public Renderer.Layer Layer
         {
             get { return _layer; }
         }

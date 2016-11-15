@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Configuration;
 
-namespace MyGame
+namespace AntSim
 {
     public class Node: Location
     {
         private double _gScore;
-        private Pheremone _pheremone;
+        private Pheromone _pheromone;
 
         public Node(int x, int y, double gScore)
             :base(x, y)
@@ -30,20 +29,28 @@ namespace MyGame
         public void AddNeigbours(PriorityQueue<Node> open, LinkedList<Node> closed)
         {
             Node newNode;
-            int xMax = World.Instance.Grid.Nodes.GetLength(0);
-            int yMax = World.Instance.Grid.Nodes.GetLength(1);
+            int xMax = World.Instance.Grid.GetLength(0);
+            int yMax = World.Instance.Grid.GetLength(1);
 
             for (int x = X - 1; x <= X + 1; x++)
                 for (int y = Y - 1; y <= Y + 1; y++)
                     if (InGrid(xMax, yMax, x, y))
                     {
-                        newNode = World.Instance.Grid.Nodes[x,y];
+                        newNode = World.Instance.Grid[x,y];
                         if (!newNode.IsIn(open) && !newNode.IsIn(closed))
                         {
                             open.Add(newNode);
                             newNode.GScore = GetGScore(newNode);
                         }
                     }
+        }
+
+        public static double GetFScore (Node destination, Node nodeToCheck)
+        {
+            double distance = nodeToCheck.GScore;
+            int manhattan = PathingUtils.GetHScore (nodeToCheck, destination);
+
+            return distance + manhattan;
         }
 
         private double GetGScore(Node n)
@@ -75,33 +82,35 @@ namespace MyGame
             return queue.Contains(this);
         }
 
-        public int PheremoneStrength
+        public double PheremoneStrength
         {
             get
             {
-                if (_pheremone == null)
+                if (_pheromone == null)
                     return 0;
-                return _pheremone.Strength;
+                return _pheromone.Size * Pheromone.SizeFactor;
             }
         }
 
-        public Pheremone Pheremone
+        // Adding and removing pheremones from the renderer is handled by this property
+        // TODO: Too highly coupled?
+        public Pheromone Pheromone
         {
             get
             {
-                if (_pheremone == null)
-                    _pheremone = new Pheremone(new Location(X, Y), 0);
+                if (_pheromone == null)
+                    _pheromone = new Pheromone(new Location(X, Y), 0);
 
-                if (_pheremone.Strength > 0 && !GameLogic.Renderer.Drawables.Contains(_pheremone))
-                    GameLogic.Renderer.AddDrawable(_pheremone);
+                if (_pheromone.Size > 0 && !GameLogic.Renderer.Drawables.Contains(_pheromone))
+                    GameLogic.Renderer.AddDrawable(_pheromone);
 
-                return _pheremone;
+                return _pheromone;
             }
             set
             {
-                _pheremone = value;
-                if (_pheremone.Strength == 0)
-                    GameLogic.Renderer.RemoveDrawable(_pheremone);
+                _pheromone = value;
+                if (_pheromone.Size == 0)
+                    GameLogic.Renderer.RemoveDrawable(_pheromone);
             }
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyGame
+namespace AntSim
 {
     public class PriorityQueue<T>
     {
@@ -23,6 +23,7 @@ namespace MyGame
             return _items.Contains(value);
         }
 
+        // TODO: Use currying
 		public T PriorityItem(Func<T, T, double> sortMethod, Func<double, double, bool> comparison, T comparisonItem)
         {
             double score;
@@ -43,6 +44,7 @@ namespace MyGame
             return priorityItem;
         }
 
+        // Overload that can be used without a comparison item
 		public T PriorityItem (Func<T, double> sortMethod, Func<double, double, bool> comparison)
 		{
 			double score;
@@ -50,7 +52,7 @@ namespace MyGame
 			T priorityItem = default (T);
 
 			foreach (T item in _items) {
-				score = sortMethod (item);
+				score = sortMethod(item);
 
 				if (comparison (score, maxScore)) {
 					maxScore = score;
@@ -73,7 +75,13 @@ namespace MyGame
 
         public T First
         {
-            get { return _items.First(); }
+            get
+            {
+                if (_items.Count != 0 || _items.First() != null)
+                    return _items.First();
+                else
+                    throw new IndexOutOfRangeException("The collection has no first value.");
+            }
         }
     }
 }

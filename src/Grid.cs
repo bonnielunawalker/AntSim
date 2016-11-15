@@ -1,12 +1,12 @@
-﻿namespace MyGame
+﻿namespace AntSim
 {
     public class Grid
     {
         private Node[,] _nodes;
 
-        public Grid()
+        public Grid(int width, int height)
         {
-            _nodes = new Node[GameState.WindowWidth - 1, GameState.WindowHeight - 1];
+            _nodes = new Node[width, height];
             GenerateNodes();
         }
 
@@ -23,10 +23,15 @@
                 n.GScore = 0;
         }
 
-        public Node[,] Nodes
+        public int GetLength(int dimension)
         {
-            get { return _nodes; }
-            set { _nodes = value; }
+            return _nodes.GetLength(dimension);
+        }
+
+        public Node this[int x, int y]
+        {
+            get { return _nodes[x, y]; }
+            set { _nodes[x, y] = value; }
         }
     }
 }

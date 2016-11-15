@@ -1,4 +1,4 @@
-﻿namespace MyGame
+﻿namespace AntSim
 {
     public class Location
     {

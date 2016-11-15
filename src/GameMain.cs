@@ -1,6 +1,6 @@
 using SwinGameSDK;
 
-namespace MyGame
+namespace AntSim
 {
     public class GameMain
     {

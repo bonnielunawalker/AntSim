@@ -1,0 +1,1287 @@
+﻿using System;
+using SwinGameSDK;
+
+namespace AntSim
+{
+    public class Ant : Creature
+    {
+        private readonly Nest _nest;
+        private PathingState _state;
+        private int _food;
+        private readonly int _maxFood;
+        private Food _targetFood;
+        private static readonly int _pathfindingRandomness = 1000;
+        private static readonly int _searchRadius = 30;
+        private Location _previousNode;
+        private int _pheremoneThreshold;
+
+        public Ant(Nest n)
+            :base(new Location(n.Location), 4)
+        {
+            _nest = n;
+            _state = PathingState.GetFood;
+            _maxFood = 1;
+            _pheremoneThreshold = GameLogic.Random.Next(10, 1000);
+        }
+
+        public void GetMove()
+        {
+            if (_state == PathingState.Return)
+            {
+                if (CurrentPath == null || !CurrentPath.Destination.IsAt(_nest.Location))
+                    CurrentPath = GetPathTo(_nest.Location);
+                if (_food == _maxFood)
+                    LeavePheremone();
+            }
+
+            if (_nest.CheckCollision(Location) && _state == PathingState.Return)
+            {
+                _nest.UpdateFood(ref _food);
+                _state = PathingState.GetFood;
+                CurrentPath = null;
+                _targetFood = null;
+                CurrentWaypoint = null;
+            }
+
+            if (CurrentPath == null && NearestPheremone() != null)
+                CurrentPath = Path.ConstructPathFromTrail(NearestPheremone());
+
+            if (_food == _maxFood)
+            {
+                _state = PathingState.Return;
+                if (!CurrentPath.Destination.IsAt(_nest.Location))
+                    CurrentPath = GetPathTo(_nest.Location);
+            }
+            else
+                CheckFoodCollision();
+
+            if (_state == PathingState.GetFood)
+                if (CurrentPath == null)
+                    CurrentPath = GetPathToFood();
+
+            _previousNode = World.Instance.Grid[Location.X, Location.Y];
+        }
+
+        private Pheromone NearestPheremone()
+        {
+            for (int x = Location.X - _searchRadius; x < Location.X + _searchRadius; x++)
+                for (int y = Location.Y - _searchRadius; y < Location.X + _searchRadius; y++)
+                {
+                    Pheromone p = World.Instance.PheremoneAt(x, y);
+                    if (p.Size >= _pheremoneThreshold)
+                        return p;
+                }
+
+            return null;
+        }
+
+        // TODO: Replace with quadtrees
+        private void CheckFoodCollision()
+        {
+            for (int i = 0; i < World.Instance.Foods.Count; i++)
+                if (World.Instance.Foods[i].CheckCollision(Location))
+                {
+                    _targetFood = World.Instance.Foods[i]; // If ants collide with another food on their way to their target food, their target food will be overwritten
+                    _food = _targetFood.TakeFood(1);
+                    return;
+                }
+        }
+
+        private Path GetPathToFood()
+        {
+            _targetFood = GetBestFood();
+            return GetPathTo(_targetFood.Location);
+        }
+
+        private Food GetBestFood()
+        {
+            Food bestFood = null;
+            int bestScore = 0;
+            int currentScore;
+
+            foreach (Food f in World.Instance.Foods)
+            {
+                 currentScore = f.Size + GameLogic.Random.Next(_pathfindingRandomness);
+
+                // Score cannot be negative
+                if (currentScore - Node.GetFScore(PathingUtils.NodeAt(f.Location),
+                                                  PathingUtils.NodeAt(Location.X, Location.Y)) < 0)
+                    currentScore = 0;
+
+                if (currentScore >= bestScore)
+                {
+                    bestFood = f;
+                    bestScore = currentScore;
+                }
+            }
+
+            return bestFood;
+        }
+
+        private void LeavePheremone()
+        {
+            Pheromone p = World.Instance.PheremoneAt(X, Y);
+            if (p.Size < _targetFood.Size * Pheromone.SizeFactor)
+                p.Size = _targetFood.Size * Pheromone.SizeFactor;
+
+            p.Parent = World.Instance.Grid[_previousNode.X, _previousNode.Y].Pheromone;
+        }
+
+        public override void Draw()
+        {
+            SwinGame.FillRectangle(SwinGame.RGBAColor(255, 0, (byte)_pheremoneThreshold, 255) , Location.X, Location.Y, 4, Size);
+        }
+
+        public Nest Nest
+        {
+            get { return _nest; }
+        }
+
+        public PathingState State
+        {
+            get { return _state; }
+            set { _state = value; }
+        }
+
+        public int Food
+        {
+            get { return _food; }
+        }
+    }
+}
+
+namespace AntSim
+{
+    public abstract class Creature : IDrawable
+    {
+        private Path _currentPath;
+        private Node _currentWaypoint;
+        private Location _location;
+        private readonly Renderer.Layer _layer;
+        private int _size;
+
+        public Creature(Location l, int size)
+        {
+            _location = l;
+            _layer = Renderer.Layer.Front;
+            _size = size;
+        }
+
+        public virtual Path GetPathTo(Location d)
+        {
+            return new Path(Location, d);
+        }
+
+        public virtual void Move()
+        {
+            if (CurrentWaypoint == null)
+                CurrentWaypoint = CurrentPath.Waypoints.First.Value;
+
+            if (CurrentWaypoint.X < Location.X)
+                Location.X--;
+            else if (CurrentWaypoint.X > Location.X)
+                Location.X++;
+
+            if (CurrentWaypoint.Y < Location.Y)
+                Location.Y--;
+            else if (CurrentWaypoint.Y > Location.Y)
+                Location.Y++;
+
+            if (_location.IsAt(CurrentWaypoint) && CurrentPath != null)
+                CurrentWaypoint = CurrentPath.NextWaypoint(CurrentWaypoint);
+
+        }
+
+        public abstract void Draw();
+
+
+        public Location Location
+        {
+            get { return _location; }
+            set { _location = value; }
+        }
+
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
+        }
+
+        public int Size
+        {
+            get { return _size; }
+            set { _size = value; }
+        }
+
+        public Path CurrentPath
+        {
+            get { return _currentPath; }
+            set { _currentPath = value; }
+        }
+
+        public Node CurrentWaypoint
+        {
+            get { return _currentWaypoint; }
+            set { _currentWaypoint = value; }
+        }
+
+        public Renderer.Layer Layer
+        {
+            get { return _layer; }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using SwinGameSDK;
+
+namespace AntSim
+{
+    public class Food : ICollidable
+    {
+        private readonly Location _location;
+        private int _size;
+        private readonly Renderer.Layer _layer;
+
+        public Food(Location l)
+        {
+            _location = l;
+            _size = GameLogic.Random.Next(20, 75);
+            _layer = Renderer.Layer.Back;
+        }
+
+        public int TakeFood(int takeAmount)
+        {
+            Console.WriteLine("Taking food");
+            _size = _size - takeAmount;
+            return takeAmount;
+        }
+
+        public void Draw()
+        {
+            SwinGame.FillCircle(Color.Brown, Location.X, Location.Y, _size / 5);
+        }
+
+        public bool CheckCollision(Location l)
+        {
+            Point2D pointToCheck = new Point2D();
+            pointToCheck.X = l.X;
+            pointToCheck.Y = l.Y;
+            return SwinGame.PointInCircle(pointToCheck, _location.X, _location.Y, _size / 5);
+        }
+
+        public static void RemoveEmptyFoods(List<Food> food)
+        {
+            foreach (Food f in food)
+                if (f.Size == 0)
+                    f.Delete(food);
+        }
+
+        public void Delete(List<Food> food)
+        {
+            food.Remove(this);
+            GameLogic.Renderer.RemoveDrawable(this);
+        }
+
+        public Location Location
+        {
+            get { return _location; }
+        }
+
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
+        }
+
+        public int Size
+        {
+            get { return _size; }
+        }
+
+        public Renderer.Layer Layer
+        {
+            get { return _layer; }
+        }
+    }
+}
+
+using SwinGameSDK;
+using System;
+
+namespace AntSim
+{
+    public static class GameLogic
+    {
+        private static readonly Random _rand = new Random();
+        private static Renderer _renderer = new Renderer();
+        private static Grid _grid = World.Instance.Grid;
+
+        public static void Process()
+        {
+            SwinGame.ProcessEvents();
+
+            Food.RemoveEmptyFoods(World.Instance.Foods);
+
+            foreach (Ant a in World.Instance.Nest.Ants)
+            {
+                a.GetMove();
+                a.Move();
+            }
+
+            World.Instance.Nest.CreateNewAnts();
+
+            ProcessPheremoneDecay();
+        }
+
+        private static void ProcessPheremoneDecay()
+        {
+            for (int x = 0; x < _grid.GetLength(0); x++)
+                for (int y = 0; y < _grid.GetLength(1); y++)
+                {
+                    Pheromone p = _grid[x,y].Pheromone;
+                    p.Decay();
+                }
+        }
+
+        /* Allows a single instance of Random to be used throughout the program.
+           This avoids the possibility of duplicate random values being generated. */
+        public static Random Random
+        {
+            get { return _rand; }
+        }
+
+        public static Renderer Renderer
+        {
+            get { return _renderer; }
+            set { _renderer = value; }
+        }
+    }
+}
+
+using SwinGameSDK;
+
+namespace AntSim
+{
+    public class GameMain
+    {
+        public static void Main()
+        {
+            SwinGame.OpenWindow("AntSim", GameState.WindowWidth, GameState.WindowHeight);
+            Setup.Run();
+
+            while (!SwinGame.WindowCloseRequested())
+            {
+                SwinGame.ClearScreen(Color.White);
+                GameLogic.Process();
+                GameLogic.Renderer.RenderAll();
+                SwinGame.DrawFramerate(10, 10);
+                SwinGame.RefreshScreen(60);
+            }
+        }
+    }
+}
+
+namespace AntSim
+{
+    public static class GameState
+    {
+        public static int WindowHeight = 480;
+        public static int WindowWidth = 720;
+    }
+}
+
+namespace AntSim
+{
+    public class Grid
+    {
+        private Node[,] _nodes;
+
+        public Grid(int width, int height)
+        {
+            _nodes = new Node[width, height];
+            GenerateNodes();
+        }
+
+        private void GenerateNodes()
+        {
+            for (int x = 0; x < _nodes.GetLength(0); x++)
+                for (int y = 0; y < _nodes.GetLength(1); y++)
+                    _nodes[x,y] = new Node(x, y);
+        }
+
+        public void ResetGScores()
+        {
+            foreach (Node n in _nodes)
+                n.GScore = 0;
+        }
+
+        public int GetLength(int dimension)
+        {
+            return _nodes.GetLength(dimension);
+        }
+
+        public Node this[int x, int y]
+        {
+            get { return _nodes[x, y]; }
+            set { _nodes[x, y] = value; }
+        }
+    }
+}
+
+namespace AntSim
+{
+    public interface ICollidable: IDrawable
+    {
+        bool CheckCollision(Location l);
+
+        int Size
+        {
+            get;
+        }
+    }
+}
+
+namespace AntSim
+{
+    public interface IDrawable
+    {
+        Renderer.Layer Layer
+        {
+            get;
+        }
+
+        Location Location
+        {
+            get;
+        }
+
+        int X { get; }
+        int Y { get; }
+
+        void Draw();
+    }
+}
+
+namespace AntSim
+{
+    public class Location
+    {
+        private int _x, _y;
+
+        public Location(int x, int y)
+        {
+            _x = x;
+            _y = y;
+        }
+
+        // Location initialised with no parameters generates a random location.
+        public Location()
+            :this (GameLogic.Random.Next(0, GameState.WindowWidth), GameLogic.Random.Next(0, GameState.WindowHeight))
+        {
+
+        }
+
+        public Location(Location l)
+            : this(l.X, l.Y)
+        {
+
+        }
+
+        public bool IsAt(Location d)
+        {
+            return _x == d.X && _y == d.Y;
+        }
+
+        public bool IsAt(Node n)
+        {
+            return _x == n.X && _y == n.Y;
+        }
+
+        public int X
+        {
+            get { return _x; }
+            set { _x = value; }
+        }
+
+        public int Y
+        {
+            get { return _y; }
+            set { _y = value; }
+        }
+    }
+}
+
+using SwinGameSDK;
+using System.Collections.Generic;
+
+namespace AntSim
+{
+    public class Nest : ICollidable
+    {
+        private readonly Location _location;
+        private List<Ant> _ants;
+        private readonly int _size;
+        private int _food;
+        private readonly Renderer.Layer _layer;
+        private static int _foodThreshold = 2;
+
+        public Nest(Location l)
+        {
+            _location = l;
+            _ants = new List<Ant>();
+            _size = 8;
+            _layer = Renderer.Layer.Back;
+        }
+
+        public void Draw()
+        {
+            SwinGame.FillCircle(Color.Orange, _location.X, _location.Y, _size);
+        }
+
+        // TODO: Overhaul when replacing collisions with quadtrees
+        // Currently placeholder. Does not accurately check collisions.
+        public bool CheckCollision(Location l)
+        {
+            Point2D pointToCheck = new Point2D();
+            pointToCheck.X = l.X;
+            pointToCheck.Y = l.Y;
+            return SwinGame.PointInCircle(pointToCheck, _location.X, _location.Y, _size);
+        }
+
+        public void CreateNewAnts()
+        {
+            if (FoodThresholdReached())
+            {
+                for (int i = 0; i <= _food / 10; i++)
+                {
+                    Ant newAnt = new Ant(this);
+                    _ants.Add(newAnt);
+                    GameLogic.Renderer.AddDrawable(newAnt);
+                    _food -= _foodThreshold;
+                }
+            }
+        }
+
+        private bool FoodThresholdReached()
+        {
+            return _food >= _foodThreshold;
+        }
+
+        public void UpdateFood(ref int amount)
+        {
+            _food += amount;
+            amount = 0;
+        }
+
+
+        public int Size
+        {
+            get { return _size; }
+        }
+
+        public Location Location
+        {
+            get { return _location; }
+        }
+
+        public int X
+        {
+            get { return _location.X; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
+        }
+
+        public List<Ant> Ants
+        {
+            get { return _ants; }
+            set { _ants = value; }
+        }
+
+        public Renderer.Layer Layer
+        {
+            get { return _layer; }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+
+namespace AntSim
+{
+    public class Node: Location
+    {
+        private double _gScore;
+        private Pheromone _pheromone;
+
+        public Node(int x, int y, double gScore)
+            :base(x, y)
+        {
+            _gScore = gScore;
+        }
+
+        public Node(Node n)
+            :base(n.X, n.Y)
+        {
+            _gScore = n.GScore;
+        }
+
+        public Node(int x, int y)
+            :this(x, y, 0)
+        {
+
+        }
+
+        public void AddNeigbours(PriorityQueue<Node> open, LinkedList<Node> closed)
+        {
+            Node newNode;
+            int xMax = World.Instance.Grid.GetLength(0);
+            int yMax = World.Instance.Grid.GetLength(1);
+
+            for (int x = X - 1; x <= X + 1; x++)
+                for (int y = Y - 1; y <= Y + 1; y++)
+                    if (InGrid(xMax, yMax, x, y))
+                    {
+                        newNode = World.Instance.Grid[x,y];
+                        if (!newNode.IsIn(open) && !newNode.IsIn(closed))
+                        {
+                            open.Add(newNode);
+                            newNode.GScore = GetGScore(newNode);
+                        }
+                    }
+        }
+
+        public static double GetFScore (Node destination, Node nodeToCheck)
+        {
+            double distance = nodeToCheck.GScore;
+            int manhattan = PathingUtils.GetHScore (nodeToCheck, destination);
+
+            return distance + manhattan;
+        }
+
+        private double GetGScore(Node n)
+        {
+            // Calculates diagonal cost function.
+            if (Math.Abs(n.X - X) == 1 && Math.Abs(n.Y - Y) == 1)
+                return n.GScore + 1.41;
+
+            return n.GScore + 1;
+        }
+
+        private bool InGrid(int xMax, int yMax, int x, int y)
+        {
+            return x < xMax && y < yMax && x >= 0 && y >= 0;
+        }
+
+        public bool IsIn(List<Node> list)
+        {
+            return list.Contains(this);
+        }
+
+        public bool IsIn(LinkedList<Node> list)
+        {
+            return list.Contains(this);
+        }
+
+        public bool IsIn(PriorityQueue<Node> queue)
+        {
+            return queue.Contains(this);
+        }
+
+        public double PheremoneStrength
+        {
+            get
+            {
+                if (_pheromone == null)
+                    return 0;
+                return _pheromone.Size * Pheromone.SizeFactor;
+            }
+        }
+
+        // Adding and removing pheremones from the renderer is handled by this property
+        // TODO: Too highly coupled?
+        public Pheromone Pheromone
+        {
+            get
+            {
+                if (_pheromone == null)
+                    _pheromone = new Pheromone(new Location(X, Y), 0);
+
+                if (_pheromone.Size > 0 && !GameLogic.Renderer.Drawables.Contains(_pheromone))
+                    GameLogic.Renderer.AddDrawable(_pheromone);
+
+                return _pheromone;
+            }
+            set
+            {
+                _pheromone = value;
+                if (_pheromone.Size == 0)
+                    GameLogic.Renderer.RemoveDrawable(_pheromone);
+            }
+        }
+
+        public double GScore
+        {
+            get { return _gScore; }
+            set { _gScore = value; }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AntSim
+{
+    public class Path
+    {
+        private LinkedList<Node> _waypoints;
+        private LinkedList<Node> _closed;
+        private PriorityQueue<Node> _open;
+        private readonly Location _destination;
+        private readonly Location _startingNode;
+
+        public Path(Location l, Location d)
+        {
+            _destination = d;
+            _startingNode = l;
+
+            AddInitialNode(l);
+
+            GetRoute();
+            CreateWaypoints();
+        }
+
+        public Path(LinkedList<Node> waypoints)
+        {
+            _waypoints = waypoints;
+            _destination = new Location(waypoints.Last.Value);
+        }
+
+        private void AddInitialNode(Location l)
+        {
+            _closed = new LinkedList<Node>();
+            _open = new PriorityQueue<Node>();
+
+            _open.Add(PathingUtils.NodeAt(l.X, l.Y));
+            _closed.AddFirst(PathingUtils.NodeAt(l.X, l.Y));
+            _closed.First().AddNeigbours(_open, _closed);
+        }
+
+        private void GetRoute()
+        {
+            Node current = _open.First;
+
+            LinkedListNode<Node> previous = _closed.First;
+
+            while (!current.IsAt(_destination))
+            {
+                _closed.AddAfter(previous, current);
+                previous = previous.Next;
+
+                current.AddNeigbours(_open, _closed);
+
+                _open.Remove(current);
+
+                current = _open.PriorityItem(Node.GetFScore, PathingUtils.CompareScores,
+                    PathingUtils.NodeAt(_destination));
+            }
+        }
+
+        private void CreateWaypoints()
+        {
+            CreateInitialWaypoint();
+            LinkedListNode<Node> currentNode = _closed.Last;
+            LinkedListNode<Node> previousNode = _waypoints.First;
+
+            while (!currentNode.Value.IsAt(_startingNode))
+            {
+                currentNode = currentNode.Previous;
+                _waypoints.AddAfter(previousNode, currentNode.Value);
+            }
+        }
+
+        private void CreateInitialWaypoint()
+        {
+            _waypoints = new LinkedList<Node>();
+            LinkedListNode<Node> currentNode = _closed.Last;
+            _waypoints.AddFirst(currentNode.Value);
+        }
+
+        // Manually constructs a path by backtracking over pheremones.
+        public static Path ConstructPathFromTrail(Pheromone p)
+        {
+            Pheromone pToCheck = p;
+
+            LinkedList<Node> waypoints = new LinkedList<Node>();
+            waypoints.AddFirst(World.Instance.Grid[p.X, p.Y]);
+            LinkedListNode<Node> parentListNode = waypoints.First;
+
+            Pheromone parent = World.Instance.PheremoneAt(waypoints.First.Value).Parent;
+
+            do
+            {
+                Node newNode = World.Instance.Grid[pToCheck.X, pToCheck.Y];
+                waypoints.AddAfter(parentListNode, newNode);
+                parentListNode = waypoints.Find(World.Instance.Grid[pToCheck.X, pToCheck.Y]);
+                pToCheck = parent;
+                parent = pToCheck.Parent;
+
+                // Sometimes pheremone trails will point in loops that don't lead to food.
+                // If this happens, we simply return a path to a random food object.
+                if (waypoints.Count > 5000)
+                    return new Path(p.Location, World.Instance.Foods[GameLogic.Random.Next(World.Instance.Foods.Count - 1)].Location);
+            } while (parent != null && !parent.Location.IsAt(pToCheck.Location));
+
+            // Once the trail reaches the edge of the food object, finish the path by pathing to the centre of the nearest food.
+            // This avoids hangs where ants can't quite reach the food and pathfind forever.
+            Food destination = World.Instance.NearestFood(pToCheck.Location);
+            Node finalNode = World.Instance.Grid[destination.X, destination.Y];
+            waypoints.AddAfter(parentListNode, finalNode);
+
+            return new Path(waypoints);
+        }
+
+        public Node NextWaypoint(Node w)
+        {
+            LinkedListNode<Node> current = _waypoints.Find(w);
+            try
+            {
+                return current.Next.Value;
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+        }
+
+        public LinkedList<Node> Waypoints
+        {
+            get { return _waypoints; }
+        }
+
+        public Node LastWaypoint
+        {
+            get { return _waypoints.Last.Value; }
+        }
+
+        public Location Destination
+        {
+            get { return _destination; }
+        }
+    }
+}
+
+namespace AntSim
+{
+    public enum PathingState
+    {
+        GetFood,
+        Return
+    }
+}
+
+using System;
+
+namespace AntSim
+{
+    public static class PathingUtils
+    {
+        public static int GetHScore(Location start, Location dest)
+        {
+            return Math.Abs(start.X - dest.X) +
+                   Math.Abs(start.Y - dest.Y);
+        }
+
+        public static Node NodeAt(int x, int y)
+        {
+            return World.Instance.Grid[x, y];
+        }
+
+        public static Node NodeAt(Location l)
+        {
+            return NodeAt(l.X, l.Y);
+        }
+
+		public static bool CompareScores (double a, double b)
+		{
+			return a < b;
+		}
+    }
+}
+
+using SwinGameSDK;
+
+namespace AntSim
+{
+    public class Pheromone : IDrawable
+    {
+        private static int _sizeFactor = 10;
+        private int _size;
+        private Location _location;
+        private Renderer.Layer _layer;
+        private static int _decayRate = 2;
+        private Pheromone _parent;
+
+        public Pheromone(Location location, int strength)
+        {
+            _size = strength * _sizeFactor;
+            _location = location;
+            _layer = Renderer.Layer.Mid;
+        }
+
+        public void Draw()
+        {
+            SwinGame.FillRectangle(SwinGame.RGBAColor(245, 245, 0, (byte)(_size / _sizeFactor)),
+                                   _location.X, _location.Y, 4, 4);
+        }
+
+        public void Decay()
+        {
+            if (Size < _decayRate)
+                Size = 0;
+            else if (Size > 0)
+                Size -= _decayRate * (_sizeFactor / 10);
+        }
+
+        public int Size
+        {
+            get { return _size; }
+            set { _size = value; }
+        }
+
+        public Location Location
+        {
+            get { return _location; }
+            set { _location = value; }
+        }
+
+        public int X
+        {
+            get { return _location.X; }
+            set { _location.X = value; }
+        }
+
+        public int Y
+        {
+            get { return _location.Y; }
+            set { _location.Y = value; }
+        }
+
+        public Renderer.Layer Layer
+        {
+            get { return _layer; }
+        }
+
+        public static int SizeFactor
+        {
+            get { return _sizeFactor; }
+        }
+
+        public Pheromone Parent
+        {
+            get { return _parent; }
+            set { _parent = value; }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AntSim
+{
+    public class PriorityQueue<T>
+    {
+        private List<T> _items = new List<T>();
+
+        public void Add(T value)
+        {
+            _items.Add(value);
+        }
+
+        public void Remove(T value)
+        {
+            _items.Remove(value);
+        }
+
+        public bool Contains(T value)
+        {
+            return _items.Contains(value);
+        }
+
+        // TODO: Use currying
+		public T PriorityItem(Func<T, T, double> sortMethod, Func<double, double, bool> comparison, T comparisonItem)
+        {
+            double score;
+            double maxScore = double.MaxValue;
+            T priorityItem = default(T);
+
+            foreach (T item in _items)
+            {
+                score = sortMethod(item, comparisonItem);
+
+				if (comparison(score, maxScore))
+                {
+                    maxScore = score;
+                    priorityItem = item;
+                }
+            }
+
+            return priorityItem;
+        }
+
+        // Overload that can be used without a comparison item
+		public T PriorityItem (Func<T, double> sortMethod, Func<double, double, bool> comparison)
+		{
+			double score;
+			double maxScore = double.MaxValue;
+			T priorityItem = default (T);
+
+			foreach (T item in _items) {
+				score = sortMethod(item);
+
+				if (comparison (score, maxScore)) {
+					maxScore = score;
+					priorityItem = item;
+				}
+			}
+
+			return priorityItem;
+		}
+
+        public int Count
+        {
+            get { return _items.Count; }
+        }
+
+        public List<T> Items
+        {
+            get { return _items; }
+        }
+
+        public T First
+        {
+            get
+            {
+                if (_items.Count != 0 || _items.First() != null)
+                    return _items.First();
+                else
+                    throw new IndexOutOfRangeException("The collection has no first value.");
+            }
+        }
+    }
+}
+
+using System.Collections.Generic;
+
+namespace AntSim
+{
+    public class Renderer
+    {
+        public enum Layer
+        {
+            Front,
+            Mid,
+            Back
+        }
+
+        private List<IDrawable> _drawables;
+
+        public Renderer()
+        {
+            _drawables = new List<IDrawable>();
+        }
+
+        public void AddDrawable(IDrawable drawable)
+        {
+            _drawables.Add(drawable);
+        }
+
+        public void RemoveDrawable(IDrawable drawable)
+        {
+            _drawables.Remove(drawable);
+        }
+
+        public void RenderAll()
+        {
+            Render(Layer.Back);
+            Render(Layer.Mid);
+            Render(Layer.Front);
+        }
+
+        private void Render(Layer l)
+        {
+            foreach (IDrawable d in _drawables)
+                if (d.Layer == l)
+                    d.Draw();
+        }
+
+        public List<IDrawable> Drawables
+        {
+            get { return _drawables; }
+        }
+    }
+}
+
+using System;
+
+namespace AntSim
+{
+    public static class Setup
+    {
+        public static void Run()
+        {
+            Console.WriteLine("Generating grid...");
+            World.CreateInstance();
+            Console.WriteLine("Done!");
+            Console.WriteLine("Generating entities...");
+            GenerateEntities();
+            Console.WriteLine("Done!");
+            Console.WriteLine("Adding objects to game grid...");
+            AddEntitiesToRenderer();
+            Console.WriteLine("Done!");
+        }
+
+        private static void GenerateEntities()
+        {
+            World.Instance.Nest = new Nest(new Location(GameState.WindowWidth / 2, GameState.WindowHeight / 2));
+
+            for (int i = 0; i < 1; i++)
+                World.Instance.Nest.Ants.Add(new Ant(World.Instance.Nest));
+
+            for (int i = 0; i < 10; i++)
+                World.Instance.Foods.Add(new Food(new Location()));
+        }
+
+        private static void AddEntitiesToRenderer()
+        {
+            GameLogic.Renderer.AddDrawable(World.Instance.Nest);
+
+            foreach (Food f in World.Instance.Foods)
+                GameLogic.Renderer.AddDrawable(f);
+
+            foreach (Ant a in World.Instance.Nest.Ants)
+                GameLogic.Renderer.AddDrawable(a);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+
+namespace AntSim
+{
+    public class World
+    {
+        private List<Food> _foods;
+        private Nest _nest;
+        private Grid _grid;
+
+        private static World _instance;
+
+        public World()
+        {
+            _foods = new List<Food>();
+
+            _grid = new Grid(GameState.WindowWidth - 1, GameState.WindowHeight - 1);
+
+            _instance = this;
+        }
+
+        public static World CreateInstance()
+        {
+            return Instance;
+        }
+
+        public Pheromone PheremoneAt(int x, int y)
+        {
+            return Grid[x, y].Pheromone;
+        }
+
+        public Pheromone PheremoneAt(Location loc)
+        {
+            return PheremoneAt(loc.X, loc.Y);
+        }
+
+        public Food FoodAt(Location loc)
+        {
+            foreach(Food f in Instance.Foods)
+                if (f.CheckCollision(loc))
+                    return f;
+
+            return null;
+        }
+
+        public bool FoodExistsAt(Location loc)
+        {
+            foreach (Food f in _foods)
+                if (f.Location == loc)
+                    return true;
+
+            return false;
+        }
+
+        public Food NearestFood(Location loc)
+        {
+            Food bestFood = null;
+            int bestScore = Int32.MaxValue;
+            int currentScore = 0;
+
+            foreach (Food f in _foods)
+            {
+                currentScore = (f.X - loc.X) + (f.Y - loc.Y);
+                if (currentScore < bestScore)
+                {
+                    bestScore = currentScore;
+                    bestFood = f;
+                }
+            }
+            return bestFood;
+        }
+
+        // Not thread safe, but since we're running on one thread, this doesn't matter.
+        public static World Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new World();
+                return _instance;
+            }
+        }
+
+        public List<Food> Foods
+        {
+            get { return _foods; }
+            set { _foods = value; }
+        }
+
+        public Nest Nest
+        {
+            get { return _nest; }
+            set { _nest = value; }
+        }
+
+        public Grid Grid
+        {
+            get { return _grid; }
+            set { _grid = value; }
+        }
+    }
+}

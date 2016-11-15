@@ -1,8 +1,8 @@
-﻿namespace MyGame
+﻿namespace AntSim
 {
-    public interface Drawable
+    public interface IDrawable
     {
-        Layer Layer
+        Renderer.Layer Layer
         {
             get;
         }

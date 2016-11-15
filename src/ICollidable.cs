@@ -1,9 +1,8 @@
-﻿namespace MyGame
+﻿namespace AntSim
 {
-    public interface Collidable: Drawable
+    public interface ICollidable: IDrawable
     {
         bool CheckCollision(Location l);
-
 
         int Size
         {

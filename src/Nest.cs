@@ -1,23 +1,23 @@
 ﻿using SwinGameSDK;
-using System;
 using System.Collections.Generic;
 
-namespace MyGame
+namespace AntSim
 {
-    public class Nest : Collidable
+    public class Nest : ICollidable
     {
         private readonly Location _location;
         private List<Ant> _ants;
         private readonly int _size;
         private int _food;
-        private readonly Layer _layer;
+        private readonly Renderer.Layer _layer;
+        private static int _foodThreshold = 2;
 
         public Nest(Location l)
         {
             _location = l;
             _ants = new List<Ant>();
             _size = 8;
-            _layer = Layer.Back;
+            _layer = Renderer.Layer.Back;
         }
 
         public void Draw()
@@ -25,6 +25,7 @@ namespace MyGame
             SwinGame.FillCircle(Color.Orange, _location.X, _location.Y, _size);
         }
 
+        // TODO: Overhaul when replacing collisions with quadtrees
         // Currently placeholder. Does not accurately check collisions.
         public bool CheckCollision(Location l)
         {
@@ -43,21 +44,20 @@ namespace MyGame
                     Ant newAnt = new Ant(this);
                     _ants.Add(newAnt);
                     GameLogic.Renderer.AddDrawable(newAnt);
-                    _food -= 10;
+                    _food -= _foodThreshold;
                 }
             }
         }
 
         private bool FoodThresholdReached()
         {
-            return (_food >= 10);
+            return _food >= _foodThreshold;
         }
 
-        public void AddFood(ref int amount)
+        public void UpdateFood(ref int amount)
         {
             _food += amount;
             amount = 0;
-            Console.WriteLine(_food);
         }
 
 
@@ -87,7 +87,7 @@ namespace MyGame
             set { _ants = value; }
         }
 
-        public Layer Layer
+        public Renderer.Layer Layer
         {
             get { return _layer; }
         }

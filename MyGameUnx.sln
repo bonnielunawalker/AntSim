@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGameUnx", "MyGameUnx.csproj", "{A9DCAC72-BC77-4C33-BE70-BBFD31D7C798}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug-Unix|AnyCPU = Debug-Unix|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A9DCAC72-BC77-4C33-BE70-BBFD31D7C798}.Debug-Unix|AnyCPU.ActiveCfg = Debug-Unix|Any CPU
-		{A9DCAC72-BC77-4C33-BE70-BBFD31D7C798}.Debug-Unix|AnyCPU.Build.0 = Debug-Unix|Any CPU
+		{A9DCAC72-BC77-4C33-BE70-BBFD31D7C798}.Debug-Unix|AnyCPU.ActiveCfg = Debug-Unix|AnyCPU
+		{A9DCAC72-BC77-4C33-BE70-BBFD31D7C798}.Debug-Unix|AnyCPU.Build.0 = Debug-Unix|AnyCPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -37,3 +35,5 @@ Global
 		StartupItem = MyGameMac.csproj
 	EndGlobalSection
 EndGlobal
+	Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGameUnx", "MyGameUnx.csproj", "{A9DCAC72-BC77-4C33-BE70-BBFD31D7C798}"
+	EndProject

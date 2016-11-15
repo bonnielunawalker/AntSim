@@ -1,22 +1,29 @@
 ﻿using System.Collections.Generic;
 
-namespace MyGame
+namespace AntSim
 {
     public class Renderer
     {
-        private List<Drawable> _drawables;
+        public enum Layer
+        {
+            Front,
+            Mid,
+            Back
+        }
+
+        private List<IDrawable> _drawables;
 
         public Renderer()
         {
-            _drawables = new List<Drawable>();
+            _drawables = new List<IDrawable>();
         }
 
-        public void AddDrawable(Drawable drawable)
+        public void AddDrawable(IDrawable drawable)
         {
             _drawables.Add(drawable);
         }
 
-        public void RemoveDrawable(Drawable drawable)
+        public void RemoveDrawable(IDrawable drawable)
         {
             _drawables.Remove(drawable);
         }
@@ -30,12 +37,12 @@ namespace MyGame
 
         private void Render(Layer l)
         {
-            foreach (Drawable d in _drawables)
+            foreach (IDrawable d in _drawables)
                 if (d.Layer == l)
                     d.Draw();
         }
 
-        public List<Drawable> Drawables
+        public List<IDrawable> Drawables
         {
             get { return _drawables; }
         }

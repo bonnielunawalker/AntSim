@@ -45,31 +45,28 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="Resources\" />
-    <Folder Include="src\Drawables" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src/GameMain.cs" />
-    <Compile Include="src\Drawables\Ant.cs" />
-    <Compile Include="src\Drawables\Creature.cs" />
-    <Compile Include="src\Drawables\Drawable.cs" />
-    <Compile Include="src\Drawables\Food.cs" />
-    <Compile Include="src\Drawables\Nest.cs" />
-    <Compile Include="src\Drawables\Obstacle.cs" />
-    <Compile Include="src\Drawables\Pheremone.cs" />
+    <Compile Include="src\Ant.cs" />
+    <Compile Include="src\ICollidable.cs" />
+    <Compile Include="src\Creature.cs" />
+    <Compile Include="src\IDrawable.cs" />
+    <Compile Include="src\Food.cs" />
     <Compile Include="src\GameLogic.cs" />
+    <Compile Include="src\GameMain.cs" />
     <Compile Include="src\GameState.cs" />
-    <Compile Include="src\Collidable.cs" />
     <Compile Include="src\Grid.cs" />
-    <Compile Include="src\Layer.cs" />
+    <Compile Include="src\Location.cs" />
+    <Compile Include="src\Nest.cs" />
     <Compile Include="src\Node.cs" />
+    <Compile Include="src\Path.cs" />
     <Compile Include="src\PathingState.cs" />
     <Compile Include="src\PathingUtils.cs" />
+    <Compile Include="src\Pheromone.cs" />
     <Compile Include="src\PriorityQueue.cs" />
     <Compile Include="src\Renderer.cs" />
     <Compile Include="src\Setup.cs" />
-    <Compile Include="src\UtilityFunctions.cs" />
-    <Compile Include="src\Path.cs" />
-    <Compile Include="src\Location.cs" />
     <Compile Include="src\World.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="src\AllCode.txt" />
   </ItemGroup>
   <Target Name="CopyLibsToOut">
     <Copy SourceFiles="@(UnxLibs)" DestinationFolder="$(OutDir)" />

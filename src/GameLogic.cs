@@ -1,7 +1,7 @@
 ﻿using SwinGameSDK;
 using System;
 
-namespace MyGame
+namespace AntSim
 {
     public static class GameLogic
     {
@@ -9,7 +9,6 @@ namespace MyGame
         private static Renderer _renderer = new Renderer();
         private static Grid _grid = World.Instance.Grid;
 
-        // Methods
         public static void Process()
         {
             SwinGame.ProcessEvents();
@@ -19,27 +18,24 @@ namespace MyGame
             foreach (Ant a in World.Instance.Nest.Ants)
             {
                 a.GetMove();
-                Console.WriteLine("{0},{1}", a.Location.X, a.Location.Y);
+                a.Move();
             }
 
             World.Instance.Nest.CreateNewAnts();
 
             ProcessPheremoneDecay();
-
         }
 
         private static void ProcessPheremoneDecay()
         {
-            for (int x = 0; x < _grid.Nodes.GetLength(0); x++)
-                for (int y = 0; y < _grid.Nodes.GetLength(1); y++)
+            for (int x = 0; x < _grid.GetLength(0); x++)
+                for (int y = 0; y < _grid.GetLength(1); y++)
                 {
-                    Pheremone p = _grid.Nodes[x,y].Pheremone;
+                    Pheromone p = _grid[x,y].Pheromone;
                     p.Decay();
                 }
         }
 
-
-        // Properties
         /* Allows a single instance of Random to be used throughout the program.
            This avoids the possibility of duplicate random values being generated. */
         public static Random Random
